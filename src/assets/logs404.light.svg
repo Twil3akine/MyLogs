@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_レイヤー_1" data-name="レイヤー_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: UbuntuMono-Bold, 'Ubuntu Mono';
+        font-size: 320px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(142.64 393.88)"><tspan x="0" y="0">:</tspan></text>
+  <text class="cls-1" transform="translate(314.53 414.83) rotate(-15.24)"><tspan x="0" y="0">(</tspan></text>
+</svg>
