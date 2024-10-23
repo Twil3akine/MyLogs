@@ -18,7 +18,7 @@ export default defineConfig({
             plugins: [
                 // @ts-ignore
                 starlightObsidianPlugin({
-                    vault: "C:\\Users\\twil3\\MyPages",
+                    vault: "/mnt/c/Users/twil3/MyPages",
                     ignore: [
                         '_Templates',
                     ],
