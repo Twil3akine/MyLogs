@@ -1,0 +1,12 @@
+{
+  "accentColor": "#426ab3",
+  "textFontFamily": "Ubuntu Mono",
+  "monospaceFontFamily": "Ubuntu Mono",
+  "baseFontSize": 18,
+  "nativeMenus": false,
+  "baseFontSizeAction": false,
+  "enabledCssSnippets": [
+    "style",
+    "Twil"
+  ]
+}
