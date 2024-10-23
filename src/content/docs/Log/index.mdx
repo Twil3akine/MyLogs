@@ -4,7 +4,7 @@ editUrl: false
 # template: splash
 ---
 
-import { Icon, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Icon, LinkCard, CardGrid, Aside } from '@astrojs/starlight/components';
 import styles from '/src/tailwind.css';
 import FileList from './fileList.astro';
 
@@ -12,7 +12,17 @@ import FileList from './fileList.astro';
 
 ここには`Twil3akine`が解いた問題の一部の個人的な解説を掲載しています。
 
-`Python`, `C`, `C++`のテンプレートファイルはこちらにあります。
+<br />
+
+左の`AtCoder Logs`アコーディオンを開くか、上の検索バーから各回の解法メモページにお願いいたします。
+また、各回歯抜けになっているのは`Twil3akine`がまだ解けていないもしくは怠惰です。ご容赦ください
+
+<br />
+
+<Aside type='caution'>
+    謎のClassやメソッドがあると思われますが、`Python`, `C`, `C++`のテンプレートファイルはこちらに掲載しておりますので、詳細はそちらから確認をお願いします。
+</Aside>
+
 <LinkCard
     title="AtCoder-Template"
     href="https://github.com/twil3akine/AtCoder-Template"
