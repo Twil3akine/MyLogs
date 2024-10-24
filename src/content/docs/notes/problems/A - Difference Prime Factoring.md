@@ -43,4 +43,4 @@ $A_{1} \quad A_{2} \quad ... \quad A_{N}$
 
 ### **出力**
 
-答えを出力せよ。
+<span style="color: #f00; background-color: fee;">Impossible</span>もしくは題意を満たす解を$1$行で出力せよ。
