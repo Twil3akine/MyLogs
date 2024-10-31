@@ -1,9 +1,17 @@
 [
-  "quick-latex",
-  "better-word-count",
-  "obsidian-outliner",
   "settings-search",
+  "obsidian-tasks-plugin",
+  "tag-wrangler",
+  "quick-latex",
+  "table-editor-obsidian",
+  "better-word-count",
+  "calendar",
+  "editing-toolbar",
   "global-search-and-replace",
-  "quick-explorer",
-  "table-editor-obsidian"
+  "obsidian-icon-folder",
+  "obsidian-kanban",
+  "obsidian-mind-map",
+  "omnisearch",
+  "obsidian-outliner",
+  "quick-explorer"
 ]

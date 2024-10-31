@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "832bfe0c349ffacc",
+    "id": "0a9458f5f9404885",
     "type": "split",
     "children": [
       {
-        "id": "ed1e5cce81083d31",
+        "id": "73a44ce7e92a77dd",
         "type": "tabs",
         "children": [
           {
-            "id": "2daa62806a26f5b0",
+            "id": "68cf39540dfa2539",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "problems/A - Difference Prime Factoring.md",
+                "file": "logs/ABC-367.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "A - Difference Prime Factoring"
+              "title": "ABC-367"
             }
           }
         ]
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "89239462ff09b345",
+    "id": "27edf32853501d98",
     "type": "split",
     "children": [
       {
-        "id": "91a269b9e13a78e4",
+        "id": "c335dd2a30ccaa24",
         "type": "tabs",
         "children": [
           {
-            "id": "442b855a0d0d8c70",
+            "id": "bbb942251f3443fd",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -47,12 +47,12 @@
             }
           },
           {
-            "id": "2d003baa825552e3",
+            "id": "21606a7b3d588fab",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#bit全探索  ",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -64,7 +64,7 @@
             }
           },
           {
-            "id": "4c22517649c080c1",
+            "id": "22095a1252cc582f",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -80,48 +80,48 @@
     "width": 200
   },
   "right": {
-    "id": "9050513c3f2ef4fa",
+    "id": "8c9e91e576e4a04c",
     "type": "split",
     "children": [
       {
-        "id": "394d5c84044e3b5e",
+        "id": "d9a75e2f918a1a79",
         "type": "tabs",
         "children": [
           {
-            "id": "2b6ea8151a042167",
+            "id": "ebf5a3a0bf45ea90",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "logs/ABC-356.md",
-                "collapseAll": false,
-                "extraContext": false,
+                "file": "School/Calculate Practice/数値計算演習 第3回 課題実施内容.md",
+                "collapseAll": true,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "ABC-356へのバックリンク"
+              "title": "数値計算演習 第3回 課題実施内容へのバックリンク"
             }
           },
           {
-            "id": "e7b09d75c77310ec",
+            "id": "b700fce077758d09",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "logs/ABC-356.md",
+                "file": "School/Calculate Practice/数値計算演習 第3回 課題実施内容.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "ABC-356からのアウトゴーイングリンク"
+              "title": "数値計算演習 第3回 課題実施内容からのアウトゴーイングリンク"
             }
           },
           {
-            "id": "abe2f3bd39012ad0",
+            "id": "642dc01c93990bb2",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -134,18 +134,29 @@
             }
           },
           {
-            "id": "c3b5d5d83531685f",
+            "id": "ebf38a16a300cc44",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "logs/ABC-356.md"
+                "file": "logs/ABC-367.md"
               },
               "icon": "lucide-list",
-              "title": "ABC-356のアウトライン"
+              "title": "ABC-367のアウトライン"
+            }
+          },
+          {
+            "id": "52a1782054fc9ac1",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -154,43 +165,54 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "table-editor-obsidian:Advanced Tables Toolbar": false,
       "switcher:クイックスイッチャーを開く": false,
-      "daily-notes:今日のデイリーノートを開く": false,
-      "templates:テンプレートを挿入": false,
-      "command-palette:コマンドパレットを開く": false
+      "daily-notes:今日のデイリーノートを開く": true,
+      "templates:テンプレートを挿入": true,
+      "command-palette:コマンドパレットを開く": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": true,
+      "obsidian-kanban:カンバンボードを新規作成": false,
+      "omnisearch:Omnisearch": false
     }
   },
-  "active": "2daa62806a26f5b0",
+  "active": "68cf39540dfa2539",
   "lastOpenFiles": [
-    "logs/ABC-376.md",
-    "logs/ABC-375.md",
-    "logs/ABC-211.md",
-    "logs/AGC-002.md",
-    "logs/ARC-113.md",
-    "logs/ARC-177.md",
-    "logs/Mercari2024.md",
-    "logs/ABC-356.md",
-    "logs/ABC-374.md",
-    "logs/ABC-369.md",
-    "logs/ABC-312.md",
-    "logs/ABC-371.md",
-    "logs/ABC-367.md",
-    "logs/ABC-307.md",
-    "logs/ABC-345.md",
-    "logs/ABC-372.md",
-    "logs/ABC-373.md",
-    "logs/ABC-350.md",
-    "logs/ABC-322.md",
-    "logs/ABC-340.md",
-    "logs/ABC-353.md",
-    "logs/ABC-053.md",
-    "logs/ABC-136.md",
-    "logs/ABC-212.md",
-    "logs/ABC-360.md",
-    "logs/ABC-311.md",
+    "無題のファイル.md",
+    "School/Basic Machine Learning/演習レポート 第4回.md",
+    "School/Basic Machine Learning/課題レポート 第4回.md",
+    "School/Basic Machine Learning/課題レポート 第3回.md",
+    "School/Basic Machine Learning/演習レポート 第3回.md",
+    "School/Basic Machine Learning/課題レポート 第1回.md",
+    "School/Basic Machine Learning/課題レポート 第2回.md",
+    "School/Calculate Practice/数値計算演習 第3回 課題実施内容.md",
+    "School/Calculate Practice/数値計算演習 第2回 課題実施内容.md",
+    "School/Calculate Practice/数値計算演習 第1回 課題実施内容.md",
+    "School/Basic Machine Learning/演習レポート 第2回.md",
+    "School/Basic Machine Learning/演習レポート 第1回.md",
+    "_Templates/Calculate Calue Parent.md",
+    "School/Database/第1回.md",
+    "Lang/Python/Permutation, Combination by itertools.md",
+    "School/Database",
+    "無題のフォルダ",
+    "Lang/Python/key argument for func sorted,max,min....md",
+    "Lang/Python/About map func.md",
+    "Lang/Python/About itertools.md",
+    "Lang/Python/About functools.md",
+    "School/Basic Machine Learning/課題レポート 第１回",
+    "School/Basic Machine Learning",
+    "_Templates/Calculate Value Children.md",
     "_Templates",
-    "problems",
-    "logs"
+    "School/Calculate Practice",
+    "AtCoder/ABC-373.md",
+    "AtCoder/ABC-325.md",
+    "AtCoder/ABC-362.md",
+    "Algorithm/DP (Dynamic Programming).md",
+    "AtCoder/ABC-371.md",
+    "AtCoder/ABC-372.md",
+    "_Templates",
+    "AtCoder",
+    "競プロ作問",
+    "AP/1-1. Basic Theory",
+    "Lang/Rust/Tauri/imgs/Launch_Tauri.png",
+    "Lang/Rust/Tauri/スクリーンショット 2024-08-08 133944.png"
   ]
 }
