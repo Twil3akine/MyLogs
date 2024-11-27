@@ -26,8 +26,8 @@ export default defineConfig({
             ],
             locales: {
                 root: {
-                    label: '日本語',
-                    lang: 'ja',
+                    label: 'English',
+                    lang: 'en',
                 },
             },
             editLink: {
