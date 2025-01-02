@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "73a44ce7e92a77dd",
+        "id": "cc0afa693785e49b",
         "type": "tabs",
         "children": [
           {
-            "id": "68cf39540dfa2539",
+            "id": "5ad87bd441b6398e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "logs/ABC-367.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "ABC-367"
+              "title": "新規タブ"
             }
           }
         ]
@@ -77,7 +73,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "8c9e91e576e4a04c",
@@ -138,11 +135,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "logs/ABC-367.md"
-              },
+              "state": {},
               "icon": "lucide-list",
-              "title": "ABC-367のアウトライン"
+              "title": "アウトライン"
             }
           },
           {
@@ -151,8 +146,8 @@
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
+              "icon": "lucide-file",
+              "title": "アクティブでなくなったプラグイン"
             }
           }
         ],
@@ -169,13 +164,15 @@
       "daily-notes:今日のデイリーノートを開く": true,
       "templates:テンプレートを挿入": true,
       "command-palette:コマンドパレットを開く": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": true,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
       "obsidian-kanban:カンバンボードを新規作成": false,
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "68cf39540dfa2539",
+  "active": "5ad87bd441b6398e",
   "lastOpenFiles": [
+    "logs/ABC-382.md",
+    "logs/ABC-367.md",
     "無題のファイル.md",
     "School/Basic Machine Learning/演習レポート 第4回.md",
     "School/Basic Machine Learning/課題レポート 第4回.md",
@@ -206,8 +203,6 @@
     "AtCoder/ABC-325.md",
     "AtCoder/ABC-362.md",
     "Algorithm/DP (Dynamic Programming).md",
-    "AtCoder/ABC-371.md",
-    "AtCoder/ABC-372.md",
     "_Templates",
     "AtCoder",
     "競プロ作問",
