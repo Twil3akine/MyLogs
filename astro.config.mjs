@@ -37,8 +37,6 @@ export default defineConfig({
                 './src/tailwind.min.css',
                 '@fontsource/ubuntu-mono/400.css',
                 '@fontsource/ubuntu-mono/700.css',
-                // "C:\\Users\\twil3\\serverApp\\Starlight\\MyLogs\\node_modules\\@fontsource\\ubuntu-mono\\400.css",
-                // "C:\\Users\\twil3\\serverApp\\Starlight\\MyLogs\\node_modules\\@fontsource\\ubuntu-mono\\600.css",
             ],
             social: {
                 github: 'https://github.com/twil3akine/MyLogs',
@@ -60,7 +58,7 @@ export default defineConfig({
                 },
                 {
                     label: 'Blog',
-                    autogenerate: { directory: 'Blog/' },
+                    autogenerate: { directory: '/notes/blogs' },
                     collapsed: true,
                 },
             ],

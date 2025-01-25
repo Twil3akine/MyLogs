@@ -3,7 +3,7 @@ import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 import fs from 'fs';
 import path from 'path';
 
-const dictDir = path.resolve(process.cwd(), 'src/content/docs/notes/logs');
+const dictDir = path.resolve(process.cwd(), 'src/content/docs/notes/problems');
 const filenames = fs.readdirSync(dictDir);
 ---
 
@@ -11,7 +11,7 @@ const filenames = fs.readdirSync(dictDir);
     { filenames.length > 0 ? (
         filenames.map((filename) => (
             <LinkCard
-                title={`${filename.replace('.md', '').replace(' ', '-')}`}
+                title={`${filename.replace('.md', '')}`}
                 description=""
                 href={`${filename}`}
             />
