@@ -11,9 +11,9 @@ const filenames = fs.readdirSync(dictDir);
     { filenames.length > 0 ? (
         filenames.map((filename) => (
             <LinkCard
-                title={`${filename.replace('.md', '').replace(' ', '-')}`}
+                title={`${filename.replace('.md', '')}`}
                 description=""
-                href={`${filename}`}
+                href={`../notes/blogs/${filename.toLowerCase().replace('.md', '')}`}
             />
         ))
     ) : (

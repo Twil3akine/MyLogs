@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 :root {
-    --sl-font: 'Ubuntu Mono', serif;
+    --sl-font: 'Ubuntu Mono', '源ノ角ゴシック', serif;
 }

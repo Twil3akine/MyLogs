@@ -5,16 +5,10 @@ import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import starlightObsidianPlugin from 'starlight-obsidian';
 
-// import { PageSidebar, PageNavigation } from 'astro:components';
-
 export default defineConfig({
     integrations: [
         starlight({
             title: "Twnxs",
-            // logo: {
-            //     src: './src/assets/Angel.jpg',
-            //     replacesTitle: true,
-            // },
             plugins: [
                 // @ts-ignore
                 starlightObsidianPlugin({

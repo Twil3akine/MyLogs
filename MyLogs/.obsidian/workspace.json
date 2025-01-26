@@ -4,38 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "99ae8eec41c378f2",
+        "id": "8198222bcd817a2c",
         "type": "tabs",
         "children": [
           {
-            "id": "f485a9b4cf979d7d",
+            "id": "7b4a326ba0737b86",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blogs/ゴルーグを救いたい.md",
+                "file": "problems/B - Trip Bit Paths.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ゴルーグを救いたい"
+              "title": "B - Trip Bit Paths"
             }
           },
           {
-            "id": "98673f7fbe3b9c1c",
+            "id": "8fc6275324472681",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_Templates/Blogs Template.md",
+                "file": "blogs/2025-01-26 ゴルーグを救いたい.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blogs Template"
+              "title": "2025-01-26 ゴルーグを救いたい"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -91,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "8c9e91e576e4a04c",
@@ -179,7 +179,7 @@
   "left-ribbon": {
     "hiddenItems": {
       "switcher:クイックスイッチャーを開く": false,
-      "daily-notes:今日のデイリーノートを開く": true,
+      "daily-notes:今日のデイリーノートを開く": false,
       "templates:テンプレートを挿入": true,
       "command-palette:コマンドパレットを開く": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
@@ -187,12 +187,16 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "f485a9b4cf979d7d",
+  "active": "8fc6275324472681",
   "lastOpenFiles": [
+    "blogs/2025-01-27 テストが始まるらしい.md",
+    "problems/B - Trip Bit Paths.md",
+    "blogs/2025-01-26 ゴルーグを救いたい.md",
+    "2025-01-27.md",
+    "_Templates/作問 Template.md",
+    "problems/A - Difference Prime Factoring.md",
     "_Templates/Blogs Template.md",
     "Blogs Template.pdf",
-    "blogs/ゴルーグを救いたい.md",
-    "_Templates/作問 Template.md",
     "blogs",
     "logs/ABC-382.md",
     "logs/ABC-367.md",
@@ -214,11 +218,8 @@
     "School/Database",
     "Lang/Python/key argument for func sorted,max,min....md",
     "Lang/Python/About map func.md",
-    "Lang/Python/About itertools.md",
-    "Lang/Python/About functools.md",
     "School/Basic Machine Learning/課題レポート 第１回",
     "School/Basic Machine Learning",
-    "_Templates/Calculate Value Children.md",
     "_Templates",
     "School/Calculate Practice",
     "_Templates",

@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 :root {
-    --sl-font: 'Ubuntu Mono', serif;
+    --sl-font: 'Ubuntu Mono', '源ノ角ゴシック', serif;
 }
 
 code[dir="auto"], p, ul>li{
     font-size: calc(0.3vw + 18px);
+}
+
+b {
+    font-size: calc(0.3vw + 24px);
 }

@@ -36,8 +36,12 @@ head:
 
 入力は以下の形式で標準入力から与えられる。
 
-$N\\[1mm]$
-$A_{1} \quad A_{2} \quad ... \quad A_{N}$
+$$
+\begin{align}
+	&N \\
+	&A_{1} \quad A_{2} \quad ... \quad A_{N}
+\end{align}
+$$
 
 ***
 
