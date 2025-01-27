@@ -13,7 +13,7 @@ const filenames = fs.readdirSync(dictDir);
             <LinkCard
                 title={`${filename.replace('.md', '')}`}
                 description=""
-                href={`../notes/blogs/${filename.toLowerCase().replace('.md', '').replaceAll('%20%', '-')}`}
+                href={`../notes/blogs/${filename.toLowerCase().replace('.md', '').replaceAll(' ', '-')}`}
             />
         ))
     ) : (

@@ -8,6 +8,8 @@ head:
       href: https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
 ---
 
+<span style="color: #f00; background-color: fee; font-size: 24px;">未完成</span>
+
 実行時間制限: $2\,sec$
 
 メモリ制限: $1024\,MB$

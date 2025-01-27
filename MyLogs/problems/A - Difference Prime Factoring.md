@@ -26,12 +26,8 @@
 
 入力は以下の形式で標準入力から与えられる。
 
-$$
-\begin{align}
-	&N \\
-	&A_{1} \quad A_{2} \quad ... \quad A_{N}
-\end{align}
-$$
+$N$
+$A_{1} \quad A_{2} \quad ... \quad A_{N}$
 
 ---
 ### **出力**
