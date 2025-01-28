@@ -9,7 +9,8 @@
     "build": "astro check && astro build",
     "deploy": "gh-pages -d dist",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "astro check && astro build && astro preview"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

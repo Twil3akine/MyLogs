@@ -28,7 +28,7 @@ export default defineConfig({
                 baseUrl: 'https://github.com/twil3akine/MyLogs/src/content/docs/',
             },
             customCss: [
-                './src/tailwind.min.css',
+                './src/tailwind.css',
                 '@fontsource/ubuntu-mono/400.css',
                 '@fontsource/ubuntu-mono/700.css',
             ],

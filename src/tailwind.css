@@ -13,3 +13,7 @@ code[dir="auto"], p, ul>li{
 b {
     font-size: calc(0.3vw + 24px);
 }
+
+br {
+    height: 5vh;
+}
