@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blogs/2025-01-29 OGP画像を設定したい.md",
+                "file": "blogs/2025-02-01 やぁ.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-01-29 OGP画像を設定したい"
+              "title": "2025-02-01 やぁ"
             }
           }
         ]
@@ -40,7 +40,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "ファイルエクスプローラ"
@@ -174,8 +175,9 @@
   },
   "active": "09c53ace887a848d",
   "lastOpenFiles": [
-    "blogs/2025-01-28 Gomikuji のアプデ.md",
     "blogs/2025-01-29 OGP画像を設定したい.md",
+    "blogs/2025-02-01 やぁ.md",
+    "blogs/2025-01-28 Gomikuji のアプデ.md",
     "astro.md",
     "blogs/2025-01-26 ゴルーグを救いたい.md",
     "blogs/2025-01-27 テストが始まるらしい.md",
@@ -201,7 +203,6 @@
     "School/Calculate Practice/数値計算演習 第1回 課題実施内容.md",
     "School/Basic Machine Learning/演習レポート 第2回.md",
     "School/Basic Machine Learning/演習レポート 第1回.md",
-    "_Templates/Calculate Calue Parent.md",
     "School/Database",
     "School/Basic Machine Learning/課題レポート 第１回",
     "School/Basic Machine Learning",
