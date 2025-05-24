@@ -5,7 +5,7 @@ hero:
   attr: _brank
   tagline: ( ^ ω ^ )/ < hi! I'm glad to meet you!
   image:
-    file: ../../assets/Angel.jpg
+    file: "../../../assets/Angel.jpg"
   alt: "An illustration of Angel as Twil3akine's avatar character."
 ---
 
@@ -13,7 +13,7 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
 import styles from '/src/tailwind.css';
 
 <Aside type='note'>
-  The page is approximately 99% finished. Just a few final touches left.
+  このページは99%ぐらいは完成していますが、100%完成ではないです。
 </Aside>
 
 ## Navi Stones
@@ -22,42 +22,44 @@ import styles from '/src/tailwind.css';
   <LinkCard
     title="AtCoder Solution Logs"
         href="/logs/"
-    description='My solutions of AtCoder.'
+    description='AtCoderの解法を残してます'
   />
   <LinkCard
     title="Problems"
     href="/problems/"
-    description="There are problems made by me."
+    description="作問した問題を載せています。"
   />
   <LinkCard
     title="Blog"
     href="/blogs/"
-    description="Sometimes, I write bored articles"
+    description="たま～にブログを書いてます。"
   />
 </CardGrid>
 
 $\\[5mm]$
 
-## Hi! I'm Twil3akine!👍
-  I'm `a student aiming to become` a full-stack engineer!
+## こんにちは！ 私は `Twil3akine` です👍
+  フルスタックエンジニアを目指しているただの大学生です。
 
 $\\[5mm]$
 
 ## About Me
-  ### Learning now
-    I'm a third-year student at **Wakayama University**, studying informatics such as Data-science, Networks, Web-design, Data-structures and Algorithms, Computer-systems, and Database!!
+  ### 今、学んでいること
+    和歌山大学の3回生です。データサイエンスやネットワーク、ウェブデザイン、データ構造とアルゴリズム、コンピュータサイエンス、データベースなどを学んでいます。
 
   ### AtCoder
-  **A**lgorithms are **BWORN** and **H**euristics are **GREEN**!
+  - アルゴリズム部門: 茶コーダー
+  - ヒューリスティック部門: 緑コーダー
 
   <Aside type='tip'>
-    I'm still a budding **Brown Coder**, but I’m full of potential and ready to grow!
+    まだまだ成長していきますよ！
+    2025年中にアルゴリズム緑、ヒューリスティック水を目指しています！
   </Aside>
 
   <LinkCard
     title="AtCoder"
     href="https://atcoder.jp/user/twil3"
-    description="Check out my AtCoder profile!"
+    description="ぜひぜひ、私のプロフィールを確認してください！"
   />
 
 
@@ -82,27 +84,27 @@ $\\[5mm]$
 $\\[5mm]$
 
 ## Portfolio
-  - Web sites
+  - ウェブサイト
   <CardGrid>
     <LinkCard
       title="MyLogs"
       href="https://twil3akine.pages.dev"
-      description="Oh! You're interested in me??"
+      description="このページですよ"
     />
     <LinkCard
       title="Yoshinon Gacha"
       href="https://yoshinon-gacha.pages.dev"
-      description="Let's healing seeing Yoshinon!"
+      description="吉野先生とふれあい、癒されましょう！"
     />
     <LinkCard
       title="Gomikuji"
       href="https://Gomikuji.pages.dev"
-      description="What's your fortune!"
+      description="あなたの運勢、気になりませんか？"
     />
     <LinkCard
       title="WankoSoba!"
       href="https://wankosoba.pages.dev"
-      description="eat, more eat Wankosoba!"
+      description="わんこそばをたべる感覚で累乗、べき乗の増え方を学びませんか？"
     />
   </CardGrid>
 
@@ -113,71 +115,65 @@ $\\[5mm]$
     <LinkCard
       title="MyLogs"
       href="https://github.com/twil3akine/MyLogs"
-      description="This is my introduction you see now, used 'Astro Starlight', 'Markdown(x)', 'LaTeX', '(Github Pages for deploying)'"
+      description="あなたが今見ているこのサイトです。Astro Starlight, mdx, LaTeX を使用しています。"
     />
 
     <LinkCard
       title="Yoshinon Gacha"
       href="https://github.com/twil3akine/yoshinon-gacha"
-      description="This is Yoshi's gacha site, used 'React', 'Vite', 'TailwindCSS', 'Hono"
+      description="ヨシノンガチャで遊べます。React, TailwindCSS, Vite, Hono を使用しています。"
     />
 
     <LinkCard
       title="AtCoder-Template"
       href="https://github.com/twil3akine/AtCoder-Template"
-      description="This is my settings file for `AtCoder`, used 'Python'"
+      description="AtCoderで使用しているファイルをおいてます。C++, Rust, Python を使用しています。"
     />
 
     <LinkCard
       title="Twil.nvim"
       href="https://github.com/twil3akine/Twil.nvim"
-      description="These are my neovim settings, used 'Lua', 'Lazy.nvim'"
+      description="Neovimのセッティングファイルをおいてます。更新は止まってます。"
     />
 
     <LinkCard
       title="WankoSoba!"
       href="https://github.com/twil3akine/wankosoba"
-      description="only click a button to eat wankosoba! used 'HTML', 'SCSS', 'JS'"
+      description="べき乗、累乗をわんこそばを食べる感覚で体験できます。HTML, CSS, JS で書いてます。"
     />
 
     <LinkCard
       title="Gomikuji"
       href="https://github.com/twil3akine/Gomikuji"
-      description="fortunize your fortune! used 'React' + 'Vite'"
+      description="React, Vite であなたの運勢を占います！"
     />
 
     <LinkCard
       title="Painter-Tools"
       href="https://github.com/twil3akine/Painter-Tools"
-      description="These are painter assistant tool(s), used 'Python', 'Tkinter'"
-    />
-    
-    <LinkCard
-      title="Blue-or-Red"
-      href="https://github.com/twil3akine/Blue-or-Red"
-      description="This is my first `flutter` site"
+      description="Python, Tkinter でカラーコードなどを調べることができます。"
     />
 
     <LinkCard
       title="MemoritAI"
       href="https://github.com/manabeai/smart-memo"
-      description="I have had a bit of experience working on frontend development, used 'NextJS', 'Ruby on Rails', 'Github Actions' and 'ChatGPT'"
+      description="NextJS, Ruby on Rails, GitHub Actions, ChatGPT API を使用した自動でタグ付けを行ってくれるメモアプリの開発を少しだけ手伝わさせていただきました。"
     />
   </CardGrid>
 
-## Qualifications
+## 資格
 
   <FileTree>
-  - Qualifications
-    - Acquired
-      - 💻 Fundamental Infomation Technology Engineer
-      - 💣 Class B4 Hazardous Materials Handler
-      - 🎨 Japan Color Certification Test Level 3
-      - 📝 Eiken Grade 2
-      - 📝 TOEIC Score: 525
-      - 🚙 Japanese Driver's License (MT)
-    - Studying
-      - 💻 Applied Infomation Technology Engineer
+  - 資格
+    - 取得済み
+      - 💻 基本情報技術者
+      - 💣 危険物取扱者乙種4類
+      - 🎨 色彩検定3級
+      - 📝 英検2級
+      - 📝 TOEIC 525点
+      - 🚙 普通自動車運転免許 (MT)
+    - 勉強中
+      - 💻 応用情報技術者
   </FileTree>
 
 $\\[5mm]$

@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
 :root {
-    --sl-font: 'Ubuntu Mono', '源ノ角ゴシック', serif;
+    --sl-font: 'Ubuntu Sans Mono', 'Noto Sans JP', serif;
 }
 
 code[dir="auto"], p, ul>li{

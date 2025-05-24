@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "465b01cf6c2effda",
+        "id": "5c2196e308ed11b0",
         "type": "tabs",
         "children": [
           {
-            "id": "09c53ace887a848d",
+            "id": "24f26721136f8cf2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blogs/2025-02-02 淡路島に行ってきた.md",
+                "file": "logs/ABC-376.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2025-02-02 淡路島に行ってきた"
+              "title": "ABC-376"
             }
           }
         ]
@@ -173,10 +173,15 @@
       "omnisearch:Omnisearch": false
     }
   },
-  "active": "09c53ace887a848d",
+  "active": "bbb942251f3443fd",
   "lastOpenFiles": [
-    "blogs/2025-02-01 やぁ.md",
+    "logs/ABC-371.md",
+    "logs/ABC-376.md",
+    "logs/ABC-256.md",
+    "_Templates/AtCoder Template.md",
+    "blogs/2025-03-07 Workers Tech Talkを拝聴してきたという話.md",
     "blogs/2025-02-02 淡路島に行ってきた.md",
+    "blogs/2025-02-01 やぁ.md",
     "blogs/2025-01-29 OGP画像を設定したい.md",
     "blogs/2025-01-28 Gomikuji のアプデ.md",
     "astro.md",
@@ -198,11 +203,6 @@
     "School/Basic Machine Learning/課題レポート 第3回.md",
     "School/Basic Machine Learning/演習レポート 第3回.md",
     "School/Basic Machine Learning/課題レポート 第1回.md",
-    "School/Basic Machine Learning/課題レポート 第2回.md",
-    "School/Calculate Practice/数値計算演習 第3回 課題実施内容.md",
-    "School/Calculate Practice/数値計算演習 第2回 課題実施内容.md",
-    "School/Calculate Practice/数値計算演習 第1回 課題実施内容.md",
-    "School/Basic Machine Learning/演習レポート 第2回.md",
     "School/Database",
     "School/Basic Machine Learning/課題レポート 第１回",
     "School/Basic Machine Learning",

@@ -23,6 +23,10 @@ export default defineConfig({
                     label: 'English',
                     lang: 'en',
                 },
+                ja: {
+                    label: '日本語',
+                    lang: 'ja',
+                },
             },
             editLink: {
                 baseUrl: 'https://github.com/twil3akine/MyLogs/src/content/docs/',
@@ -64,4 +68,14 @@ export default defineConfig({
         }),
         react()
     ],
+    vite: {
+        server: {
+            host: "0.0.0.0",
+            port: 4321,
+            watch: {
+                usePolling: true,
+                interval: 1000,
+            },
+        },
+    },
 });
