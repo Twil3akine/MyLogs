@@ -1,29 +1,19 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
-import react from '@astrojs/react';
-import starlightObsidianPlugin from 'starlight-obsidian';
+import mdx from "@astrojs/mdx";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
     integrations: [
         starlight({
-            title: "Twnxs",
+            title: "Twil3akine",
             plugins: [
-                // @ts-ignore
-                starlightObsidianPlugin({
-                    vault: "./MyLogs",
-                    ignore: [
-                        '_Templates',
-                    ],
-                }),
+                
             ],
             locales: {
                 root: {
-                    label: 'English',
-                    lang: 'en',
-                },
-                ja: {
                     label: '日本語',
                     lang: 'ja',
                 },
@@ -31,42 +21,31 @@ export default defineConfig({
             editLink: {
                 baseUrl: 'https://github.com/twil3akine/MyLogs/src/content/docs/',
             },
-            customCss: [
-                './src/tailwind.css',
-                '@fontsource/ubuntu-mono/400.css',
-                '@fontsource/ubuntu-mono/700.css',
+            social: [
+                {
+                    icon: "twitter",
+                    label: "Twitter",
+                    href: "https://twitter.com/twil3akine"
+                },
+                {
+                    icon: "github",
+                    label: "GitHub",
+                    href: "https://github.com/twil3akine"
+                }
             ],
-            social: {
-                github: 'https://github.com/twil3akine/MyLogs',
-            },
             sidebar: [
                 {
                     label: 'Main.twnx',
                     link: '/',
                 },
-                {
-                    label: 'AtCoder Logs',
-                    autogenerate: { directory: '/notes/logs/' },
-                    collapsed: true,
-                },
-                {
-                    label: 'Problems',
-                    autogenerate: { directory: '/notes/problems/' },
-                    collapsed: true,
-                },
-                {
-                    label: 'Blog',
-                    autogenerate: { directory: '/notes/blogs' },
-                    collapsed: true,
-                },
             ],
             pagination: false,
             
         }),
-        tailwind({
-            applyBaseStyles: false,
+        mdx({
+            remarkPlugins: [remarkMath],
+            rehypePlugins: [rehypeKatex],
         }),
-        react()
     ],
     vite: {
         server: {
