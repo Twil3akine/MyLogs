@@ -35,8 +35,12 @@ export default defineConfig({
             ],
             sidebar: [
                 {
-                    label: 'Main.twnx',
+                    label: '/',
                     link: '/',
+                },
+                {
+                    label: '/problems',
+                    link: '/problems',
                 },
             ],
             pagination: false,

@@ -1,0 +1,11 @@
+:root {
+	--font-size-base: 16px;
+}
+
+p {
+	font-size: var(--font-size-base);
+}
+
+ul > li {
+	font-size: var(--font-size-base);
+}
