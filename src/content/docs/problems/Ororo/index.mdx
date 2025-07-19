@@ -1,0 +1,89 @@
+---
+title: オロロ
+layout: ../../../../layouts/Problems.astro
+---
+
+import CharacterDecorate from "../components/CharacterDecorate.astro";
+
+## 問題文
+
+高橋君は一人で悲しくオロロというゲームで遊んでいます。<br />
+白のコマを<CharacterDecorate>o</CharacterDecorate>、黒のコマを<CharacterDecorate>x</CharacterDecorate>, コマを置いていないマスを<CharacterDecorate>-</CharacterDecorate>で表した盤面が与えられるので、コマを置いたすべてのマスを白か黒のコマどちらかだけで埋めることが可能かを判別してください。また、可能な場合は最小手数も求めて下さい。
+
+<details>
+  <summary>オロロのルール</summary>
+
+  - 盤面は 8×8 のマスで構成されています。
+  - オロロのコマは両面タイプで、片面が白、もう片面が黒になっています。ひっくり返すことで色が変わります。
+  - 各マスには白 (<CharacterDecorate>o</CharacterDecorate>) または黒 (<CharacterDecorate>x</CharacterDecorate>) のコマを置けます。
+  - 高橋君は一人でこのゲームをプレイしており、自分で白と黒を交互に操作します。
+  - 縦・横・斜めいずれかの方向に、すでに置かれたコマと直線状に並ぶ位置に新しいコマを置くと、その間にあるコマはすべて裏返り、自分の色になります。
+  - ただし、間に相手色のコマが挟まれていない場合、ひっくり返りは起きず、そのマスには置けません。
+  - コマを置いた全てのマスが白か黒のどちらかのみで埋められるように高橋君は最適な選択を行います。
+
+</details>
+
+## 入力
+
+入力は以下の形式で標準入力から与えられる。
+
+```text
+S1,1 S1,2 ... S1,8
+S2,1 S2,2 ... S2,8
+...
+S8,1 S8,2 ... S8,8
+```
+
+## 制約
+
+<ul>
+	<li>Si,j は <CharacterDecorate>o</CharacterDecorate>, <CharacterDecorate>x</CharacterDecorate>, <CharacterDecorate>-</CharacterDecorate> のみから構成される。</li>
+</ul>
+
+## 出力
+
+コマを置いた全てのマスが白か黒のどちらかのみで埋められる場合は、それを可能とする最小手数を、無理な場合は <CharacterDecorate>No</CharacterDecorate> を出力しなさい。
+
+## 入力例1
+
+```text
+xoooooo-
+--------
+--------
+--------
+--------
+--------
+--------
+--------
+```
+
+## 出力例1
+
+```text
+1
+```
+
+S1,8に黒を置くと、黒1色に染め上げられます。
+
+---
+
+## 入力例2
+
+```text
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+```
+
+## 出力例2
+
+```text
+0
+```
+
+最初から1色に染まっているときもあります。

@@ -6,6 +6,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
+    site: 'https://twil3kaine.pages.dev',
     integrations: [
         starlight({
             title: "Twil3akine",
@@ -35,8 +36,12 @@ export default defineConfig({
             ],
             sidebar: [
                 {
-                    label: 'Main.twnx',
+                    label: '/',
                     link: '/',
+                },
+                {
+                    label: '/problems',
+                    link: '/problems',
                 },
             ],
             pagination: false,
