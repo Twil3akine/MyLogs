@@ -1,0 +1,108 @@
+---
+title: 線対称？点対称？
+layout: ../../../layouts/Problems.astro
+---
+
+import CharacterDecorate from "./components/CharacterDecorate.astro";
+
+## 問題文
+
+小学生の高橋君は学校の授業で線対称と点対称という概念を学びました。<br />
+現在進行形で学んだものを使いたくなるお年頃である高橋君は色々な記号が線対称や点対称であるのかを調べることにしました。
+
+$N$行$N$列の中身が<CharacterDecorate>.</CharacterDecorate>, <CharacterDecorate>#</CharacterDecorate>のみで構成されたグリッドが与えられます。
+
+そのグリッドが線対称である場合が<CharacterDecorate>Sen</CharacterDecorate>, 点対称である場合は<CharacterDecorate>Ten</CharacterDecorate>, どちらものときは<CharacterDecorate>SenTen</CharacterDecorate>と出力してください。
+
+<details>
+  <summary>線対称であるということは</summary>
+
+  - $Grid[r][c] == Grid[n-r+1][c] \; (1 \le r, c \le n)$ が成立するとき、その$Grid$は線対称である。
+
+</details>
+
+<details>
+  <summary>点対称であるということは</summary>
+
+  - $Grid[r][c] == Grid[n-r+1][n-c+1] \; (1 \le r, c \le n)$ が成立するとき、その$Grid$は点対称である。
+
+</details>
+
+## 入力
+
+入力は以下の形式で標準入力から与えられる。
+
+```text
+N
+S1,1 S1,2 ... S1,N
+S2,1 S2,2 ... S2,N
+...
+SN,1 SN,2 ... SN,N
+```
+
+## 制約
+
+<ul>
+  <li>$1 \le N \le 777$</li>
+	<li>$S_{i,j}$ は <CharacterDecorate>.</CharacterDecorate>, <CharacterDecorate>#</CharacterDecorate>のみから構成される。</li>
+  <li>全てのマスに同じ記号は入らない。</li>
+</ul>
+
+## 出力
+
+与えられたグリッドが線対称である場合が<CharacterDecorate>Sen</CharacterDecorate>, 点対称である場合は<CharacterDecorate>Ten</CharacterDecorate>, どちらものときは<CharacterDecorate>SenTen</CharacterDecorate>と出力してください。
+
+## 入力例1
+
+```text
+3
+###
+#.#
+...
+```
+
+## 出力例1
+
+```text
+Sen
+```
+
+線対称です。
+
+---
+
+## 入力例2
+
+```text
+4
+...#
+....
+....
+#...
+```
+
+## 出力例2
+
+```text
+Ten
+```
+
+これ結構点対称だよ！
+
+## 入力例3
+
+```text
+5
+#...#
+.....
+.....
+#...#
+```
+
+## 出力例3
+
+```text
+SenTen
+```
+
+線対称かつ点対称ですね。
