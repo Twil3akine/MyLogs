@@ -1,9 +1,8 @@
 ---
 title: オロロ
+layout: ../../../../layouts/Problems.astro
 ---
 
-import "../../../../styles/style.css";
-import "../../../../styles/problem.css";
 import CharacterDecorate from "../components/CharacterDecorate.astro";
 
 ## 問題文
@@ -12,7 +11,7 @@ import CharacterDecorate from "../components/CharacterDecorate.astro";
 白のコマを<CharacterDecorate>o</CharacterDecorate>、黒のコマを<CharacterDecorate>x</CharacterDecorate>, コマを置いていないマスを<CharacterDecorate>-</CharacterDecorate>で表した盤面が与えられるので、コマを置いたすべてのマスを白か黒のコマどちらかだけで埋めることが可能かを判別してください。また、可能な場合は最小手数も求めて下さい。
 
 <details>
-  <summary>オロロのルール（クリックして展開）</summary>
+  <summary>オロロのルール</summary>
 
   - 盤面は 8×8 のマスで構成されています。
   - オロロのコマは両面タイプで、片面が白、もう片面が黒になっています。ひっくり返すことで色が変わります。
@@ -29,10 +28,10 @@ import CharacterDecorate from "../components/CharacterDecorate.astro";
 入力は以下の形式で標準入力から与えられる。
 
 ```text
-H1,1 H1,2 ... H1,8
-H2,1 H2,2 ... H2,8
+S1,1 S1,2 ... S1,8
+S2,1 S2,2 ... S2,8
 ...
-H8,1 H8,2 ... H8,8
+S8,1 S8,2 ... S8,8
 ```
 
 ## 制約
@@ -65,3 +64,26 @@ xoooooo-
 ```
 
 S1,8に黒を置くと、黒1色に染め上げられます。
+
+---
+
+## 入力例2
+
+```text
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+oooooooo
+```
+
+## 出力例2
+
+```text
+0
+```
+
+最初から1色に染まっているときもあります。
