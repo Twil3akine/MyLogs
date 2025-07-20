@@ -1,0 +1,59 @@
+---
+title: 回文数ではない
+layout: ../../../layouts/Problems.astro
+---
+
+import CharacterDecorate from "./components/CharacterDecorate.astro";
+
+## 問題文
+
+世の中には回文数という概念があります。AtCoderで出たら茶色以上になりやすいやつです。<br />
+整数$N$が与えられます。$1$から$N$までの回文数ではない数の総和を<CharacterDecorate>998244389</CharacterDecorate>で割ったあまりを出力してください。
+
+## 入力
+
+入力は以下の形式で標準入力から与えられる。
+
+```text
+N
+```
+
+## 制約
+
+<ul>
+	<li>$1 \le N \le 10^{12}$</li>
+</ul>
+
+## 出力
+
+答えを出力してください。
+
+## 入力例1
+
+```text
+19
+```
+
+## 出力例1
+
+```text
+134
+```
+
+回文数なのは、$1 \rightarrow 9, \; 11$なのでそれを総和から引けばいいです
+
+---
+
+## 入力例2
+
+```text
+8
+```
+
+## 出力例2
+
+```text
+0
+```
+
+$0$のときもあります。
