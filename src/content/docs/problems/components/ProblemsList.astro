@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import { LinkCard } from '@astrojs/starlight/components';
+
+const problems = await getCollection("docs", ({ id }) => {
+	return id.startsWith("problems/") && !id.endsWith("index");
+});
+---
+
+{problems.map((problem) => {
+  const splitedFilePath = problem.filePath?.split('/');
+  const folder = splitedFilePath?.at(-2);
+  const file = splitedFilePath?.at(-1)?.replace(/\.mdx$/, "").toLowerCase();
+  const filePath = `/${folder}/${file}`;
+  
+	return (
+    <LinkCard
+      title={problem.data.title}
+      href={`${filePath}`}
+      description={problem.data.description ?? ""}
+    />
+  );
+})}
