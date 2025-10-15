@@ -5,8 +5,15 @@
   <head>
     <meta charset="UTF-8" />
     <title><slot name="title" /></title>
-	<link rel="stylesheet" href="/styles/style.css">
-	<link rel="stylesheet" href="/styles/katex.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/katex.css">
+    <meta property="og:title" content="Twil3akine.org" />
+    <meta property="og:description" content="Twil3akine's Homepage" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://twil3akine.org/" />
+    
+    <meta property="og:image" content={new URL('/ogp.png', Astro.url)} />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <main><slot /></main>
