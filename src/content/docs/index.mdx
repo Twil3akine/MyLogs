@@ -21,12 +21,12 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
 ## こんにちは！ 私は `Twil3akine` です👍
   フルスタックエンジニアを目指しているただの大学生です。
 
-## Milestones
+## Navistones
 <CardGrid>
   <LinkCard
-    title='Problems'
-    href="/problems"
-    description='私が作問した問題を載せています。ジャッジはないです。'
+    title='AtCoder-Logs'
+    href="/logs"
+    description='私の精進状況を載せています。'
   />
 
   <LinkCard
@@ -40,20 +40,26 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
     href="/structures"
     description='C言語を用いてアルゴリズムとデータ構造を学びましょう。'
   />
+  
+  <LinkCard
+    title='Problems'
+    href="/problems"
+    description='私が作問した問題を載せています。ジャッジはないです。'
+  />
 </CardGrid>
 
 ## About Me
   ### 今、学んでいること
-    和歌山大学の3回生です。データサイエンスやネットワーク、ウェブデザイン、データ構造とアルゴリズム、コンピュータサイエンス、データベースなどを学んでいます。
+    和歌山大学の3回生です。組み合わせ最適化や量子コンピュータなどを専攻しています。
 
   ### AtCoder
   - アルゴリズム部門: 茶
-  - ヒューリスティック部門: 緑
+  - ヒューリスティック部門: 水
 
-  <Aside type='tip'>
+  <Aside type='tip' title='目標'>
     まだまだ成長していきますよ！
 
-    2025年中にアルゴリズム緑、ヒューリスティック水を目指しています！
+    2026年中にアルゴリズム緑中位、ヒューリスティック水中位を目指しています！
   </Aside>
 
   <LinkCard
@@ -67,15 +73,15 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
 
   <Tabs>
     <TabItem label='Languages' icon='open-book'>
-      <img alt="skills" src="https://skillicons.dev/icons?theme=dark&perline=7&i=rust,c,cpp,py,js,ts,markdown" style="width:70%;" />
+      <img alt="Languages" src="https://skillicons.dev/icons?theme=dark&perline=7&i=rust,py,ts,go,,," style="width:70%;" />
     </TabItem>
 
     <TabItem label='Tech Stack' icon='puzzle'>
-      <img alt="skills" src="https://skillicons.dev/icons?theme=dark&perline=7&i=astro,react,svelte,vite,htmx,hono," style="width:70%;" />
+      <img alt="Tech Stack" src="https://skillicons.dev/icons?theme=dark&perline=7&i=astro,svelte,vite,,,," style="width:70%;" />
     </TabItem>
 
-    <TabItem label='Tools' icon='pencil'>
-        <img alt="skills" src="https://skillicons.dev/icons?theme=dark&perline=7&i=neovim,cloudflare,obsidian,discord,github,latex," style="width:70%;" />
+    <TabItem label='Others' icon='pencil'>
+        <img alt="Others" src="https://skillicons.dev/icons?theme=dark&perline=7&i=cloudflare,github,obsidian,neovim,latex,," style="width:70%;" />
     </TabItem>
   </Tabs>
 
@@ -91,6 +97,11 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
       title='AtCoder-Random-Picker'
       href="https://atcoder-random-picker.pages.dev"
       description='日々の精進をお手伝いします'
+    />
+    <LinkCard
+      title='AtCoder-Logs'
+      href="https://atcoder-logs.pages.dev/logs"
+      description='私の精進の記録を見て下さい'
     />
     <LinkCard
       title="Yoshinon Gacha"
@@ -124,13 +135,19 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
     <LinkCard
       title="MyLogs"
       href="https://github.com/twil3akine/MyLogs"
-      description="あなたが今見ているこのサイトです。Astro Starlight, mdx, LaTeX を使用しています。"
+      description="あなたが今見ているこのサイトです。Astro Starlight, mdx, KaTeX を使用しています。"
     />
 
     <LinkCard
       title='AtCoder-Random-Picker'
       href="https://github.com/twil3akine/atcoder-random-picker"
       description='日々の精進をお手伝いします。Svelte(+RabeeUI), Vite, Rust を使用しています。'
+    />
+
+    <LinkCard
+      title='AtCoder-Logs'
+      href="https://github.com/twil3akine/atcoder-logs"
+      description='日々の精進をお手伝いします。Svelte, Vite, Rust を使用しています。'
     />
 
     <LinkCard
@@ -142,7 +159,7 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
     <LinkCard
       title="AtCoder-Template"
       href="https://github.com/twil3akine/AtCoder-Template"
-      description="AtCoderで使用しているファイルをおいてます。C++, Rust, Python を使用しています。"
+      description="AtCoderで使用しているファイルをおいてます。Rust, Python を使用しています。"
     />
 
     <LinkCard
@@ -155,12 +172,6 @@ import { LinkCard, CardGrid, FileTree, Tabs, TabItem, Aside } from '@astrojs/sta
       title="C言語で学ぶデータ構造とアルゴリズム入門"
       href="https://github.com/twil3akine/structure4b"
       description="C言語でデータ構造とアルゴリズムについて学びましょう！"
-    />
-
-    <LinkCard
-      title="Twil.nvim"
-      href="https://github.com/twil3akine/Twil.nvim"
-      description="Neovimのセッティングファイルをおいてます。更新は止まってます。"
     />
 
     <LinkCard
