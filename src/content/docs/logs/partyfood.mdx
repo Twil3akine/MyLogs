@@ -1,0 +1,92 @@
+---
+title: "Party Food"
+layout: ../../../layouts/Problems.astro
+---
+
+## 問題概要
+
+$N$ 人の参加者 $p_1, \cdots, p_N$ と $N$ 個の食べ物 $f_1, \cdots, f_N$ がある。
+各参加者 $p_i$ には苦手な食べ物の集合 $$D_i \subseteq \{ f_1, \cdots, f_N \}$$ が与えられている。
+
+以下の条件を全て同時に満たす食べ方があるか判定せよ。
+
+- 各参加者がちょうど1つの食べ物を食べる $\cdots \; (I)$
+- 各食べ物はちょうど1人に食べられる $\cdots \; (II)$
+- 各参加者がそれぞれの苦手な食べ物を食べない $\cdots \; (III)$
+
+---
+
+### 変数定義
+
+まず、参加者と食べ物の関係について
+
+$$
+x_{ij} =
+\begin{cases}
+1 & (\text{参加者 } p_i \text{ が食べ物 } f_j \text{ を食べる}) \\
+0 & (\text{参加者 } p_i \text{ が食べ物 } f_j \text{ を食べない})
+\end{cases}
+$$
+
+と定義する
+
+---
+
+### 各条件について
+
+- $(I)$ について
+全ての参加者に対して、各食べ物に関する $Exact One$ を満たす
+
+- $(II)$ について
+全ての食べ物に対して、各参加者に関する $Exact One$ を満たす
+
+- $(III)$ について
+各参加者 $i$ に対して、$\forall i, \; \bigwedge_{k \in D_i} (\neg \; x_{ik})$ が真となる
+
+---
+
+### 論理式に変形する
+
+[Exact One](/logs/exactone#論理式の形にする)より
+
+$$
+ExactOne \; = \;
+\left( \bigvee_{i=1}^{N} \; x_i \right)
+\; \wedge \;
+\left( \bigwedge_{i=1}^{N-1} \; \bigwedge_{j=i+1}^{N} \; \neg \;(x_{i} \wedge x_{j}) \right)
+$$
+
+であるので、
+
+- $(I)$ について
+
+$$
+\forall k \; (1 \le k \le N), \;
+\left( \bigvee_{i=1}^{N} \; x_{ki} \right)
+\; \wedge \;
+\left( \bigwedge_{i=1}^{N-1} \; \bigwedge_{j=i+1}^{N} \; \neg \;(x_{ki} \wedge x_{kj}) \right)
+$$
+
+- $(II)$ について
+
+$$
+\forall k \; (1 \le k \le N), \;
+\left( \bigvee_{i=1}^{N} \; x_{ik} \right)
+\; \wedge \;
+\left( \bigwedge_{i=1}^{N-1} \; \bigwedge_{j=i+1}^{N} \; \neg \;(x_{ik} \wedge x_{jk}) \right)
+$$
+
+- $(III)$ について
+
+$$
+\forall i \; (1 \le i \le N), \;
+\bigwedge_{k \in D_i} \; (\neg \;x_{ik})
+$$
+
+と表すことができる
+
+---
+
+### 結論
+
+$(I) \wedge (II) \wedge (III)$ が真となる組み合わせがあれば、条件を同時に全て満たす組み合わせがあると言うことになる。
