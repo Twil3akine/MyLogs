@@ -3,7 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "overrides": {
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@astrojs/sitemap": "~3.2.0"
   },
   "scripts": {
     "dev": "astro dev",
