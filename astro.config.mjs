@@ -6,7 +6,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
-  site: "https://twil3kaine.pages.dev",
+  site: "https://twil3akine.pages.dev",
   integrations: [
     starlight({
       title: "Twil3akine",
