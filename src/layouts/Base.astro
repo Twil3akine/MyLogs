@@ -1,14 +1,22 @@
 ---
+// propsからフロントマター情報を取得
 const { frontmatter } = Astro.props;
 
+// タイトルと説明の設定
 const title = frontmatter?.title
     ? `${frontmatter.title} | Twil3akine.org`
     : "Twil3akine.org";
 const description = frontmatter?.description || "Twil3akine's Homepage";
-const currentUrl = Astro.url.href;
 
-// トップページかどうかをURLのパスから自動判定
-const isTopPage = Astro.url.pathname === "/";
+// URLとパスの取得
+const currentUrl = Astro.url.href;
+const pathname = Astro.url.pathname;
+
+// 自動判定ロジック
+const isTopPage = pathname === "/";
+const isLogPage = pathname.startsWith("/logs/"); // /logs/ 以下のページか判定
+
+// OGPタイプの設定
 const ogType = isTopPage ? "website" : "article";
 ---
 
@@ -19,20 +27,24 @@ const ogType = isTopPage ? "website" : "article";
 
         <link rel="stylesheet" href="/styles/style.css" />
         <link rel="stylesheet" href="/styles/katex.css" />
+
+        {isLogPage && <link rel="stylesheet" href="/styles/log.css" />}
+
         <link rel="canonical" href={currentUrl} />
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-
         <meta property="og:type" content={ogType} />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:site_name" content="Twil3akine.org" />
-
         <meta property="og:image" content="https://twil3akine.org/ogp.png" />
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@twil3akine" />
     </head>
     <body>
-        <main><slot /></main>
+        <main>
+            <slot />
+        </main>
     </body>
 </html>
