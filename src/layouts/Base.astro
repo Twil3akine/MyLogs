@@ -1,22 +1,38 @@
 ---
+const { frontmatter } = Astro.props;
+
+const title = frontmatter?.title
+    ? `${frontmatter.title} | Twil3akine.org`
+    : "Twil3akine.org";
+const description = frontmatter?.description || "Twil3akine's Homepage";
+const currentUrl = Astro.url.href;
+
+// トップページかどうかをURLのパスから自動判定
+const isTopPage = Astro.url.pathname === "/";
+const ogType = isTopPage ? "website" : "article";
 ---
 
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title><slot name="title" /></title>
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/katex.css">
-    <meta property="og:title" content="Twil3akine.org" />
-    <meta property="og:description" content="Twil3akine's Homepage" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://twil3akine.org/" />
-    
-    <meta property="og:image" content="https://twil3akine.org/ogp.png?cute=inf" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="twil3akine">
-  </head>
-  <body>
-    <main><slot /></main>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{title}</title>
+
+        <link rel="stylesheet" href="/styles/style.css" />
+        <link rel="stylesheet" href="/styles/katex.css" />
+        <link rel="canonical" href={currentUrl} />
+
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:site_name" content="Twil3akine.org" />
+
+        <meta property="og:image" content="https://twil3akine.org/ogp.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@twil3akine" />
+    </head>
+    <body>
+        <main><slot /></main>
+    </body>
 </html>
