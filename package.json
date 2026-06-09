@@ -14,9 +14,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.0",
-    "@astrojs/starlight": "^0.34.4",
-    "astro": "^5.6.1",
+    "@astrojs/mdx": "4.3.0",
+    "@astrojs/starlight": "0.34.4",
+    "astro": "5.6.1",
     "katex": "^0.16.22",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
