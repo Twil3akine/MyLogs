@@ -2,8 +2,7 @@
   "name": "mylogs",
   "version": "0.0.1",
   "dependencies": {
-    "@astrojs/mdx": "6.0.3",
-    "@astrojs/starlight": "0.39.3",
+    "@astrojs/mdx": "^6.0.3",
     "astro": "6.4.5",
     "katex": "^0.16.22",
     "rehype-katex": "^7.0.1",

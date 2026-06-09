@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
+:root {
+    --sl-font: 'Ubuntu Sans Mono', 'Noto Sans JP', serif;
+}
+
+code[dir="auto"], p, ul>li{
+    font-size: calc(0.3vw + 18px);
+}
+
+b {
+    font-size: calc(0.3vw + 24px);
+}
+
+br {
+    height: 5vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.25rem; }
+h4, h5, h6 { font-size: 1.08rem; }
