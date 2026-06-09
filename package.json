@@ -1,10 +1,17 @@
 {
   "name": "mylogs",
-  "type": "module",
   "version": "0.0.1",
-  "overrides": {
-    "zod": "^3.23.8",
-    "@astrojs/sitemap": "~3.2.0"
+  "dependencies": {
+    "@astrojs/mdx": "6.0.3",
+    "@astrojs/starlight": "0.39.3",
+    "astro": "6.4.5",
+    "katex": "^0.16.22",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "sharp": "^0.34.2"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "scripts": {
     "dev": "astro dev",
@@ -13,16 +20,8 @@
     "preview": "astro preview",
     "astro": "astro"
   },
-  "dependencies": {
-    "@astrojs/mdx": "4.3.0",
-    "@astrojs/starlight": "0.34.4",
-    "astro": "5.6.1",
-    "katex": "^0.16.22",
-    "rehype-katex": "^7.0.1",
-    "remark-math": "^6.0.0",
-    "sharp": "^0.34.2"
-  },
-  "engines": {
-    "node": ">=22"
+  "type": "module",
+  "devDependencies": {
+    "zod": "^4.3.6"
   }
 }
