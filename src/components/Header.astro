@@ -1,0 +1,111 @@
+---
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
+export interface Props {
+  siteTitle?: string;
+  navLinks?: NavLink[];
+}
+
+const { siteTitle = "", navLinks = [] } = Astro.props;
+---
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="/" class="site-title">{siteTitle}<span class="accent">.</span></a>
+    </div>
+
+    <div class="header-content">
+      <nav class="nav">
+        <ul class="nav-list">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a href={link.href} class="nav-link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    border-bottom: 1px solid var(--theme-border);
+    background-color: var(--theme-bg);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+  }
+  .header-inner > * {
+      font-size: calc(1.1);
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .site-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--theme-text);
+    letter-spacing: -0.02em;
+  }
+  .site-title .accent {
+    color: var(--theme-accent);
+  }
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .nav-list {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: var(--theme-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover {
+    color: var(--theme-accent); /* アクセントカラーに変更 */
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  /* スロットで渡されたリンク（アイコン等）のスタイルとホバー設定 */
+  .header-actions :global(a) {
+    color: var(--theme-text-muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+  .header-actions :global(a:hover) {
+    color: var(--theme-accent); /* アクセントカラーに変更 */
+  }
+</style>

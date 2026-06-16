@@ -1,0 +1,8 @@
+:root {
+  --theme-accent: #7a99cf;
+  --theme-accent-bg: rgba(122, 153, 207, 0.08);
+}
+
+:root[data-theme="dark"] {
+  --theme-accent-bg: rgba(122, 153, 207, 0.15);
+}
