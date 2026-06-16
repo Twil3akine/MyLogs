@@ -18,6 +18,13 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
       <a href="/" class="site-title">{siteTitle}<span class="accent">.</span></a>
     </div>
 
+    <input class="menu-toggle" id="header-menu-toggle" type="checkbox" />
+    <label class="menu-button" for="header-menu-toggle" aria-label="メニューを開閉">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
     <div class="header-content">
       <nav class="nav">
         <ul class="nav-list">
@@ -107,5 +114,106 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
   }
   .header-actions :global(a:hover) {
     color: var(--theme-accent); /* アクセントカラーに変更 */
+  }
+
+  .menu-toggle,
+  .menu-button {
+    display: none;
+  }
+
+  @media (max-width: 512px) {
+    .header {
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-inner {
+      padding: 0.65rem 1.25rem;
+    }
+
+    .site-title {
+      font-size: 1.35rem;
+    }
+
+    .menu-toggle {
+      position: absolute;
+      display: block;
+      inline-size: 1px;
+      block-size: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .menu-button {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.28rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid var(--theme-border);
+      border-radius: 8px;
+      background: var(--theme-bg);
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 1rem;
+      height: 2px;
+      margin: 0 auto;
+      border-radius: 999px;
+      background: var(--theme-text);
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    .header-content {
+      position: absolute;
+      top: calc(100% + 1px);
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--theme-border);
+      background: var(--theme-bg);
+    }
+
+    .menu-toggle:checked ~ .menu-button span:nth-child(1) {
+      transform: translateY(0.42rem) rotate(45deg);
+    }
+
+    .menu-toggle:checked ~ .menu-button span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle:checked ~ .menu-button span:nth-child(3) {
+      transform: translateY(-0.42rem) rotate(-45deg);
+    }
+
+    .menu-toggle:checked ~ .header-content {
+      display: flex;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.15rem 0;
+      font-size: 0.95rem;
+    }
+
+    .header-actions {
+      justify-content: flex-start;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--theme-border);
+    }
   }
 </style>
