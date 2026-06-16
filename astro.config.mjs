@@ -8,6 +8,13 @@ import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
   site: "https://twil3akine.pages.dev",
+  i18n: {
+    locales: ["ja", "en"],
+    defaultLocale: "ja",
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     mdx({
       remarkPlugins: [remarkMath],
