@@ -1,36 +1,13 @@
 ---
-type Locale = "ja" | "en";
+import { profileLanding } from "@/data/profileLanding";
+import type { Locale } from "@/data/locales";
 
 interface Props {
   locale?: Locale;
 }
 
 const { locale = "ja" } = Astro.props;
-
-const profile = {
-  ja: {
-    ariaLabel: "プロフィール",
-    avatarAlt: "Twil3akine のプロフィール画像",
-    bio: "毎日を貪欲に",
-    locationLabel: "出身",
-    location: "大阪",
-    affiliationLabel: "所属",
-    affiliation: "和歌山大学",
-    researchLabel: "研究内容",
-    research: "CP-SAT / Scheduling",
-  },
-  en: {
-    ariaLabel: "Profile",
-    avatarAlt: "Profile image of Twil3akine",
-    bio: "Stay hungry every day.",
-    locationLabel: "Location",
-    location: "Osaka, Japan",
-    affiliationLabel: "Affiliation",
-    affiliation: "Wakayama Univ.",
-    researchLabel: "Research",
-    research: "CP-SAT / Scheduling",
-  },
-}[locale];
+const profile = profileLanding[locale];
 ---
 
 <section class="landing">
@@ -119,6 +96,25 @@ const profile = {
       </a>
     </div>
   </aside>
+
+  <div class="landing-side" aria-label="Content">
+    {
+      profile.sections.map((section, index) => (
+        <a class="content-link" href={section.href}>
+          <span class="content-number">{String(index + 1).padStart(2, "0")}</span>
+          <span class="content-body">
+            <span class="content-label">{section.label}</span>
+            <strong>{section.title}</strong>
+            <small>{section.description}</small>
+          </span>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M7 17 17 7"></path>
+            <path d="M8 7h9v9"></path>
+          </svg>
+        </a>
+      ))
+    }
+  </div>
 </section>
 
 <style>
@@ -153,16 +149,108 @@ const profile = {
   }
 
   .landing {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: minmax(300px, 360px) minmax(460px, 1fr);
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: stretch;
     width: 100%;
     max-height: 100%;
     padding: 0;
+    transform: translateY(1rem);
   }
 
   .profile-card {
     width: min(100%, 360px);
     margin-block: 0;
+  }
+
+  .landing-side {
+    display: grid;
+    align-content: stretch;
+    grid-template-rows: repeat(3, 1fr);
+    max-width: 640px;
+    min-height: 100%;
+    border-left: 1px solid var(--theme-border);
+    padding-left: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  .content-link {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    min-height: 8.25rem;
+    border-bottom: 1px solid var(--theme-border);
+    color: var(--theme-text);
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .content-link:last-child {
+    border-bottom: 0;
+  }
+
+  .content-number {
+    color: color-mix(in srgb, var(--theme-text), transparent 55%);
+    font-family: var(--theme-font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .content-body {
+    display: grid;
+    gap: 0.32rem;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .content-label {
+    color: var(--theme-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .content-link strong {
+    max-width: 32rem;
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    font-weight: 800;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  .content-link small {
+    max-width: 38rem;
+    color: color-mix(in srgb, var(--theme-text), transparent 35%);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .content-link svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    flex: 0 0 auto;
+    opacity: 0.55;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .content-link:hover {
+    color: var(--theme-accent);
+    transform: translateX(0.15rem);
+  }
+
+  .content-link:hover svg {
+    opacity: 1;
+    transform: translate(0.1rem, -0.1rem);
   }
 
   .profile-avatar {
@@ -271,6 +359,10 @@ const profile = {
   }
 
   @media (max-height: 720px) {
+    .landing {
+      transform: none;
+    }
+
     :global(.layout-container) {
       padding-top: 0.1rem;
       padding-bottom: 0.1rem;
@@ -283,6 +375,19 @@ const profile = {
 
     .profile-avatar {
       width: 12rem;
+    }
+
+    .content-link {
+      min-height: 6.25rem;
+    }
+
+    .content-link strong {
+      font-size: 1.05rem;
+    }
+
+    .content-link small {
+      font-size: 0.76rem;
+      line-height: 1.4;
     }
 
     .profile-heading {
@@ -332,6 +437,7 @@ const profile = {
     .landing {
       display: block;
       min-height: auto;
+      transform: none;
     }
 
     .profile-card {
@@ -352,6 +458,22 @@ const profile = {
 
     .social-links {
       grid-template-columns: 1fr;
+    }
+
+    .landing-side {
+      max-width: none;
+      min-height: 0;
+      grid-template-rows: none;
+      border-left: 0;
+      border-top: 1px solid var(--theme-border);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      padding-left: 0;
+    }
+
+    .content-link {
+      min-height: auto;
+      padding: 1rem 0;
     }
   }
 </style>

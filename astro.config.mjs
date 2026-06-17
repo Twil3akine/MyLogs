@@ -9,7 +9,7 @@ import rehypeKatex from "rehype-katex";
 export default defineConfig({
   site: "https://twil3akine.pages.dev",
   i18n: {
-    locales: ["ja", "en"],
+    locales: ["ja", "en", "el"],
     defaultLocale: "ja",
     routing: {
       prefixDefaultLocale: false,
