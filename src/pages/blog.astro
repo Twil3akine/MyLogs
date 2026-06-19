@@ -1,0 +1,21 @@
+---
+import PostListPage from "@/components/PostListPage.astro";
+import { getCollection } from "astro:content";
+import { isPublishedPost, sortPostsByDateDesc, toPostListItem } from "@/lib/content";
+import Layout from "@/layouts/Layout.astro";
+
+const posts = sortPostsByDateDesc((await getCollection("blog")).filter(isPublishedPost))
+  .map((post) => toPostListItem(post, "/blog"));
+---
+
+<Layout
+  title="Blog | Twil3akine"
+  description="その時に思ったことを包み隠さずに書きます。"
+  lang="ja"
+>
+  <PostListPage
+    title="Blog"
+    description="その時に考えていたこと、作業の記録、まだ記事にするほどではない気づきを置く場所です。"
+    posts={posts}
+  />
+</Layout>

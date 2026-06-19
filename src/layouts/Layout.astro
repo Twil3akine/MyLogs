@@ -20,12 +20,9 @@ interface Props {
   lang?: Locale;
   articleDate?: string;
   type?: "website" | "article";
-  headings?: { depth: number; slug: string; text: string }[];
-  hideTOC?: boolean;
   frontmatter?: {
     title?: string;
     description?: string;
-    hideTOC?: boolean;
   };
 }
 
@@ -36,8 +33,6 @@ const {
   lang = "ja",
   type = "website",
   articleDate,
-  headings = [],
-  hideTOC,
   frontmatter
 } = Astro.props;
 
@@ -49,13 +44,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
 const alternatePath = getAlternateLocalePath(Astro.url.pathname, lang);
 const alternateURL = new URL(alternatePath, Astro.site || Astro.url.origin);
 const showLanguageLink = shouldShowLanguageSwitch(lang);
-const shouldHideTOC = hideTOC || frontmatter?.hideTOC || false;
-const showSidebar = headings.length > 0 && !shouldHideTOC;
 
 const siteTitle = "Twil3akine";
 const localePrefix = getLocalePrefix(lang);
 const navLinks = [
-  { href: `${localePrefix}/about`, label: "Profile" },
+  { href: `${localePrefix}/profile`, label: "Profile" },
   { href: `${localePrefix}/article`, label: "Article" },
   { href: `${localePrefix}/blog`, label: "Blog" },
 ];

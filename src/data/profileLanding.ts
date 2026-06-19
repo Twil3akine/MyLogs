@@ -36,7 +36,7 @@ export const profileLanding = {
         label: "Profile",
         title: "私について",
         description: "所属や関心、普段触っているものをまとめてます。",
-        href: "/about",
+        href: "/profile",
       },
       {
         label: "Article",

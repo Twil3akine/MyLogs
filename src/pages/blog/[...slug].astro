@@ -1,0 +1,41 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import MarkdownPage from "@/components/MarkdownPage.astro";
+import Marker from "@/components/Marker.astro";
+import Tag from "@/components/Tag.astro";
+import { getSlugPath, isPublishedPost } from "@/lib/content";
+import Layout from "@/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog")).filter(isPublishedPost);
+
+  return posts.map((post) => ({
+    params: { slug: getSlugPath(post.id) },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<Layout
+  title={`${post.data.title} | Twil3akine`}
+  description={post.data.description}
+  lang="ja"
+  type="article"
+  articleDate={post.data.date.toISOString()}
+>
+  <MarkdownPage
+    title={post.data.title}
+    date={post.data.date}
+    tags={post.data.tags}
+    headings={headings}
+  >
+    <Content components={{ Marker, Tag }} />
+  </MarkdownPage>
+</Layout>
