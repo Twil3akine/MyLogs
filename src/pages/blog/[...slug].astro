@@ -3,23 +3,31 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import MarkdownPage from "@/components/MarkdownPage.astro";
 import Marker from "@/components/Marker.astro";
 import Tag from "@/components/Tag.astro";
-import { getSlugPath, isPublishedPost } from "@/lib/content";
+import {
+  getLocalizedSlugPath,
+  hasPostTranslation,
+  isPostLocale,
+  isPublishedPost,
+} from "@/lib/content";
 import Layout from "@/layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).filter(isPublishedPost);
 
-  return posts.map((post) => ({
-    params: { slug: getSlugPath(post.id) },
-    props: { post },
-  }));
+  return posts
+    .filter((post) => isPostLocale(post, "ja"))
+    .map((post) => ({
+      params: { slug: getLocalizedSlugPath(post) },
+      props: { post, hasTranslation: hasPostTranslation(posts, post) },
+    }));
 }
 
 interface Props {
   post: CollectionEntry<"blog">;
+  hasTranslation: boolean;
 }
 
-const { post } = Astro.props;
+const { post, hasTranslation } = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
@@ -29,6 +37,7 @@ const { Content, headings } = await render(post);
   lang="ja"
   type="article"
   articleDate={post.data.date.toISOString()}
+  alternatePath={hasTranslation ? undefined : null}
 >
   <MarkdownPage
     title={post.data.title}

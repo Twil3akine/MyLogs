@@ -21,6 +21,7 @@ interface Props {
   lang?: Locale;
   articleDate?: string;
   type?: "website" | "article";
+  alternatePath?: string | null;
   frontmatter?: {
     title?: string;
     description?: string;
@@ -34,6 +35,7 @@ const {
   lang = "ja",
   type = "website",
   articleDate,
+  alternatePath: alternatePathProp,
   frontmatter
 } = Astro.props;
 
@@ -42,9 +44,13 @@ const fallbackDescription = fallbackDescriptions[lang];
 const pageDescription = description || frontmatter?.description || fallbackDescription;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
-const alternatePath = getAlternateLocalePath(Astro.url.pathname, lang);
-const alternateURL = new URL(alternatePath, Astro.site || Astro.url.origin);
-const showLanguageLink = shouldShowLanguageSwitch(lang);
+const alternatePath = alternatePathProp === undefined
+  ? getAlternateLocalePath(Astro.url.pathname, lang)
+  : alternatePathProp;
+const alternateURL = alternatePath
+  ? new URL(alternatePath, Astro.site || Astro.url.origin)
+  : null;
+const showLanguageLink = shouldShowLanguageSwitch(lang) && alternatePath !== null;
 
 const siteTitle = "Twil3akine";
 const localePrefix = getLocalePrefix(lang);
@@ -63,7 +69,7 @@ const navLinks = [
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonicalURL} />
-    {showLanguageLink && <link rel="alternate" hreflang={lang === "en" ? "ja" : "en"} href={alternateURL} />}
+    {showLanguageLink && alternateURL && <link rel="alternate" hreflang={lang === "en" ? "ja" : "en"} href={alternateURL} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -157,7 +163,7 @@ const navLinks = [
               aria-label={lang === "en" ? "日本語版へ" : "English version"}
               class="language-link"
             >
-              {lang === "en" ? "EN" : "JA"}
+              {lang === "en" ? "JA" : "EN"}
             </a>
           )
         }

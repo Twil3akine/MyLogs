@@ -11,20 +11,19 @@ import Layout from "@/layouts/Layout.astro";
 
 const posts = sortPostsByDateDesc(
   (await getCollection("blog")).filter(
-    (post) => isPublishedPost(post) && isPostLocale(post, "ja"),
+    (post) => isPublishedPost(post) && isPostLocale(post, "en"),
   ),
-)
-  .map((post) => toPostListItem(post, "/blog"));
+).map((post) => toPostListItem(post, "/en/blog"));
 ---
 
 <Layout
   title="Blog | Twil3akine"
-  description="その時に思ったことを包み隠さずに書きます。"
-  lang="ja"
+  description="Notes about current thoughts, work in progress, and everyday discoveries."
+  lang="en"
 >
   <PostListPage
     title="Blog"
-    description="その時に考えていたこと、作業の記録、まだ記事にするほどではない気づきを置く場所です。"
+    description="A place for current thoughts, work logs, and discoveries that are not yet full articles."
     posts={posts}
   />
 </Layout>
