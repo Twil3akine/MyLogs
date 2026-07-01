@@ -10,6 +10,9 @@ interface Props {
 }
 
 const { title, description, posts } = Astro.props;
+const allTags = Array.from(new Set(posts.flatMap((post) => post.tags))).sort((a, b) =>
+  a.localeCompare(b),
+);
 ---
 
 <section class="post-list-page" data-post-list-page>
@@ -22,6 +25,16 @@ const { title, description, posts } = Astro.props;
     <span data-filter-label></span>
     <button type="button" data-filter-clear>Clear</button>
   </div>
+
+  {
+    allTags.length > 0 && (
+      <div class="tag-filter" aria-label="Tags">
+        {allTags.map((tag) => (
+          <Tag as="button" type="button" data-filter-tag={tag}>{tag}</Tag>
+        ))}
+      </div>
+    )
+  }
 
   <div class="post-list">
     {
@@ -132,6 +145,13 @@ const { title, description, posts } = Astro.props;
     cursor: pointer;
     font: inherit;
     padding: 0;
+  }
+
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: -0.8rem 0 1.6rem;
   }
 
   .post-list {
