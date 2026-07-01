@@ -34,7 +34,7 @@ const visibleHeadings = getVisibleHeadings(headings);
         tags.length > 0 && (
           <div class="markdown-tags" aria-label="Tags">
             {tags.map((tag) => (
-              <Tag>{tag}</Tag>
+              <Tag as="button" type="button">{tag}</Tag>
             ))}
           </div>
         )
