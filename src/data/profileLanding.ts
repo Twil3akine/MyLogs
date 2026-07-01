@@ -67,7 +67,7 @@ export const profileLanding = {
         label: "Profile",
         title: "About me",
         description: "A short overview of my affiliation, interests, and tools I use.",
-        href: "/en/about",
+        href: "/en/profile",
       },
       {
         label: "Article",

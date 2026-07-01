@@ -3,10 +3,12 @@ import { getCollection, render } from "astro:content";
 import MarkdownPage from "@/components/MarkdownPage.astro";
 import Layout from "@/layouts/Layout.astro";
 
-const profile = (await getCollection("profile")).find((entry) => entry.id === "index");
+const profile = (await getCollection("profile")).find((entry) =>
+  entry.filePath?.match(/\.ja\.mdx?$/),
+);
 
 if (!profile) {
-  throw new Error("src/content/profile/index.mdx is required.");
+  throw new Error("src/content/profile/index.ja.mdx is required.");
 }
 
 const { Content, headings } = await render(profile);
