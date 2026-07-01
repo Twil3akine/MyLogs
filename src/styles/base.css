@@ -16,12 +16,10 @@
   --theme-danger: #ef4444;
   --theme-danger-bg: rgba(239, 68, 68, 0.08);
 
-  --theme-font-sans:
-    system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans",
-    "Noto Sans JP", sans-serif;
-  --theme-font-mono:
-    "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --theme-font-sans: system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --theme-font-mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
 
   --font-size-site-title: 1.4rem;
   --font-size-profile-name: 1.75rem;
