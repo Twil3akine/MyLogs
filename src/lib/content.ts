@@ -35,6 +35,12 @@ export function getSlugPath(id: string) {
 }
 
 export function getPostLocale(post: PostLike): PostLocale {
+  const directoryLocale = post.filePath?.match(/(?:^|\/)(ja|en)\//)?.[1];
+
+  if (directoryLocale === "ja" || directoryLocale === "en") {
+    return directoryLocale;
+  }
+
   if (post.filePath?.match(/\.en\.mdx?$/)) {
     return "en";
   }
@@ -43,8 +49,14 @@ export function getPostLocale(post: PostLike): PostLocale {
 }
 
 export function getLocalizedSlugPath(post: PostLike) {
-  const suffix = post.filePath?.match(/\.(ja|en)\.mdx?$/)?.[1];
   const slug = getSlugPath(post.id);
+  const directorySlug = slug.replace(/^(ja|en)\//, "");
+
+  if (directorySlug !== slug) {
+    return directorySlug;
+  }
+
+  const suffix = post.filePath?.match(/\.(ja|en)\.mdx?$/)?.[1];
 
   return suffix ? slug.replace(new RegExp(`${suffix}$`), "") : slug;
 }
