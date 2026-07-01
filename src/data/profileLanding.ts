@@ -83,38 +83,4 @@ export const profileLanding = {
       },
     ],
   },
-  el: {
-    ariaLabel: "Προφίλ",
-    avatarAlt: "Εικόνα προφίλ του Twil3akine",
-    bio: "Άπληστα, κάθε μέρα.",
-    locationLabel: "Τοποθεσία",
-    location: "Οσάκα, Ιαπωνία",
-    affiliationLabel: "Ίδρυμα",
-    affiliation: "Παν. Wakayama",
-    researchLabel: "Έρευνα",
-    research: "CP-SAT / Scheduling",
-    sections: [
-      {
-        label: "Profile",
-        title: "Σχετικά με εμένα",
-        description:
-          "Μια σύντομη σύνοψη για το υπόβαθρο, τα ενδιαφέροντα και τα εργαλεία μου.",
-        href: "/el/about",
-      },
-      {
-        label: "Article",
-        title: "Τεχνικά άρθρα",
-        description:
-          "Μεγαλύτερες σημειώσεις για προγραμματισμό, ανάπτυξη και όσα μαθαίνω.",
-        href: "/el/article",
-      },
-      {
-        label: "Blog",
-        title: "Καθημερινά logs",
-        description:
-          "Ειλικρινείς σημειώσεις για όσα σκεφτόμουν εκείνη τη στιγμή.",
-        href: "/el/blog",
-      },
-    ],
-  },
 } satisfies Record<Locale, ProfileLandingContent>;
