@@ -6,9 +6,7 @@ interface Props {
 const { type = "info" } = Astro.props;
 ---
 
-<mark class={`marker ${type}`}>
-  <slot />
-</mark>
+<mark class={`marker ${type}`}><slot /></mark>
 
 <style>
   .marker {
