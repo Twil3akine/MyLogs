@@ -47,6 +47,28 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
   </div>
 </header>
 
+<script>
+  document.addEventListener("pointerdown", (event) => {
+    const menuToggle = document.querySelector<HTMLInputElement>("#header-menu-toggle");
+    const menuButton = document.querySelector<HTMLElement>(".menu-button");
+    const menuContent = document.querySelector<HTMLElement>(".header-content");
+    const target = event.target;
+
+    if (
+      !menuToggle?.checked ||
+      !menuButton ||
+      !menuContent ||
+      !(target instanceof Node)
+    ) {
+      return;
+    }
+
+    if (!menuButton.contains(target) && !menuContent.contains(target)) {
+      menuToggle.checked = false;
+    }
+  });
+</script>
+
 <style>
   .header {
     position: sticky;
