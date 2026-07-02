@@ -30,7 +30,7 @@ export const profileLanding = {
     affiliationLabel: "所属",
     affiliation: "和歌山大学",
     researchLabel: "研究内容",
-    research: "CP-SAT / Scheduling",
+    research: "SAT / Scheduling",
     sections: [
       {
         label: "Profile",
@@ -61,7 +61,7 @@ export const profileLanding = {
     affiliationLabel: "Affiliation",
     affiliation: "Wakayama Univ.",
     researchLabel: "Research",
-    research: "CP-SAT / Scheduling",
+    research: "SAT / Scheduling",
     sections: [
       {
         label: "Profile",
