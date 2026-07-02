@@ -1,0 +1,29 @@
+---
+export interface Props {
+  columns?: number;
+}
+const { columns = 3 } = Astro.props;
+---
+
+<ul class="ravin-grid" style={`--grid-cols: ${columns};`}>
+  <slot />
+</ul>
+
+<style>
+  .ravin-grid {
+    display: grid;
+    /* propsで指定された列数（デフォルト3）で等幅に分割します */
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .ravin-grid {
+      /* スマホ等では要素が多すぎる場合に折り返せるよう、auto-fillと最小幅を指定 */
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+</style>
