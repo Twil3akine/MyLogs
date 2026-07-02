@@ -1,0 +1,55 @@
+---
+interface Props {
+  href?: string;
+  as?: "span" | "button";
+  class?: string;
+  type?: "button";
+  [key: string]: unknown;
+}
+
+const { href, as, class: className, ...attrs } = Astro.props;
+const Element = href ? "a" : as === "button" ? "button" : "span";
+---
+
+<Element href={href} class:list={["tag", className]} {...attrs}>
+  <span class="hash">#</span>
+  <slot />
+</Element>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    border: 1px solid var(--theme-border);
+    border-radius: 999px;
+    background-color: transparent;
+    color: var(--theme-text);
+    font-size: 0.92rem;
+    line-height: 1.35;
+    padding: 0.2rem 0.6rem;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  button.tag {
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .hash {
+    color: var(--theme-accent);
+    opacity: 0.8;
+  }
+
+  a.tag:hover,
+  button.tag:hover,
+  button.tag[aria-pressed="true"] {
+    border-color: var(--theme-accent);
+    background-color: var(--theme-accent-bg);
+    color: var(--theme-accent);
+  }
+</style>

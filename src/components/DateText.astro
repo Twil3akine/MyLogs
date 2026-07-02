@@ -1,0 +1,35 @@
+---
+interface Props {
+  date: Date;
+  size?: "default" | "large";
+  class?: string;
+}
+
+const { date, size = "default", class: className } = Astro.props;
+const formattedDate = [
+  date.getFullYear(),
+  String(date.getMonth() + 1).padStart(2, "0"),
+  String(date.getDate()).padStart(2, "0"),
+].join("/");
+---
+
+<time datetime={date.toISOString()} class:list={["date-text", `date-text-${size}`, className]}>
+  {formattedDate}
+</time>
+
+<style>
+  .date-text {
+    display: block;
+    color: color-mix(in srgb, var(--theme-text), transparent 42%);
+    font-family: var(--theme-font-mono);
+    font-weight: 700;
+  }
+
+  .date-text-default {
+    font-size: 1rem;
+  }
+
+  .date-text-large {
+    font-size: var(--font-size-date-large);
+  }
+</style>

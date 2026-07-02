@@ -1,0 +1,29 @@
+---
+import PostListPage from "@/components/PostListPage.astro";
+import { getCollection } from "astro:content";
+import {
+  isPostLocale,
+  isPublishedPost,
+  sortPostsByDateDesc,
+  toPostListItem,
+} from "@/lib/content";
+import Layout from "@/layouts/Layout.astro";
+
+const posts = sortPostsByDateDesc(
+  (await getCollection("blog")).filter(
+    (post) => isPublishedPost(post) && isPostLocale(post, "en"),
+  ),
+).map((post) => toPostListItem(post, "/en/blog"));
+---
+
+<Layout
+  title="Blog | Twil3akine"
+  description="Notes about current thoughts, work in progress, and everyday discoveries."
+  lang="en"
+>
+  <PostListPage
+    title="Blog"
+    description="A place for current thoughts, work logs, and discoveries that are not yet full articles."
+    posts={posts}
+  />
+</Layout>

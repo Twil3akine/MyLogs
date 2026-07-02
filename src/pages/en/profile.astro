@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from "astro:content";
+import MarkdownPage from "@/components/MarkdownPage.astro";
+import Layout from "@/layouts/Layout.astro";
+
+const profile = (await getCollection("profile")).find((entry) =>
+  entry.filePath?.match(/\.en\.mdx?$/),
+);
+
+if (!profile) {
+  throw new Error("src/content/profile/index.en.mdx is required.");
+}
+
+const { Content, headings } = await render(profile);
+---
+
+<Layout title={`${profile.data.title} | Twil3akine`} description={profile.data.description} lang="en">
+  <MarkdownPage
+    title={profile.data.title}
+    lead={profile.data.lead}
+    headings={headings}
+    variant="profile"
+  >
+    <Content />
+  </MarkdownPage>
+</Layout>

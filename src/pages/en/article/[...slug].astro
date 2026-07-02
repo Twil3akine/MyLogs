@@ -1,0 +1,50 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import MarkdownPage from "@/components/MarkdownPage.astro";
+import Marker from "@/components/Marker.astro";
+import Tag from "@/components/Tag.astro";
+import {
+  getLocalizedSlugPath,
+  hasPostTranslation,
+  isPostLocale,
+  isPublishedPost,
+} from "@/lib/content";
+import Layout from "@/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("article")).filter(isPublishedPost);
+
+  return posts
+    .filter((post) => isPostLocale(post, "en"))
+    .map((post) => ({
+      params: { slug: getLocalizedSlugPath(post) },
+      props: { post, hasTranslation: hasPostTranslation(posts, post) },
+    }));
+}
+
+interface Props {
+  post: CollectionEntry<"article">;
+  hasTranslation: boolean;
+}
+
+const { post, hasTranslation } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<Layout
+  title={`${post.data.title} | Twil3akine`}
+  description={post.data.description}
+  lang="en"
+  type="article"
+  articleDate={post.data.date.toISOString()}
+  alternatePath={hasTranslation ? undefined : null}
+>
+  <MarkdownPage
+    title={post.data.title}
+    date={post.data.date}
+    tags={post.data.tags}
+    headings={headings}
+  >
+    <Content components={{ Marker, Tag }} />
+  </MarkdownPage>
+</Layout>

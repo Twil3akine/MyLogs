@@ -1,0 +1,230 @@
+---
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
+export interface Props {
+  siteTitle?: string;
+  navLinks?: NavLink[];
+}
+
+const { siteTitle = "", navLinks = [] } = Astro.props;
+---
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <a href="/" class="site-title">{siteTitle}<span class="accent">.</span></a>
+    </div>
+
+    <input class="menu-toggle" id="header-menu-toggle" type="checkbox" />
+    <label class="menu-button" for="header-menu-toggle" aria-label="メニューを開閉">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="header-content">
+      <nav class="nav">
+        <ul class="nav-list">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a href={link.href} class="nav-link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener("pointerdown", (event) => {
+    const menuToggle = document.querySelector<HTMLInputElement>("#header-menu-toggle");
+    const menuButton = document.querySelector<HTMLElement>(".menu-button");
+    const menuContent = document.querySelector<HTMLElement>(".header-content");
+    const target = event.target;
+
+    if (
+      !menuToggle?.checked ||
+      !menuButton ||
+      !menuContent ||
+      !(target instanceof Node)
+    ) {
+      return;
+    }
+
+    if (!menuButton.contains(target) && !menuContent.contains(target)) {
+      menuToggle.checked = false;
+    }
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--theme-border);
+    background-color: var(--theme-bg);
+  }
+  .header-inner {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 4rem;
+    width: 100%;
+    padding: 0.75rem 2rem;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .site-title {
+    font-size: var(--font-size-site-title);
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--theme-text);
+    letter-spacing: -0.02em;
+  }
+  .site-title .accent {
+    color: var(--theme-accent);
+  }
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .nav-list {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: var(--theme-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover {
+    color: var(--theme-accent); /* アクセントカラーに変更 */
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  /* スロットで渡されたリンク（アイコン等）のスタイルとホバー設定 */
+  .header-actions :global(a) {
+    color: var(--theme-text-muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+  .header-actions :global(a:hover) {
+    color: var(--theme-accent); /* アクセントカラーに変更 */
+  }
+
+  .menu-toggle,
+  .menu-button {
+    display: none;
+  }
+
+  @media (max-width: 576px) {
+    .menu-toggle {
+      position: absolute;
+      display: block;
+      inline-size: 1px;
+      block-size: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .menu-button {
+      display: inline-flex;
+      box-sizing: border-box;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.28rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid var(--theme-border);
+      border-radius: 8px;
+      background: var(--theme-bg);
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 1rem;
+      height: 2px;
+      margin: 0 auto;
+      border-radius: 999px;
+      background: var(--theme-text);
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    .header-content {
+      position: absolute;
+      top: calc(100% + 1px);
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--theme-border);
+      background: var(--theme-bg);
+    }
+
+    .menu-toggle:checked ~ .menu-button span:nth-child(1) {
+      transform: translateY(0.42rem) rotate(45deg);
+    }
+
+    .menu-toggle:checked ~ .menu-button span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle:checked ~ .menu-button span:nth-child(3) {
+      transform: translateY(-0.42rem) rotate(-45deg);
+    }
+
+    .menu-toggle:checked ~ .header-content {
+      display: flex;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.15rem 0;
+      font-size: 0.95rem;
+    }
+
+    .header-actions {
+      justify-content: flex-start;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--theme-border);
+    }
+  }
+</style>

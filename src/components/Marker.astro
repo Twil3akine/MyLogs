@@ -1,0 +1,51 @@
+---
+interface Props {
+  type?: "info" | "success" | "warning" | "danger";
+}
+
+const { type = "info" } = Astro.props;
+---
+
+<mark class={`marker ${type}`}><slot /></mark>
+
+<style>
+  .marker {
+    border-radius: 2px;
+    background-color: transparent;
+    color: inherit;
+    font-weight: 600;
+    padding: 0 0.2em;
+  }
+
+  .info {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--theme-info) 40%, transparent) 40%,
+      transparent 40%
+    );
+  }
+
+  .success {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--theme-success) 40%, transparent) 40%,
+      transparent 40%
+    );
+  }
+
+  .warning {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--theme-warning) 40%, transparent) 40%,
+      transparent 40%
+    );
+  }
+
+  .danger {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--theme-danger) 40%, transparent) 40%,
+      transparent 40%
+    );
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+import DateText from "@/components/DateText.astro";
+import Tag from "@/components/Tag.astro";
+import TOC from "@/components/TOC.svelte";
+import { getVisibleHeadings, type MarkdownHeading } from "@/lib/content";
+
+interface Props {
+  title: string;
+  lead?: string;
+  date?: Date;
+  tags?: string[];
+  headings: MarkdownHeading[];
+  variant?: "article" | "profile";
+}
+
+const {
+  title,
+  lead,
+  date,
+  tags = [],
+  headings,
+  variant = "article",
+} = Astro.props;
+const visibleHeadings = getVisibleHeadings(headings);
+---
+
+<div class:list={["markdown-shell", `markdown-shell-${variant}`]}>
+  <article class="markdown-content">
+    <header>
+      <h1>{title}</h1>
+      {lead && <p class="markdown-lead">{lead}</p>}
+      {date && <DateText date={date} size="large" class="markdown-date" />}
+      {
+        tags.length > 0 && (
+          <div class="markdown-tags" aria-label="Tags">
+            {tags.map((tag) => (
+              <Tag as="button" type="button">{tag}</Tag>
+            ))}
+          </div>
+        )
+      }
+    </header>
+    <slot />
+  </article>
+
+  {
+    visibleHeadings.length > 0 && (
+      <aside class="markdown-toc">
+        <TOC headings={visibleHeadings} client:load />
+      </aside>
+    )
+  }
+</div>
+
+<style>
+  .markdown-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 768px) minmax(10rem, 14rem);
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: start;
+    width: min(100%, 1040px);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 7vw, 5rem) 0;
+  }
+
+  :global(main.main-content) {
+    max-width: none;
+    width: 100%;
+  }
+
+  .markdown-content {
+    min-width: 0;
+  }
+
+  .markdown-content header {
+    margin-bottom: 2.5rem;
+  }
+
+  .markdown-content h1 {
+    margin: 0;
+    font-size: var(--font-size-page-title);
+    line-height: 1.15;
+  }
+
+  .markdown-lead {
+    margin: 1.2rem 0 0;
+    color: color-mix(in srgb, var(--theme-text), transparent 22%);
+    font-size: var(--font-size-body-large);
+    line-height: 1.9;
+  }
+
+  .markdown-content :global(.markdown-date) {
+    margin-top: 1rem;
+  }
+
+  .markdown-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1rem;
+  }
+
+  .markdown-content :global(h2) {
+    margin-top: 2.4rem;
+  }
+
+  .markdown-shell-profile .markdown-content :global(h2) {
+    margin: 2.5rem 0 0.85rem;
+    padding-bottom: 0.35rem;
+    font-size: var(--font-size-section-title);
+    line-height: 1.35;
+  }
+
+  .markdown-shell-profile .markdown-content header + :global(h2) {
+    margin-top: 0;
+  }
+
+  .markdown-shell-profile .markdown-content :global(h2 + p) {
+    margin-top: 0.85rem;
+  }
+
+  .markdown-shell-profile .markdown-content > :global(p) {
+    margin: 0 0 1.1rem;
+    color: color-mix(in srgb, var(--theme-text), transparent 10%);
+    line-height: 2;
+  }
+
+  .markdown-toc {
+    position: sticky;
+    top: 5.5rem;
+    border-left: 1px solid var(--theme-border);
+    padding-left: 1rem;
+  }
+
+  @media (max-width: 960px) {
+    .markdown-shell {
+      display: block;
+      width: 100%;
+    }
+
+    .markdown-toc {
+      display: none;
+    }
+  }
+
+  @media (max-width: 512px) {
+    .markdown-shell {
+      padding: 2rem 0 3rem;
+    }
+
+    .markdown-content header {
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>

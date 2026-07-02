@@ -1,0 +1,29 @@
+---
+import PostListPage from "@/components/PostListPage.astro";
+import { getCollection } from "astro:content";
+import {
+  isPostLocale,
+  isPublishedPost,
+  sortPostsByDateDesc,
+  toPostListItem,
+} from "@/lib/content";
+import Layout from "@/layouts/Layout.astro";
+
+const posts = sortPostsByDateDesc(
+  (await getCollection("article")).filter(
+    (post) => isPublishedPost(post) && isPostLocale(post, "en"),
+  ),
+).map((post) => toPostListItem(post, "/en/article"));
+---
+
+<Layout
+  title="Article | Twil3akine"
+  description="Technical articles about competitive programming, development, and lessons learned."
+  lang="en"
+>
+  <PostListPage
+    title="Article"
+    description="Technical notes about competitive programming, development, and things I have learned."
+    posts={posts}
+  />
+</Layout>

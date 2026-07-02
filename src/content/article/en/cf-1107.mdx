@@ -1,0 +1,74 @@
+---
+title: Codeforces Round 1107 (Div. 3) Participation Report
+description: "Regarding Codeforces Round 1107"
+date: 2026-06-30
+tags:
+  - Codeforces
+---
+
+import Marker from "@/components/Marker.astro";
+
+It's me.
+
+I participated in Codeforces Round 1107 (Div. 3). I solved 4 problems. It feels like I might be able to reach green rank in about two more rounds. Maybe if I can pull off a quick 2-solve in Div. 2, I could even hit green in the next one?
+
+I coded problems A through C on my PC, and from the middle of D, I was coding on my smartphone in bed.
+
+---
+
+### Problem A [Divide and Conquer](https://codeforces.com/contest/2241/problem/A)
+
+It's written in a somewhat complicated way, but basically, it's just `x % y == 0 ? "Yes" : "No"`. That's all.
+
+---
+
+### Problem B [Good times Good times](https://codeforces.com/contest/2241/problem/B)
+
+I **don't know** how you're supposed to think about this if you tackle it too seriously, but if you concatenate the same string to the end, a good number remains a good number, right? This means if the number of digits in $x$ is $a$, then $y = 10^a + 1$. Is the fact that this came to me intuitively a sign of growth?
+
+---
+
+### Problem C [RemovevomeR](https://codeforces.com/contest/2241/problem/C)
+Initially, I thought that greedily erasing from the inside might work, but that wasn't the case at all. I realized there are cases where you erase the outside to move towards an ABA shape, so I dismissed that idea...
+
+Let's do some experiments.
+
+Obviously, the answer is $1$ if there is only $0$s or $1$s.
+
+First, if the blocks of $0$s and $1$s are completely separated ($ex. \; 1110000$), the answer is $2$.
+
+Next, if one block of $0$s or $1$s is sandwiched by the other ($ex. \; 1110001$), the answer is $1$.
+
+After this ($ex. \; 110010, \; 11001001$), the answer remains $1$ in the same way. (In the case of $110010$, the image is that you keep erasing $1$s and eventually $0$s remain.)
+
+In short, **if the bits flip exactly once, the answer is $2$; otherwise, it is $1$**.
+
+---
+
+### Problem D [An Alternative Way](https://codeforces.com/contest/2241/problem/D)
+
+I don't mean to be rude, but I really want to complain—is it just that my English or reading comprehension is poor? Didn't the problem statement seem incredibly hard to read? Well, putting that aside.
+
+To summarize the problem, you perform the following operation on array $A$ any number of times:
+
+1. Choose a range $[l, r] \; (1 \le l \le r \le N)$.
+2. For all $i \; (l \le i \le r)$, update $A[i]$ as follows:
+
+   - If $i$ is even, $A[i] \mathrel{+}= 1$
+   - If $i$ is odd, $A[i] \mathrel{-}= 1$
+
+The question is whether you can eventually make $A = B$.
+
+- Since $l \le r$, it is possible to keep adding $1$ to any single element. From this, if $A[i] \le B[i] \; (1 \le i \le N)$, the answer is always `Yes`.
+
+- A single operation can only result in a change of $\pm 0$ or $+1$ relative to the entire array $A$.
+
+Based on these, if it satisfies $$\sum\limits_{i=1}^{N} \; A[i] - B[i] \; \ge \; 0$$, the answer is `Yes`.
+
+---
+
+I fell asleep at this point, so I couldn't solve Problem E or beyond.
+
+As usual, I keep getting <Marker type="warning">CE</Marker> because I forget to comment out `itertools`. I really need to stop doing that, but while shifting the blame and thinking it's the environment's fault for not having it, I'll plan to participate in CF again.
+
+See you.
