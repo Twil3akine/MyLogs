@@ -1,0 +1,57 @@
+---
+title: Codeforces Round 1103 (Div. 3) Participation Review
+description: "About of Codeforces Round 1103"
+date: 2026-06-11
+tags:
+  - Codeforces
+---
+
+I participated in Codeforces Round 1103 (Div. 3).
+Since I wanted to go to bed shortly after 1:00 AM, I only participated for part of the contest.
+As a result, I was able to solve three problems, from A to C.
+
+---
+
+### Problem A [Games on the Train](https://codeforces.com/contest/2236/problem/A)
+
+Since at least one block must be added to each tower, the final height must be at least $h_{max} + 1$.
+
+Therefore, the answer is the number of blocks required to make $h_{min}$ reach $h_{max} + 1$.
+
+---
+
+### Problem B [Tatar TV Show](https://codeforces.com/contest/2236/problem/B)
+
+When performing the operation, the following three patterns are possible:
+
+1. $00 \to 11$: the number of 1s increases by 2.
+2. $11 \to 00$: the number of 1s decreases by 2.
+3. $01 \to 10$, $10 \to 01$: the number of 1s does not change.
+
+From this, we can see that no matter which operation is performed, the parity of the number of 1s does not change.
+Therefore, the total number of 1s must be even.
+
+However, this condition alone is not enough to solve the problem.
+This is because the operation can only be performed on a position and the position exactly $k$ away from it.
+
+In other words, for each $i \bmod k$ group, it is necessary and sufficient that the total number of 1s is even.
+
+---
+
+### Problem C [Omsk Programmers](https://codeforces.com/contest/2236/problem/C)
+
+I felt that operation 2 was more powerful than operation 1.
+
+Since $a, b \le 10^9$ and $10^9 < 2^{30}$, each value can be reduced to 0 in at most about 30 division operations.
+
+Therefore, we can record all values obtained by repeatedly dividing $a$ and $b$ until they reach 0, and then brute-force all combinations to find the minimum number of operations needed to make them equal.
+
+---
+
+I could not solve Problem D and beyond.
+
+Usually, I solve problems on [AtCoder](https://atcoder.jp/), but since the `itertools` crate is not available by default on Codeforces, I struggled with many compilation errors.
+
+It was fun, so I intend to participate from time to time.
+
+Thank you for reading.
