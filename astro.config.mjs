@@ -8,6 +8,11 @@ import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
   site: "https://twil3akine.pages.dev",
+  trailingSlash: "always",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
   i18n: {
     locales: ["ja", "en"],
     defaultLocale: "ja",
