@@ -92,6 +92,6 @@ export function toPostListItem(
     description: post.data.description,
     date: post.data.date,
     tags: post.data.tags,
-    href: `${basePath}/${getLocalizedSlugPath(post)}`,
+    href: `${basePath}/${getLocalizedSlugPath(post)}/`,
   };
 }
