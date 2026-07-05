@@ -2,12 +2,13 @@
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "node:url";
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
 export default defineConfig({
-  site: "https://twil3akine.pages.dev",
+  site: "https://twil3akine.org",
   trailingSlash: "always",
   prefetch: {
     prefetchAll: true,
@@ -21,6 +22,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    sitemap(),
     mdx({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex],
