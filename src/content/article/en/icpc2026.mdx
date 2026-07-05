@@ -1,0 +1,125 @@
+---
+title: "ICPC 2026 Domestic Qualifiers Participation Report"
+description: "Participation report and problem analysis for the ICPC 2026 Domestic Qualifiers"
+date: 2026-07-04
+tags:
+  - ICPC
+---
+
+import Marker from "@/components/Marker.astro";
+import LinkCard from "@/components/LinkCard.astro";
+import Image from "@/components/Image.astro";
+import resultImage from "@/assets/ICPC2026_Result.png";
+
+## Introduction
+
+It's me.
+
+On July 3rd, I participated in the ICPC Domestic Qualifiers as part of team `WaSanBon` ([Twil3akine](https://atcoder.jp/users/Twil3), [Caffeineholic](https://atcoder.jp/users/caffeineholic), [Akagi_Shrine](https://atcoder.jp/users/akagi_shrine)).
+
+### Related Links
+
+- Standings
+
+<LinkCard href="https://icpcsec.firebaseapp.com/standings/" />
+
+- Problem List
+
+<LinkCard href="https://storage.googleapis.com/files.icpc.jp/domestic2026/problems_ja.pdf" />
+
+To get straight to the point, we <Marker type="danger">solved only two problems, A and B</Marker>. I have **absolutely** no intention of insulting my teammates (in fact, I am full of gratitude toward them), but personally, this was truly a disgrace.
+
+I feel so pathetic that I'm at a total loss for words. I feel like I could spend a whole day talking about "what if I had done this" or "if only I had done that."
+
+<Image
+  src={resultImage}
+  alt="Results of team WaSanBon in the ICPC 2026 Domestic Qualifiers"
+  description="Results of team WaSanBon in the ICPC 2026 Domestic Qualifiers"
+/>
+
+I acted as the general consultant for the team and was responsible for analyzing problems C and E.
+
+If I were better at implementation, I would have wanted to implement everything myself... I'm truly frustrated.
+
+## Problem A: "Find the Strongest Card"
+
+The task is to output the **strongest** card for a game of Daifugo from a given set of cards.
+
+Letting the number on the card be $x$, I defined the value $f(x)$ used for comparing strength as follows:
+
+$$
+f(x) =
+\begin{cases}
+x + 13 & (x \in \{1, 2\}) \\
+x & (3 \le x \le 13)
+\end{cases}
+$$
+
+I selected the card that maximizes $f(x)$ and output its original number. In the implementation, if the maximum value was $14$ or higher, I subtracted $13$; otherwise, I output it as is.
+
+After the contest, I heard a solution that suggested "if 1 or 2 is present, output the stronger of the two; otherwise, output the maximum value," and I thought that was quite clever.
+
+## Problem B: "Vending Machine"
+
+By placing a vending machine, you can cover doors within distance $d$ from the installation point. The goal is to find the minimum number of vending machines required to cover all doors.
+
+Initially, I misread the problem, thinking that "a vending machine must be placed between every single pair of doors," which caused a bit of a time loss.
+
+Let the positions of the doors in ascending order be $x_0, x_1, \ldots, x_{n-1}$. If the leftmost door not yet covered is $x_i$, placing a vending machine at $x_i+d$ allows us to cover up to the right edge at $x_i+2d$.
+
+Therefore, it can be solved using the following greedy approach:
+
+1. Set $i=0$ and the answer to $0$.
+2. Using $x_i$ as the left edge, place a vending machine at $x_i+d$.
+3. Skip all doors $x_j$ that satisfy $x_j \le x_i+2d$.
+4. Increment the answer by $1$, and if there are unprocessed doors, return to step 2.
+
+I'm glad I was able to move to the correct strategy quickly once I realized my misreading.
+
+## Problem C: "Water Remaining"
+
+My poor reading comprehension skills were on full display here, and I couldn't understand the problem statement at all. After racking my brain, my thoughts got locked into the idea that "some kind of convexity must be involved."
+
+After the contest, I talked to members of other teams and found out that it could be solved simply by performing a process once from the left and once from the right: "looking from above, remove water from each cell until it hits a wall." I felt truly miserable.
+
+This was entirely a failure of analysis on my part. I feel very sorry for my teammates.
+
+It felt so difficult that I thought this year's "heavy implementation" slot had moved to Problem C. In reality, it was just my analytical error.
+
+## Problem D: "Frequency Sequence"
+
+I was hardly involved in this problem, but it seems my analysis was mostly correct. If I had finished analyzing Problem C smoothly, I think we might have been able to solve this too...
+
+Regarding the content, it has a structure like a group sequence, and it seems case handling is required based on the relationship between $s^2$ and $k$.
+
+## Problem E: "Shopping Master"
+
+The more I thought about it, the more it seemed like a greedy approach would work.
+
+Let $U$ be the set of all bottles and $G$ be the set of bottles with gems. The set of bottles without gems is the complement $U \setminus G$. Also, let $c_{\min}$ be the minimum cost of a bottle with a gem.
+
+During the contest, I considered the following cases:
+
+- If $|U| \le |G|$: By buying one bottle with a gem, you can get all bottles, so the cost is $c_{\min}$.
+- If $|G| = 0$: Since gems cannot be used, the cost is the sum of all bottle prices.
+- Otherwise: The sum of $c_{\min}$ (to secure the number of bottles that can be bought with gems) and the costs of the bottles bought with coins.
+
+It turns out that if I had refined the "otherwise" case a bit more, I could have reached the correct answer. It is a deep regret of mine that I couldn't allocate enough time to this.
+
+## Problem F: "Optimizing a Map Application"
+
+I thought about using BFS, but since it's an $n \le 10^9$ square grid, I withdrew.
+
+I'm sure there's some absolutely clever method out there...
+
+## Closing Thoughts
+
+I didn't even get a chance to look at Problem G or beyond.
+
+Before I knew it, next year will be my last year to participate in ICPC.
+
+I'll be a first-year Master's student (M1) next year. I want to go to Yokohama next year. I intend to work seriously hard this coming year.
+
+Including proper team practice and all that...
+
+Also, when is ICPC finally going to let us use Rust?
