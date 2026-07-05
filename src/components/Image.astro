@@ -1,0 +1,52 @@
+---
+import {
+  Image as AstroImage,
+  type LocalImageProps,
+  type RemoteImageProps,
+} from "astro:assets";
+
+type Props = (LocalImageProps | RemoteImageProps) & {
+  description?: string;
+};
+
+const {
+  description,
+  loading = "lazy",
+  decoding = "async",
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<figure class="ravin-image-figure">
+  <AstroImage
+    {...props}
+    loading={loading}
+    decoding={decoding}
+    class:list={["ravin-image", className]}
+  />
+  {description && <figcaption>{description}</figcaption>}
+</figure>
+
+<style>
+  .ravin-image-figure {
+    width: fit-content;
+    max-width: 100%;
+    margin: 1.5rem auto;
+  }
+
+  :global(.ravin-image) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  figcaption {
+    margin-top: 0.55rem;
+    color: color-mix(in srgb, var(--theme-text), transparent 55%);
+    font-size: var(--font-size-small);
+    line-height: 1.6;
+    text-align: center;
+  }
+</style>
