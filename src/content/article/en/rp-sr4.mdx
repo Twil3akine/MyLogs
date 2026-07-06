@@ -1,0 +1,79 @@
+---
+title: Repovive Starter Round 4 Participation Report
+description: "About Repovive Starter Round 4"
+date: 2026-07-06
+tags:
+  - Repovive
+---
+
+It's me.
+
+I participated in [Repovive Starter Round 4](https://repovive.com/contests/15). I solved 3 problems.
+
+Problem C was quite interesting. As I expected, international contests tend to have many of these kinds of observation-based problems, which makes them fun.
+
+---
+
+### Problem A [Different Parity](https://repovive.com/contests/15/problems/A)
+
+To summarize, the problem asks to determine whether an integer interval $[l,r]$ contains both odd and even numbers.
+
+If $l\ne r$, the interval contains at least two consecutive integers, so it will always include both an odd and an even number.
+
+---
+
+### Problem B [Balanced Trio](https://repovive.com/contests/15/problems/B)
+
+The `Yes/No` part can be determined by whether `(a + b + c) % 2 == 0` is satisfied. However, I spent quite a bit of time on the construction of the solution.
+
+Without overthinking, you can construct it using the following steps:
+
+1. Let $T$ be the target sum for each group.
+
+   $$
+   T=\frac{a+b+c}{2}
+   $$
+
+2. Prepare an array $V_1$ to manage $a_1,b_1,c_1$, and an array $V_2$ to manage $a_2,b_2,c_2$.
+
+3. Iterate through $a,b,c$ in order. Add the values to $V_1$ until the sum of $V_1$ reaches $T$, and then add the remaining values to $V_2$.
+
+You just need to be careful to split a single value between $V_1$ and $V_2$ only if adding that value would cause the sum to exceed $T$.
+
+---
+
+### Problem C [Corner Meeting](https://repovive.com/contests/15/problems/C)
+
+In summary, there is a grid with sides of $n+1$ cells, and pieces $A$ and $B$ are located at $(0,0)$ and $(n,n)$, respectively.
+
+- Piece $A$: Moves up, down, left, right, or stays put.
+- Piece $B$: Moves in four diagonal directions or stays put.
+
+The problem asks for the minimum number of moves for both pieces to reach the same cell.
+
+After experimenting with cases up to about $n=8$, I realized that meeting on the diagonal of the grid seems optimal.
+
+Let the meeting point be $(i,i)$. If we denote the minimum moves required to reach that point as $M_A$ for piece $A$ and $M_B$ for piece $B$, then:
+
+$$
+\begin{aligned}
+M_A &= 2i, \\
+M_B &= n-i
+\end{aligned}
+$$
+
+Therefore, you just need to use binary search to find the maximum $i$ that satisfies $M_A\le M_B$.
+
+---
+
+### Problem D [Distant Transfers](https://repovive.com/contests/15/problems/D)
+
+I didn't really understand this one. I think you could determine if a solution exists by taking prefix sums and checking if any negative values appear, but to be honest, I was completely lost.
+
+---
+
+Repovive seems to be a small-scale competitive programming site with the number of participants still in the triple digits, but there are some interesting problems here and there.
+
+So, for all you contest enthusiasts out there, why not give it a try?
+
+See you later.
