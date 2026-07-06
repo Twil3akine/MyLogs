@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://twil3akine.org/sitemap-index.xml
