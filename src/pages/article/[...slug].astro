@@ -44,6 +44,7 @@ const { Content, headings } = await render(post);
     date={post.data.date}
     tags={post.data.tags}
     headings={headings}
+    tagBasePath="/article/"
   >
     <Content components={{ Marker, Tag }} />
   </MarkdownPage>

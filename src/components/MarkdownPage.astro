@@ -11,6 +11,7 @@ interface Props {
   tags?: string[];
   headings: MarkdownHeading[];
   variant?: "article" | "profile";
+  tagBasePath?: string;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   tags = [],
   headings,
   variant = "article",
+  tagBasePath,
 } = Astro.props;
 const visibleHeadings = getVisibleHeadings(headings);
 ---
@@ -34,7 +36,7 @@ const visibleHeadings = getVisibleHeadings(headings);
         tags.length > 0 && (
           <div class="markdown-tags" aria-label="Tags">
             {tags.map((tag) => (
-              <Tag as="button" type="button">{tag}</Tag>
+              <Tag href={tagBasePath ? `${tagBasePath}?tag=${encodeURIComponent(tag)}` : undefined}>{tag}</Tag>
             ))}
           </div>
         )
