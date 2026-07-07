@@ -1,0 +1,102 @@
+---
+title: "ABC465 Participation Report"
+description: "About ABC465"
+date: 2026-07-04
+tags:
+  - AtCoder
+---
+
+It's me.
+
+I participated in [ABC465](https://atcoder.jp/contests/abc465). I reached Green rank by solving 4 problems relatively quickly. I'll write a separate post about reaching Green later.
+
+By the way, this was my first time getting a Cyan-level performance rating. I hope to be able to achieve this consistently.
+
+---
+
+### Problem A [Supermajority](https://atcoder.jp/contests/abc465/tasks/abc465_a)
+
+It's the same as [ABC463 - A](https://atcoder.jp/contests/abc463/tasks/abc463_a).
+
+There is no need to use floating-point numbers. You can just triple both sides of $A > B \times \frac{2}{3}$ and check if `A * 3 > B * 2` is true.
+
+---
+
+### Problem B [Parking 2](https://atcoder.jp/contests/abc465/tasks/abc465_b)
+
+As a wise person once said: "It's better to solve a problem reliably in $\mathcal{O}(N)$ than to try to be too clever with $\mathcal{O}(1)$."
+
+For each time $i \; (A \le i < B)$, consider the fee from time $i$ to $i+1$.
+
+- If $L \le i < R$, add $X$
+- Otherwise, add $Y$
+
+Since the time is 23 or less in this problem, simulating the fee addition hour by hour is sufficient.
+
+---
+
+### Problem C [Reverse Permutation](https://atcoder.jp/contests/abc465/tasks/abc465_c)
+
+Problems like this, which aren't strictly about algorithms or data structures, are the most interesting. That's right—let's use "Sample ESP" (guessing the logic from samples).
+
+Immediately before the operation for $k$, $k$ is at the end of the range being operated on. Therefore, after the operation, $k$ moves to the following position:
+
+- If $S_k$ is `o`, it moves to the front.
+- If $S_k$ is `x`, it remains at the end.
+
+Thus, we can read the operations in the order $k=N,N-1,\ldots,1$ and fill in the answer from the outside. By keeping track of the left and right ends of the unconfirmed part and whether the orientation is reversed, we can decide which end to place $k$ at.
+
+- If not reversed: place at the left end if `o`, and at the right end if `x`.
+- If reversed: swap the side where you place it.
+- If it's `o`, flip the orientation after placing it.
+
+By preparing an array of length $N$ in advance and managing the left and right write positions, you can implement this in $\mathcal{O}(N)$ without using a Deque.
+
+---
+
+### Problem D [X to Y](https://atcoder.jp/contests/abc465/tasks/abc465_d)
+
+Setting aside whether they are truly similar, I'll list [Codeforces 1103 (Div.3) - C: Omsk Programmers](https://codeforces.com/contest/2236/problem/C) as a related problem.
+
+The operations in this problem can be divided into the following two types:
+
+- Operation 1: Update $x$ to $\left\lfloor \frac{x}{K} \right\rfloor$
+- Operation 2: Update $x$ to any integer in the interval $[x \times K, (x+1) \times K)$
+
+The destination for Operation 1 is uniquely determined, but Operation 2 has multiple possible destinations. Therefore, it is difficult to think from the $X$ side about which value to choose in Operation 2.
+
+Here, instead of performing Operation 2 on $X$, consider performing Operation 1 on $Y$. From $X$'s perspective, there are multiple destinations for Operation 2, but if you trace back from the destination $Y$, it is uniquely determined as $\left\lfloor \frac{Y}{K} \right\rfloor$.
+
+Therefore, as long as $X \ne Y$, you just need to divide the larger of $X$ and $Y$ by $K$.
+
+For example, with $X = 7, \; Y = 43, \; K = 6$, $Y$ is larger, so:
+
+$$
+Y \leftarrow \left\lfloor \frac{43}{6} \right\rfloor = 7
+$$
+
+This makes $X=Y$ in a single step. You just need to keep dividing the larger value by $K$ until $X=Y$ and count the number of operations.
+
+Initially, I tried to represent the floor function using floating-point numbers and got a WA (Wrong Answer). However, since $X, Y,$ and $K$ can be up to $10^{18}$, they cannot be held accurately as floating-point numbers. Using integer division will truncate the value correctly.
+
+---
+
+### Problem E [Digit Circus](https://atcoder.jp/contests/abc465/tasks/abc465_e)
+
+I couldn't solve it.
+
+It reminded me of the "Sekai no Nabeatsu" gag, but I'm not very familiar with problems involving huge numbers.
+
+Looking at Twitter after the contest, it seems people used something called **Digit DP**. I think I'll take this opportunity to study it.
+
+---
+
+## Final Thoughts
+
+I've finally reached Green rank.
+
+I'll keep working hard and not get complacent.
+
+This was Twil3akine.
+
+Oh, and everyone, don't forget to do Heuristic contests too!
