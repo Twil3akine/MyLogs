@@ -20,14 +20,16 @@ const Element = href ? "a" : as === "button" ? "button" : "span";
   .tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.15rem;
+    gap: 0.35rem;
+    min-height: 2rem;
+    padding: 0 0.75rem;
     border: 1px solid var(--theme-border);
-    border-radius: 999px;
+    border-radius: 8px;
     background-color: transparent;
-    color: var(--theme-text);
-    font-size: 0.92rem;
-    line-height: 1.35;
-    padding: 0.2rem 0.6rem;
+    color: color-mix(in srgb, var(--theme-text), transparent 18%);
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1;
     text-decoration: none;
     transition:
       border-color 0.2s ease,
@@ -42,14 +44,22 @@ const Element = href ? "a" : as === "button" ? "button" : "span";
 
   .hash {
     color: var(--theme-accent);
-    opacity: 0.8;
   }
 
   a.tag:hover,
-  button.tag:hover,
-  button.tag[aria-pressed="true"] {
+  button.tag:hover {
     border-color: var(--theme-accent);
     background-color: var(--theme-accent-bg);
     color: var(--theme-accent);
+  }
+
+  button.tag[aria-pressed="true"] {
+    border-color: var(--theme-text);
+    background-color: var(--theme-text);
+    color: var(--theme-bg);
+  }
+
+  button.tag[aria-pressed="true"] .hash {
+    color: currentColor;
   }
 </style>
