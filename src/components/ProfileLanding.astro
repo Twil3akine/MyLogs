@@ -97,7 +97,7 @@ const profile = profileLanding[locale];
     </div>
   </aside>
 
-  <div class="landing-side" aria-label="Content">
+  <div class="landing-side" aria-label="Content" style={`--section-count: ${profile.sections.length}`}>
     {
       profile.sections.map((section, index) => (
         <a class="content-link" href={section.href}>
@@ -167,7 +167,7 @@ const profile = profileLanding[locale];
   .landing-side {
     display: grid;
     align-content: stretch;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(var(--section-count), 1fr);
     max-width: 640px;
     min-height: 100%;
     border-left: 1px solid var(--theme-border);
@@ -178,7 +178,7 @@ const profile = profileLanding[locale];
     display: flex;
     align-items: center;
     gap: 1.1rem;
-    min-height: 8.25rem;
+    min-height: 6.35rem;
     border-bottom: 1px solid var(--theme-border);
     color: var(--theme-text);
     text-decoration: none;
@@ -378,7 +378,7 @@ const profile = profileLanding[locale];
     }
 
     .content-link {
-      min-height: 6.25rem;
+      min-height: 5.75rem;
     }
 
     .content-link strong {

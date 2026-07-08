@@ -1,0 +1,11 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import WorksPage from "@/components/WorksPage.astro";
+import { worksContent } from "@/data/works";
+
+const content = worksContent.en;
+---
+
+<Layout title={`${content.title} | Twil3akine`} description={content.description} lang="en">
+  <WorksPage locale="en" />
+</Layout>

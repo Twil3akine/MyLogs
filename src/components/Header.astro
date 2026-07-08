@@ -84,7 +84,7 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
     align-items: center;
     min-height: 4rem;
     width: 100%;
-    padding: 0.75rem 2rem;
+    padding: 0.75rem clamp(1rem, 4vw, 2rem);
   }
   .header-left {
     display: flex;
@@ -144,12 +144,7 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
     display: none;
   }
 
-  @media (max-width: 576px) {
-    .header-inner {
-      padding-right: 1rem;
-      padding-left: 1rem;
-    }
-
+  @media (max-width: 640px) {
     .menu-toggle {
       position: absolute;
       display: block;
@@ -190,6 +185,7 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
       top: calc(100% + 1px);
       left: 0;
       right: 0;
+      box-sizing: border-box;
       display: none;
       flex-direction: column;
       align-items: stretch;
