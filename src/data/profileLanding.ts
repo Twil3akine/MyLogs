@@ -39,6 +39,12 @@ export const profileLanding = {
         href: "/profile/",
       },
       {
+        label: "Works",
+        title: "作ったもの",
+        description: "個人開発、公開サービス、競プロまわりの活動をまとめてます。",
+        href: "/works/",
+      },
+      {
         label: "Article",
         title: "技術記事",
         description: "競プロ、開発、学んだことをあとから読める形で残します。",
@@ -68,6 +74,12 @@ export const profileLanding = {
         title: "About me",
         description: "A short overview of my affiliation, interests, and tools I use.",
         href: "/en/profile/",
+      },
+      {
+        label: "Works",
+        title: "Projects",
+        description: "Projects, public services, and competitive programming activities.",
+        href: "/en/works/",
       },
       {
         label: "Article",
