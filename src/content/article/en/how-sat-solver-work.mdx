@@ -1,0 +1,306 @@
+---
+title: "On the Inner Workings of Modern SAT Solvers"
+description: "The internal mechanisms of SAT Solvers"
+date: 2026-07-10
+tags:
+  - Optimization
+---
+
+import Callout from "@/components/Callout.astro";
+
+<Callout>
+    This text has been proofread and supplemented with information by AI.
+</Callout>
+
+CDCL (Conflict-Driven Clause Learning) is a search algorithm widely used in modern SAT solvers.
+
+Basically, it repeats the following steps:
+
+1. Unit Propagation
+2. Decision
+3. Conflict Analysis
+4. Clause Learning
+5. Backjump
+
+---
+
+## Trail and Decision Level
+
+The current variable assignments are recorded in order on the **Trail**.
+
+For each assignment, the following information is recorded:
+
+* Whether it was assigned by a Decision
+* Whether it was assigned by propagation
+* If it was via propagation, which clause was the reason
+* Which Decision Level it belongs to
+
+The Decision Level is incremented by one every time a Decision is made.
+Assignments propagated from that Decision belong to the same Decision Level.
+
+---
+
+## Unit Propagation
+
+For a clause
+
+$$
+(l_1 \lor l_2 \lor \cdots \lor l_k)
+$$
+
+if $k-1$ literals are False and only one unassigned literal remains, that literal must be set to True.
+
+For example, in
+
+$$
+(\neg x \lor y \lor z)
+$$
+
+if
+
+$$
+x=True,\qquad y=False
+$$
+
+then
+
+$$
+z=True
+$$
+
+is forced.
+
+This process is called Unit Propagation.
+
+Since a new assignment can cause another clause to become a unit clause, this is repeated until no more propagation is possible.
+
+---
+
+## 2-Watched Literals
+
+Since checking all clauses every time a variable is assigned is computationally expensive, only two literals are monitored in each clause.
+
+For example, suppose we are watching $a$ and $b$ in
+
+$$
+(a \lor b \lor c \lor d)
+$$
+
+represented as:
+
+$$
+(\boxed a \lor \boxed b \lor c \lor d)
+$$
+
+Even if $c$, which is not being watched, becomes False, this clause is not checked.
+
+On the other hand, if a watched literal $a$ becomes False, the clause is checked.
+
+If there are literals among $c$ or $d$ that are not False, the watch is moved there.
+
+$$
+(a \lor \boxed b \lor \boxed c \lor d)
+$$
+
+If no replacement is found, the other watch is examined:
+
+* If the other watch is unassigned, that literal is propagated to True.
+* If the other watch is also False, a Conflict occurs.
+* If the other watch is True, the clause is already satisfied.
+
+The clause is checked only when a watched literal becomes False.
+
+If another non-False literal exists, the watch is moved there.
+
+If no replacement is found, the other watch is examined:
+
+* If the other watch is unassigned, that literal is propagated to True.
+* If the other watch is also False, a Conflict occurs.
+* If the other watch is True, the clause is already satisfied.
+
+This mechanism allows for efficient checking of only those clauses that could potentially become a Unit or a Conflict.
+
+A 1-Watch scheme is insufficient because it cannot detect unit status when all non-watched literals become False.
+
+---
+
+## Decision
+
+If unassigned variables remain even after Unit Propagation stops, one variable is chosen and tentatively assigned True or False.
+
+This is called a Decision.
+
+A Decision is an operation that divides the search space into
+
+$$
+x=True
+\qquad\text{and}\qquad
+x=False
+$$
+
+Which variable to choose and which value to try first are determined by separate heuristics.
+
+---
+
+## VSIDS
+
+VSIDS is a representative method for choosing the variable to use for a Decision.
+
+Each variable is given an Activity score, and the Activity of variables involved in a Conflict is increased.
+
+For example, if the learned clause is
+
+$$
+(a \lor \neg b \lor c)
+$$
+
+the Activities for $a, b,$ and $c$ are increased.
+
+In the next Decision, the unassigned variable with the highest Activity is prioritized.
+
+To reduce the influence of old Conflicts, Activities are relatively decayed over time.
+
+The philosophy behind VSIDS is:
+
+> Variables that frequently appear in recent Conflicts are close to the "hard" parts of the problem.
+
+VSIDS determines the variable; which value (True or False) to try is determined by techniques like Phase Saving.
+
+---
+
+## Conflict
+
+When all literals in a clause become False, that clause cannot be satisfied.
+
+For example, in
+
+$$
+(\neg x \lor y)
+$$
+
+if
+
+$$
+x=True,\qquad y=False
+$$
+
+it becomes
+
+$$
+(False \lor False)
+$$
+
+resulting in a Conflict.
+
+In CDCL, when a Conflict occurs, the solver does not simply return to the previous Decision; instead, it analyzes the cause.
+
+---
+
+## Antecedent Clauses and Implication Graphs
+
+For literals assigned through propagation, there is a clause that forced that assignment.
+
+For example, in
+
+$$
+(\neg a \lor b)
+$$
+
+if $b=True$ was propagated from $a=True$, this clause is the antecedent (reason) clause for $b=True$.
+
+Assignments by Decision have no antecedent clause, while assignments by Propagation do.
+
+A graph of these causal relationships is called an Implication Graph.
+
+In Conflict Analysis, the antecedent clauses are traced backward from the Conflict.
+
+---
+
+## 1-UIP and Clause Learning
+
+By performing Resolution on the conflict clause and the antecedent clauses of each propagation, a clause representing the combination of assignments that caused the conflict is obtained.
+
+In modern CDCL, learned clauses are generally created based on the 1-UIP (First Unique Implication Point) criterion.
+
+Resolution continues from the conflict side until exactly one literal belonging to the current Decision Level remains.
+
+The resulting clause is added as a Learned Clause.
+
+For example, if the Resolution of the conflict clause and antecedent clauses shows that the assignments causing the conflict are
+
+$$
+a=True,\qquad b=False,\qquad c=True
+$$
+
+the following can be learned:
+
+$$
+(\neg a \lor b \lor \neg c)
+$$
+
+This means:
+
+$$
+\neg(a\land\neg b\land c)
+$$
+
+Learned clauses not only prevent the same failure from recurring but also strengthen subsequent Unit Propagations.
+
+---
+
+## Backjump
+
+After creating a learned clause, the solver does not return to the immediate previous Decision Level, but rather backtracks to the level where that learned clause becomes a unit clause.
+
+For example, if the Decision Levels of the literals included in the learned clause are
+
+$$
+1, 3, 5
+$$
+
+and the current level is 5, the solver backtracks to Level 3.
+
+This is called a Backjump or Non-Chronological Backtracking.
+
+Since a 1-UIP learned clause contains exactly one literal from the current level, that clause becomes a unit clause after the Backjump, immediately triggering a new propagation.
+
+---
+
+## Restart
+
+When a certain number of Conflicts occur, the solver may cancel all Decision assignments and return to Level 0.
+
+However, it retains:
+
+* Learned Clauses
+* VSIDS Activities
+* Phase Saving information
+
+Therefore, instead of completely starting the search over, it restarts the search in a different order using the learned information.
+
+---
+
+## Management of Learned Clauses
+
+Continually adding learned clauses for every Conflict increases memory usage and propagation costs.
+
+Therefore, learned clauses with low importance are periodically deleted.
+
+Importance is evaluated using metrics such as:
+
+* Clause length
+* Recent usage
+* Usage in propagation or conflicts
+* LBD
+
+LBD (Literal Block Distance) is the number of distinct Decision Levels the literals in that clause belong to. Generally, clauses with a smaller LBD are considered more important.
+
+---
+
+## Termination Conditions
+
+If an assignment that satisfies all clauses is found, the result is SAT.
+
+In practice, the solver often continues Decisions until no unassigned variables remain; if no Conflict occurs, it is judged as SAT.
+
+If a Conflict occurs at Decision Level 0, it means there is a contradiction independent of any Decision, and the result is UNSAT.
