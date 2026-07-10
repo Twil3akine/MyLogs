@@ -1,0 +1,323 @@
+---
+title: "現代のSAT Solverの動作について"
+description: "SAT Solverの内部動作について"
+date: 2026-07-10
+tags:
+  - Optimization
+---
+
+import Callout from "@/components/Callout.astro";
+
+<Callout>
+    この文章はAIに校正や知識の補填を行ってもらっています。
+</Callout>
+
+CDCL（Conflict-Driven Clause Learning）は、現代的なSATソルバーで広く使われる探索アルゴリズムである。
+
+基本的には、
+
+1. Unit Propagation
+2. Decision
+3. Conflict Analysis
+4. Clause Learning
+5. Backjump
+
+を繰り返す。
+
+---
+
+## TrailとDecision Level
+
+現在の変数割当は **Trail** に順番に記録される。
+
+各割当には、
+
+* Decisionによる割当か
+* 伝播による割当か
+* 伝播なら、どの節が理由か
+* どのDecision Levelに属するか
+
+が記録される。
+
+Decisionを行うたびにDecision Levelを1つ上げる。
+そのDecisionから伝播された割当は、同じDecision Levelに属する。
+
+---
+
+## Unit Propagation
+
+節
+
+$$
+(l_1 \lor l_2 \lor \cdots \lor l_k)
+$$
+
+について、$k-1$ 個のリテラルがFalseで、未割当のリテラルが1つだけ残っている場合、そのリテラルはTrueにするしかない。
+
+例えば、
+
+$$
+(\neg x \lor y \lor z)
+$$
+
+で、
+
+$$
+x=True,\qquad y=False
+$$
+
+なら、
+
+$$
+z=True
+$$
+
+が強制される。
+
+この処理をUnit Propagationと呼ぶ。
+
+新しい割当によって別の節が単位節になることがあるため、伝播できなくなるまで繰り返す。
+
+---
+
+## 2-Watched Literals
+
+変数を割り当てるたびに全節を確認すると重いため、各節では2つのリテラルだけを監視する。
+
+例えば、
+
+$$
+(a \lor b \lor c \lor d)
+$$
+
+で $a,b$ をWatchしているとする。
+
+$$
+(\boxed a \lor \boxed b \lor c \lor d)
+$$
+
+Watchされていない $c$ がFalseになっても、この節は確認しない。
+
+一方、Watchされている $a$ がFalseになった場合は、この節を確認する。
+
+$c$ や $d$ にFalseでないリテラルがあれば、Watchをそこへ移す。
+
+$$
+(a \lor \boxed b \lor \boxed c \lor d)
+$$
+
+代わりが見つからない場合は、もう一方のWatchを見る。
+
+* もう一方が未割当なら、そのリテラルをTrueに伝播する
+* もう一方もFalseなら、Conflictになる
+* もう一方がTrueなら、節はすでに満たされている
+
+WatchされているリテラルがFalseになったときだけ、その節を確認する。
+
+別のFalseでないリテラルがあれば、Watchをそこへ移す。
+
+代わりが見つからない場合は、もう一方のWatchを見る。
+
+* もう一方が未割当なら、そのリテラルをTrueに伝播する
+* もう一方もFalseなら、Conflictになる
+* もう一方がTrueなら、節はすでに満たされている
+
+この仕組みにより、UnitまたはConflictになり得る節だけを効率よく確認できる。
+
+1-Watchでは、WatchされていないリテラルがすべてFalseになったときにUnit化を検出できないため不十分である。
+
+---
+
+## Decision
+
+Unit Propagationが止まっても未割当変数が残っている場合、変数を1つ選び、TrueまたはFalseを仮に割り当てる。
+
+これをDecisionと呼ぶ。
+
+Decisionは探索空間を
+
+$$
+x=True
+\qquad\text{と}\qquad
+x=False
+$$
+
+に分割する操作である。
+
+どの変数を選ぶかと、どちらの値を先に試すかは別々のヒューリスティックで決める。
+
+---
+
+## VSIDS
+
+Decisionに使う変数を選ぶ代表的な手法がVSIDSである。
+
+各変数にActivityを持たせ、Conflictに関係した変数のActivityを増やす。
+
+例えば、学習節が
+
+$$
+(a \lor \neg b \lor c)
+$$
+
+なら、$a,b,c$ のActivityを上げる。
+
+次のDecisionでは、未割当変数のうちActivityが高い変数を優先する。
+
+古いConflictの影響を弱めるため、Activityは相対的に減衰させる。
+
+VSIDSの考え方は、
+
+> 最近のConflictに何度も現れる変数は、問題の難しい部分に近い
+
+というものである。
+
+VSIDSが決めるのは変数であり、TrueとFalseのどちらを試すかはPhase Savingなどが決める。
+
+---
+
+## Conflict
+
+ある節のすべてのリテラルがFalseになると、その節を満たせない。
+
+例えば、
+
+$$
+(\neg x \lor y)
+$$
+
+で、
+
+$$
+x=True,\qquad y=False
+$$
+
+なら、
+
+$$
+(False \lor False)
+$$
+
+となりConflictである。
+
+CDCLでは、Conflictが起きても単に直前のDecisionへ戻るのではなく、原因を解析する。
+
+---
+
+## 理由節と含意グラフ
+
+伝播によって割り当てられたリテラルには、その割当を強制した節がある。
+
+例えば、
+
+$$
+(\neg a \lor b)
+$$
+
+で $a=True$ から $b=True$ が伝播されたなら、この節が $b=True$ の理由節である。
+
+Decisionによる割当には理由節がなく、Propagationによる割当には理由節がある。
+
+これらの因果関係をグラフにしたものが含意グラフである。
+
+Conflict Analysisでは、Conflictから理由節を逆向きにたどる。
+
+---
+
+## 1-UIPとClause Learning
+
+Conflict節と各伝播の理由節をResolutionしていくと、Conflictを引き起こした割当の組み合わせを表す節が得られる。
+
+現代的なCDCLでは、一般に1-UIPを基準に学習節を作る。
+
+Conflict側からResolutionを続け、現在のDecision Levelに属するリテラルが1つだけになったところで止める。
+
+得られた節をLearned Clauseとして追加する。
+
+例えば、Conflict節と理由節をResolutionした結果、Conflictの原因となる割当が
+
+$$
+a=True,\qquad b=False,\qquad c=True
+$$
+
+と表されるなら、
+
+$$
+(\neg a \lor b \lor \neg c)
+$$
+
+を学習できる。
+
+これは、
+
+$$
+\neg(a\land\neg b\land c)
+$$
+
+を意味する。
+
+学習節は、同じ失敗を防ぐだけでなく、以降のUnit Propagationも強くする。
+
+---
+
+## Backjump
+
+学習節を作った後は、直前のDecision Levelではなく、その学習節が単位節になるLevelまで戻る。
+
+例えば、学習節に含まれるリテラルのDecision Levelが
+
+$$
+1,3,5
+$$
+
+で、現在がLevel 5なら、Level 3まで戻る。
+
+これをBackjump、またはNon-Chronological Backtrackingと呼ぶ。
+
+1-UIP学習節には現在Levelのリテラルが1つだけ含まれるため、Backjump後にはその節が単位節となり、すぐに新しい伝播が起きる。
+
+---
+
+## Restart
+
+一定数のConflictが発生すると、Decision割当をすべて解除してLevel 0へ戻ることがある。
+
+ただし、
+
+* Learned Clause
+* VSIDSのActivity
+* Phase Savingの情報
+
+は保持する。
+
+そのため、探索を完全に最初からやり直すのではなく、学習した情報を使って別の順序で探索し直す。
+
+---
+
+## 学習節の管理
+
+Conflictごとに学習節を追加し続けると、メモリ使用量と伝播コストが増える。
+
+そのため、重要度の低い学習節は定期的に削除する。
+
+重要度の評価には、
+
+* 節の長さ
+* 最近使われたか
+* 伝播やConflictに使われたか
+* LBD
+
+などを用いる。
+
+LBDは、その節に含まれるリテラルが属するDecision Levelの種類数である。
+一般にLBDが小さい節ほど重要とみなされる。
+
+---
+
+## 終了条件
+
+すべての節を満たす割当が得られればSATである。
+
+実装上は、未割当変数がなくなるまでDecisionを続け、Conflictが起きなければSATと判定することが多い。
+
+Decision Level 0でConflictが起きた場合は、どのDecisionにも依存せず矛盾しているためUNSATである。
