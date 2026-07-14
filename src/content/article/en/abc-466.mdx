@@ -1,0 +1,69 @@
+---
+title: "ABC466 Participation Report"
+description: "About ABC466"
+date: 2026-07-11
+tags:
+  - Contest
+---
+
+It is me.
+
+I participated in [ABC466](https://atcoder.jp/contests/abc466). I solved 4 problems.
+
+For problem C, I tried to come up with a clever-looking algorithm, but in the end, the two-pointer approach was the most straightforward.
+
+For problem D, I wasted 20 minutes before noticing an implementation bug.
+
+---
+
+### Problem A [Compromise](https://atcoder.jp/contests/abc466/tasks/abc466_a)
+
+You just need to check if the happiness is negative for all options.
+
+I finished it with `a.iter().all(|ai| *ai < 0)`.
+
+---
+
+### Problem B [Representative Balls](https://atcoder.jp/contests/abc466/tasks/abc466_b)
+
+You just need to keep the maximum value for each color. I initialized everything to -1 at first, and as I read each ball, I updated the value for the corresponding color using `max`.
+
+---
+
+### Problem C [Count Close Pairs](https://atcoder.jp/contests/abc466/tasks/abc466_c)
+
+An interactive problem after a long time. I panicked a bit the moment I saw it, but I stayed calm to implement it.
+
+Since the points are arranged from left to right in numerical order, for a given `left`, the `right` points with a distance of 1 or less form a continuous range. So, starting from `left=1, right=2`, I queried `(left, right)`.
+
+- If `Yes`, all pairs between `left` and `right` also satisfy the condition, so I added `right - left` to the answer and incremented `right`.
+- If `No`, no more pairs can be added for this `left`, so I incremented `left`.
+
+Each pointer moves at most N times, so the number of queries stays within 2N. Don't forget to flush every time in interactive problems.
+
+---
+
+### Problem D [Placing Rooks](https://atcoder.jp/contests/abc466/tasks/abc466_d)
+
+I immediately realized that I should look at the queries in reverse order.
+
+The pieces remaining in the final state are only those from the last operation performed on that specific row and column. Therefore, by looking at the queries in reverse, if it's a combination of a row and column that hasn't been used yet, I add it to the answer. After that, I mark that row and column as used.
+
+Here, I accidentally put `row[r] = false` and `col[c] = false` inside the `row[r] && col[c]` condition, and I wasted 20 minutes until I noticed it. Even for operations where no piece remains, the effect of clearing the row and column still applies, so they must be updated every time.
+
+---
+
+### Problem E [Range Flip](https://atcoder.jp/contests/abc466/tasks/abc466_e)
+
+I had a vague feeling of using a "Mimi DP" (Automaton DP) that keeps track of "how many covers deep" as a state, but it didn't work out. I ran out of time.
+
+Curse you, Problem D...
+
+---
+
+## Final Thoughts
+
+I'm a bit happy that I was able to solve an interactive problem during the contest.
+I really need to work on more careful implementation...
+
+See you.

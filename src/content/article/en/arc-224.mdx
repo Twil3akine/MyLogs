@@ -1,0 +1,129 @@
+---
+title: "ARC224-- Participation Report"
+description: "About ARC224--"
+date: 2026-07-12
+tags:
+  - Contest
+---
+
+It's me.
+
+I participated in [ARC224--](https://atcoder.jp/contests/arc224). I solved 4 problems: A, B, C, and E.
+
+It feels great to have a solid win in my first Rated ARC.
+
+---
+
+### Problem A [Attach 00](https://atcoder.jp/contests/arc224/tasks/arc224_a)
+
+$K \times 100$ always ends in $00$. This means we just need to check $K, 2K, \ldots, 100K$ in order and output the first one that contains $00$ in its decimal representation.
+
+We only need to check at most 100 multiples per case, and each has a maximum of 12 digits. Therefore, with $T \leq 10^5$, the computational complexity is approximately
+
+$$
+12 \times 100 \times 10^5 = 1.2 \times 10^8
+$$
+
+Converting them to strings and using `contains("00")` is more than fast enough to pass within the time limit.
+
+---
+
+### Problem B [Adjacent Tiles](https://atcoder.jp/contests/arc224/tasks/arc224_b)
+
+When arranged in an $X \times Y$ rectangle, the number of fully shared edges is
+
+$$
+X(Y-1)+Y(X-1)
+$$
+
+For a square with side length $n$, the number of shared edges is
+
+$$
+2n(n-1)
+$$
+
+Since this is monotonically increasing with respect to $n$, it seems best to first create the largest possible square.
+
+So, let
+
+$$
+s=\lfloor\sqrt{N}\rfloor
+$$
+
+Next, consider extending one side directly from the square.
+
+If we let
+
+$$
+q=\left\lfloor\frac{N}{s}\right\rfloor
+$$
+
+we can first form an $s \times q$ rectangle. The number of shared edges this rectangle has is
+
+$$
+s(q-1)+q(s-1)
+$$
+
+Let the number of remaining tiles be
+
+$$
+r=N-sq
+$$
+
+If $r>0$, we add a row of tiles to the side of the rectangle.
+
+The first tile shares one edge with the rectangle, and each subsequent tile touches the rectangle and the previous tile, so the number of edges added when $r>0$ is $2r-1$. Adding this to the formula for the rectangle gives the answer.
+
+In other words, the answer is
+
+$$
+s(q-1)+q(s-1)+
+\begin{cases}
+0 & (r=0) \\
+2r-1 & (r>0)
+\end{cases}
+$$
+
+---
+
+### Problem C [Ascending Labels](https://atcoder.jp/contests/arc224/tasks/arc224_c)
+
+Initially, I tried an implementation thinking it was BFS, but it was a wrong approach. After rephrasing the conditions normally, I realized it should be DFS.
+
+If we set the BFS distance as $A_v$, there may be multiple adjacent vertices with a distance exactly 1 smaller. Since the problem requires that there must be exactly one adjacent vertex satisfying $A_w=A_v-1$, this does not satisfy the condition.
+
+Therefore, we construct a DFS tree rooted at vertex 1 and set the depth of each vertex on the DFS tree as $A_v$.
+
+The parent of vertex $v$ has a depth exactly 1 smaller, so it satisfies $A_w=A_v-1$. Furthermore, in a DFS on an undirected graph, edges not included in the DFS tree connect ancestors and descendants.
+
+There is no ancestor with a depth exactly 1 smaller than $v$ other than $v$'s parent. Consequently, there is exactly one adjacent vertex satisfying $A_w=A_v-1$.
+
+Thus, simply implementing DFS is sufficient.
+
+---
+
+### Problem D [Angst for All Pairs](https://atcoder.jp/contests/arc224/tasks/arc224_d)
+
+I really have no idea what's going on. I couldn't understand the meaning of the Japanese.
+
+---
+
+### Problem E [ABC|AB|A](https://atcoder.jp/contests/arc224/tasks/arc224_e)
+
+I was fixated on deciphering Problem D for a long time, but when I happened to look at E, I felt sad because it was too easy. If only I had looked at this one from the start...
+
+Read the string from back to front and push `B` and `C` onto a stack. When an `A` is read, remove elements in the following order:
+
+- If the top of the stack is `B` and the one below it is `C`, remove the completed `ABC`.
+- If it doesn't form `ABC` but the top is `B`, remove `AB`.
+- If neither of the above, remove `A` by itself.
+
+The answer is the number of `B`s and `C`s that remain without being removed.
+
+---
+
+## Closing
+
+I like ARC quite a bit because it places more emphasis on problem analysis compared to ABC.
+
+See you again.
