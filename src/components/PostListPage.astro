@@ -73,7 +73,7 @@ const tagOptions = allTags.map((tag) => ({
         const selectedTag = tag && availableTags.has(tag) ? tag : null;
         cards.forEach((card) => {
           const tags = (card.dataset.tags || "").split("|");
-          card.hidden = Boolean(selectedTag) && !tags.includes(selectedTag);
+          card.hidden = selectedTag !== null && !tags.includes(selectedTag);
         });
 
         buttons.forEach((button) => {

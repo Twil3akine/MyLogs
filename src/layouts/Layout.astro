@@ -6,6 +6,7 @@ import { ClientRouter } from "astro:transitions";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ThemeToggle from "@/components/ThemeToggle.svelte";
+import { adsenseConfig } from "@/config/adsense";
 import {
   fallbackDescriptions,
   getAlternateLocalePath,
@@ -22,6 +23,7 @@ interface Props {
   articleDate?: string;
   type?: "website" | "article";
   alternatePath?: string | null;
+  enableAdSense?: boolean;
   frontmatter?: {
     title?: string;
     description?: string;
@@ -36,6 +38,7 @@ const {
   type = "website",
   articleDate,
   alternatePath: alternatePathProp,
+  enableAdSense = false,
   frontmatter
 } = Astro.props;
 
@@ -109,6 +112,8 @@ const navLinks = [
   { href: `${localePrefix}/article/`, label: "Article" },
   { href: `${localePrefix}/blog/`, label: "Blog" },
 ];
+const shouldLoadAdSense = enableAdSense && adsenseConfig.enabled;
+const adsenseScriptURL = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseConfig.clientId}`;
 ---
 
 <!doctype html>
@@ -147,6 +152,18 @@ const navLinks = [
     <meta property="twitter:image" content={absoluteImageURL} />
 
     <script type="application/ld+json" set:html={structuredDataJSON} />
+
+    {
+      shouldLoadAdSense && (
+        <script
+          is:inline
+          async
+          crossorigin="anonymous"
+          data-overlays="bottom"
+          src={adsenseScriptURL}
+        />
+      )
+    }
 
     <ClientRouter />
 

@@ -38,6 +38,7 @@ const { Content, headings } = await render(post);
   type="article"
   articleDate={post.data.date.toISOString()}
   alternatePath={hasTranslation ? undefined : null}
+  enableAdSense
 >
   <MarkdownPage
     title={post.data.title}
@@ -45,6 +46,7 @@ const { Content, headings } = await render(post);
     tags={post.data.tags}
     headings={headings}
     tagBasePath="/en/article/"
+    showAds
   >
     <Content components={{ Marker, Tag }} />
   </MarkdownPage>
