@@ -1,5 +1,6 @@
 ---
 import DateText from "@/components/DateText.astro";
+import AdSense from "@/components/AdSense.astro";
 import Tag from "@/components/Tag.astro";
 import TOC from "@/components/TOC.svelte";
 import { getVisibleHeadings, type MarkdownHeading } from "@/lib/content";
@@ -12,6 +13,7 @@ interface Props {
   headings: MarkdownHeading[];
   variant?: "article" | "profile";
   tagBasePath?: string;
+  showAds?: boolean;
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   headings,
   variant = "article",
   tagBasePath,
+  showAds = false,
 } = Astro.props;
 const visibleHeadings = getVisibleHeadings(headings);
 ---
@@ -45,10 +48,13 @@ const visibleHeadings = getVisibleHeadings(headings);
     <slot />
   </article>
 
+  {showAds && <div class="markdown-footer-ad"><AdSense placement="footer" /></div>}
+
   {
     visibleHeadings.length > 0 && (
       <aside class="markdown-toc">
         <TOC headings={visibleHeadings} client:load />
+        {showAds && <AdSense placement="toc" />}
       </aside>
     )
   }
@@ -71,7 +77,12 @@ const visibleHeadings = getVisibleHeadings(headings);
   }
 
   .markdown-content {
+    grid-area: content;
     min-width: 0;
+  }
+
+  .markdown-footer-ad {
+    grid-area: footer-ad;
   }
 
   .markdown-content header {
@@ -128,10 +139,18 @@ const visibleHeadings = getVisibleHeadings(headings);
   }
 
   .markdown-toc {
+    grid-area: toc;
     position: sticky;
     top: 5.5rem;
     border-left: 1px solid var(--theme-border);
     padding-left: 1rem;
+  }
+
+  .markdown-shell-article {
+    grid-template-areas:
+      "content toc"
+      "footer-ad toc";
+    row-gap: 0;
   }
 
   @media (max-width: 960px) {
@@ -141,6 +160,10 @@ const visibleHeadings = getVisibleHeadings(headings);
     }
 
     .markdown-toc {
+      display: none;
+    }
+
+    .markdown-footer-ad {
       display: none;
     }
   }

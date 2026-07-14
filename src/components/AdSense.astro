@@ -1,0 +1,115 @@
+---
+import { adsenseConfig, isAdSenseSlotId } from "@/config/adsense";
+
+interface Props {
+  placement: keyof typeof adsenseConfig.slots;
+}
+
+const { placement } = Astro.props;
+const slotId = adsenseConfig.slots[placement];
+const shouldRender = adsenseConfig.enabled && isAdSenseSlotId(slotId);
+---
+
+{
+  shouldRender && (
+    <div class:list={["ad-slot", `ad-slot-${placement}`]} data-ad-container>
+      <span class="ad-label">Advertisement</span>
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client={adsenseConfig.clientId}
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </div>
+  )
+}
+
+<style>
+  .ad-slot {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .ad-slot-toc {
+    min-height: 250px;
+    margin-top: 2.5rem;
+  }
+
+  .ad-slot-footer {
+    min-height: 120px;
+    margin-top: 4rem;
+  }
+
+  .ad-label {
+    margin-bottom: 0.35rem;
+    color: color-mix(in srgb, var(--theme-text), transparent 58%);
+    font-family: var(--theme-font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+
+  .ad-slot.is-unavailable,
+  .ad-slot:has(.adsbygoogle[data-ad-status="unfilled"]) {
+    display: none;
+    min-height: 0;
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .ad-slot {
+      display: none;
+      min-height: 0;
+      margin: 0;
+    }
+  }
+</style>
+
+<script>
+  const desktopAds = window.matchMedia("(min-width: 961px)");
+
+  function initializeAd(ad: HTMLElement) {
+    if (ad.dataset.adInitialized === "true" || !desktopAds.matches) return;
+
+    ad.dataset.adInitialized = "true";
+    const container = ad.closest<HTMLElement>("[data-ad-container]");
+    const observer = new MutationObserver(() => {
+      if (ad.dataset.adStatus === "unfilled") {
+        container?.classList.add("is-unavailable");
+        observer.disconnect();
+      } else if (ad.dataset.adsbygoogleStatus === "done") {
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(ad, { attributes: true });
+
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch {
+      container?.classList.add("is-unavailable");
+      observer.disconnect();
+      return;
+    }
+
+    window.setTimeout(() => {
+      if (!ad.dataset.adsbygoogleStatus && !ad.dataset.adStatus) {
+        container?.classList.add("is-unavailable");
+        observer.disconnect();
+      }
+    }, 10_000);
+  }
+
+  function initializeDesktopAds() {
+    document
+      .querySelectorAll<HTMLElement>(".adsbygoogle:not([data-ad-initialized])")
+      .forEach(initializeAd);
+  }
+
+  document.addEventListener("astro:page-load", initializeDesktopAds);
+  desktopAds.addEventListener("change", initializeDesktopAds);
+</script>
