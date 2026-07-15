@@ -1,0 +1,88 @@
+---
+title: Codeforces Round 1109 (Div. 3) Participation Record
+description: "About Codeforces Round 1109"
+date: 2026-07-14
+tags:
+  - Contest
+---
+
+import Marker from "@/components/Marker.astro";
+
+It's me.
+
+I participated in Codeforces Round 1109 (Div. 3). I solved 4 problems. Problem C was more difficult than Problem D.
+Since I have a constraint where I can't use my computer after 1:00 AM, I'm sad that I usually can't participate for the full duration.
+
+By the way, I forgot to comment out `itertools` again this time. I thought I checked it, though...
+
+---
+
+### Problem A [Iskander and Drawings](https://codeforces.com/contest/2244/problem/A)
+
+There might be a cleverer way, but I solved it using <Marker>Run-Length Encoding</Marker>.
+
+---
+
+### Problem B [Nikita and Books](https://codeforces.com/contest/2244/problem/B)
+
+I struggled with this for a while. Instead of thinking about a specific method, judging based on whether it is theoretically possible worked out well.
+
+1. Create a prefix sum array $P_A$ of $A$.
+2. Create a prefix sum array $P_B$ of array $B = [1, 2, \ldots, n]$.
+3. Output `Yes/No` based on whether $P_A[i] \ge P_B[i] \; (\forall i, 1 \le i \le n)$ is satisfied.
+
+I'll write something like a simple proof:
+
+The simplest form of the array $P$ we want to create is <Marker type="warning">$P[i] = i \; (\forall i)$</Marker>. Therefore, I think it's sufficient to just judge whether that can be created. (It's probably correct.)
+
+---
+
+### Problem C [Stepan and Permutation](https://codeforces.com/contest/2244/problem/C)
+
+Personally, I found this problem to be the most difficult. If I were to name a similar problem, would it be [Codeforces 1103 - B](https://codeforces.com/contest/2236/problem/B)?
+Actually, checking the problem again, it might be completely different.
+
+Well, please forgive me since the line of thinking is similar.
+
+First, let's consider the case where $GCD(x, y) \ne 1$.
+
+1. Let $g = GCD(x, y)$.
+2. Output `Yes/No` based on whether $P[i] \equiv i \mod{g} \; (\forall i)$ is satisfied.
+
+Next is the case where $GCD(x, y) = 1$.
+
+Since $x$ and $y$ are coprime, we can change the $mod$.
+However, we need to consider whether it can be changed freely. While unproven, I feel like it can be changed if $x + y \le n$.
+And that is satisfied by the constraints.
+
+You can solve it using these ideas.
+
+---
+
+### Problem D [Yaroslav and Productivity](https://codeforces.com/contest/2244/problem/D)
+
+I feel like this has appeared in a contest somewhere every week for the past three weeks. Yes, it's <Marker>Reading Queries in Reverse</Marker>.
+
+1. Create a prefix sum array $P_A$ of $A$.
+2. Sort $B$ in ascending order.
+3. Add $0$ to the beginning of $B$, and repeat the following operations by taking $(B_{i-1}, B_i)$ from the end of $B$:
+
+    - Add $|P_A[B_i] - P_A[B_{i-1}]|$.
+
+4. Finally, add $P_A[n] - P_A[B_m]$.
+
+In terms of image, it feels similar to [ABC466 - E](https://atcoder.jp/contests/abc466/tasks/abc466_e), but DP is impossible here due to constraints.
+
+If you flip the signs of all values in a certain range, the sign of the total sum in that range flips. Therefore, we manage the total sum of the range using prefix sums.
+
+By looking from the back, you can finalize the values of the ranges seen so far. Therefore, you should greedily take the larger one for a certain range.
+
+---
+
+I ran out of time here, so I couldn't solve Problem E and onwards.
+
+As I wrote at the beginning, I <Marker type="danger">really</Marker> checked the `itertools` comment-out properly this time, but as usual, I feel it's a waste to get a penalty for this...
+
+Should I create an environment specifically for Codeforces? Hmm...
+
+Well then, see you later.
