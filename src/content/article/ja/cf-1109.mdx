@@ -1,0 +1,88 @@
+---
+title: Codeforces Round 1109 (Div. 3) 参加記
+description: "Codeforces Round 1109 について"
+date: 2026-07-14
+tags:
+  - Contest
+---
+
+import Marker from "@/components/Marker.astro";
+
+私です。
+
+Codeforces Round 1109 (Div. 3) に参加しました。4完です。D問題よりC問題の方が難しかったです。
+1時にパソコンが使えなくなるという制約があるので、大体フルで参加できなくて悲しいですね。
+
+ちなみに、今回も `itertools` のコメントアウトを忘れました。確認したんだけどなぁ...
+
+---
+
+### A問題 [Iskander and Drawings](https://codeforces.com/contest/2244/problem/A)
+
+もっと賢い方法がありそうですが、私は <Marker>ランレングス圧縮</Marker> で解きました。
+
+---
+
+### B問題 [Nikita and Books](https://codeforces.com/contest/2244/problem/B)
+
+結構悩みました。具体的な方法を考えるより、理論上可能かどうかで判定するとうまくいきました。
+
+1. $A$ の累積和配列 $P_A$ を作成します。
+2. $[1, |A_i|]$ の範囲での累積和配列 $P_B$ を作成します。
+3. $P_A[i] \ge P_B[i] \; (\forall i, 1 \le i \le |A_i|)$ を満たすか否かで `Yes/No`
+
+簡易的な証明的なものを書くのですが、
+
+作りたい配列 $P$ の一番簡単な形は <Marker type="warning">$P[i] = i \; (\forall i)$</Marker> です。なので、それを作れるか否かを判定するだけで良いと思います。(多分あってます)
+
+---
+
+### C問題 [Stepan and Permutation](https://codeforces.com/contest/2244/problem/C)
+
+個人的にこの問題が一番難しかったです。類題を挙げるならば、[Codeforces 1103 - B](https://codeforces.com/contest/2236/problem/B) になるのでしょうか。
+いや、問題確認してみると全然違うかも。
+
+まぁ考え方は似てるので許してください。
+
+まず、$GCD(x, y) \ne 1$ のケースを考えてみましょう。
+
+1. $g = GCD(x, y)$ とする
+2. $P[i] \equiv i \mod{g} \; (\forall i)$ を満たすか否かで `Yes/No`
+
+となります。
+
+次に、$GCD(x, y) = 1$ のケースです。
+
+$x, y$ が互いに素なので、$mod$ を変えることができます。
+しかし、自由に変えられるのかを考える必要があります。未証明なのですが、$x + y \le n$ なら変えられるような気がします。
+そして、それは制約で満たされています。
+
+これらの考え方で解くことができます。
+
+---
+
+### D問題 [Yaroslav and Productivity](https://codeforces.com/contest/2244/problem/D)
+
+ここ3週間ぐらいどこかのコンテストで出ている気がしますね。そうです。<Marker>クエリ逆読み</Marker> です。
+
+1. $A$ の累積和配列 $P_A$ を作成する。
+2. $B$ を昇順ソートする。
+3. $B$ の先頭に $0$ を追加し、$B$ の後ろから $(B_{i-1}, B_i)$ で取り出して以下の操作を繰り返します。
+
+    - $|P_A[B_i] - P_A[B_{i-1}]|$ を足す。
+
+イメージ的に [ABC466 - E](https://atcoder.jp/contests/abc466/tasks/abc466_e) 似ている気もしますが、こちらは制約的にDPは不可能です。
+
+ある範囲の値全部の符号を反転させると、その範囲における総和の符号が反転します。なので、範囲の総和を累積和で管理します。
+
+後ろから見ていくことで、そこまでに見た範囲の値を確定することができます。なので、ある範囲に対して、貪欲に大きい方を取れば良いです。
+
+---
+
+ここでタイムアップなので、E問題以降は解けませんでした。
+
+最初にも書いたのですが今回は、<Marker type="danger">本当に</Marker> ちゃんと `itertools` のコメントアウトを確認したのですが、相変わらずこれでペナつけるのもったいないなぁと...
+
+Codeforces用の環境を作成するべきなんでしょうか。うーん...
+
+それでは、また。
