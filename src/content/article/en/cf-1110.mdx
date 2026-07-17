@@ -1,0 +1,83 @@
+---
+title: Codeforces Round 1110 (Div. 1 + Div. 2) Participation Report
+description: "About Codeforces Round 1110"
+date: 2026-07-16
+tags:
+  - Contest
+---
+
+import Marker from "@/components/Marker.astro";
+
+It's me.
+
+I participated in Codeforces Round 1110 (Div. 1 + Div. 2). I was able to solve two problems: A and B.
+
+This was my first Div. 1 + Div. 2 round, and I felt the problems were somewhat difficult.
+
+Both problems I solved were hard to explain and the type I'm not good at, but since I managed to finish them properly, I feel like I might be growing a little...
+
+---
+
+### Problem A [Who Watches the Watchpig?](https://codeforces.com/contest/2245/problem/A)
+
+Consider the cases where the conditions are not met.
+
+- There is an 'L' within $[0, K)$
+- There is an 'R' within $(N-K, N]$
+
+If at least one of these two conditions is met, the string does not satisfy the requirements.
+
+Therefore, the answer is the sum of:
+
+- The number of 'L's in $[0, K)$
+- The number of 'R's in $(N-K, N]$
+
+Also, if $N < 2K$, the answer is -1.
+
+---
+
+### Problem B [Delete and Concatenate](https://codeforces.com/contest/2245/problem/B)
+
+First, let
+
+$$
+B_i = A_i - K
+$$
+
+Then, we can think of it as adding $B_i$ to the score when deleting a single element alone, and adding $\max(x, y)$ to the score when deleting two elements $x$ and $y$ together.
+
+First, let the score when deleting all elements one by one be
+
+$$
+S = \sum_{i=1}^{n} B_i
+$$
+
+Now, consider deleting two elements $x, y \; (x \le y)$ together.
+
+If deleted separately, the score is $x+y$; if deleted together, it is $y$. By taking two at a time, we can remove the smaller value $x$ from the score.
+
+In other words, taking two at a time can be seen as an "operation to discard the smaller of the two elements."
+
+Since we can perform this operation up to $\left\lfloor \frac{n}{2} \right\rfloor$ times, we can remove up to $\left\lfloor \frac{n}{2} \right\rfloor$ elements from the score.
+
+Naturally, removing a positive value is a loss, so we want to remove the smallest negative values.
+
+Here, let's represent elements to be removed as 'X' and elements to be kept as 'O'. Since there are at most $\left\lfloor \frac{n}{2} \right\rfloor$ elements to be removed, the number of 'X's will always be less than or equal to the number of 'O's.
+
+Also, since we are choosing 'X's in ascending order, each 'X' is less than or equal to any 'O'.
+
+By taking two elements together where an 'X' and an 'O' are adjacent in the original array, we can always remove the 'X' from the score. By repeating this, we can remove all selected 'X's.
+
+Therefore, we don't need to worry about the original positional relationships and can just focus on "which elements to remove."
+
+Thus, sort $B$ in ascending order and remove up to $\left\lfloor \frac{n}{2} \right\rfloor$ negative values from $S$, starting from the smallest.
+
+The final $S$ is the answer.
+
+---
+
+I had no idea how to solve Problem C or beyond... I want to at least upsolve C.
+
+Next time, I hope to reach Green? Yellow-Green?
+
+Until then, see you.
