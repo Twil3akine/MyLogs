@@ -1,0 +1,83 @@
+---
+title: "ABC467 Participation Report"
+description: "About ABC467"
+date: 2026-07-18
+tags:
+- Contest
+---
+
+import Marker from "@/components/Marker.astro"
+
+It is me.
+
+I participated in [ABC467](https://atcoder.jp/contests/abc467). I solved 4 problems. I beat Iwai-seijin. I think this is the second time.
+
+Since both E and F are far beyond the difficulty level I can solve, this looks like quite a good result. I am happy.
+
+---
+
+### Problem A [Obesity](https://atcoder.jp/contests/abc467/tasks/abc467_a)
+
+The units are confusing, and it is a very untidy problem.
+
+The answer is $W / (\frac{H}{100})^2$.
+
+---
+
+### Problem B [Keep the Change](https://atcoder.jp/contests/abc467/tasks/abc467_b)
+
+The answer is the total sum of <Marker type="success">$B_i - A_i$</Marker> when $S_i = $ `keep`.
+
+---
+
+### Problem C [Adjacent Sums (easy)](https://atcoder.jp/contests/abc467/tasks/abc467_c)
+
+It strongly smells like <Marker type="danger">DP</Marker>, but it is not.
+
+Since $A[i+1]$ is determined once $A[i]$ is fixed, you can:
+
+* Run a simulation for $A[0] = 0$
+* Run a simulation for $A[0] = 1$
+
+The answer is the `min` of these two cases.
+
+---
+
+### Problem D [Concentric Circles](https://atcoder.jp/contests/abc467/tasks/abc467_d)
+
+Suddenly, geometry. I wish they would stop because it is bad for my heart.
+
+The important things are:
+
+- If the dot product of two vectors is $0$, they are **perpendicular**.
+- If the cross product of two vectors is $0$, they are **parallel**.
+
+First, if `P == R && Q == S`, it is `Yes` because you can use the same circle.
+
+After that, consider whether the perpendicular bisector of $PQ$ and the perpendicular bisector of $RS$ intersect.
+
+If they intersect, you can use that intersection as the common center.
+
+However, calculating the perpendicular bisectors properly is a hassle, so first check if $PQ$ and $RS$ are parallel.
+
+If $PQ$ and $RS$ are not parallel, then their perpendicular bisectors are also not parallel and will always intersect. Therefore, the answer is `Yes`.
+
+So, does it mean `No` if $PQ$ and $RS$ are parallel? Not necessarily, because there is a case where the perpendicular bisectors coincide.
+
+You can determine this by checking if the vector connecting the midpoints of $PQ$ and $RS$ is perpendicular to $PQ$.
+
+If it is perpendicular, the perpendicular bisectors coincide, so the answer is `Yes`; otherwise, it is `No`.
+
+That is all.
+
+---
+
+## Final Thoughts
+
+I might have solved Problem E if I could have performed a binary search on ModInt.
+
+For Problem F, the problem to be solved for each query looks like interval scheduling, but maybe I am wrong.
+
+The rate of improvement recently has been abnormal, but I am anxious because my practice cannot keep up at all. It is scary.
+
+See you.
