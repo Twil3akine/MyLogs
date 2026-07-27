@@ -1,0 +1,77 @@
+---
+title: "ABC468 Participation Report"
+description: "About ABC468"
+date: 2026-07-25
+tags:
+- Contest
+---
+
+import Marker from "@/components/Marker.astro"
+
+It is me.
+
+I participated in [ABC468](https://atcoder.jp/contests/abc468). I got 4 problems solved with 3 penalties and a very slow time. It has been a while since I lost this badly. I cannot forgive the writer of this contest until they return my rating.
+
+However, since problem `C` was educational, I will consider it barely okay.
+
+---
+
+### Problem A [Maximal Value](https://atcoder.jp/contests/abc468/tasks/abc468_a)
+
+I misread the problem and was late to realize that it was about finding the number of local maxima.
+
+---
+
+### Problem B [Corridor Watch](https://atcoder.jp/contests/abc468/tasks/abc468_b)
+
+I misread this one too, somehow thinking that $D = 1$. I got off to a late start.
+
+The approach is to fill the grid within distance $D$ before and after `G` and then count the number of empty cells.
+
+---
+
+### Problem C [Between P and Q](https://atcoder.jp/contests/abc468/tasks/abc468_c)
+
+Now, for the problematic Problem C.
+
+I figured out within two seconds that it was an exhaustive search of permutations, but I spent way too much time actually solving it from there...
+
+At first, I was struggling with conditions based on the leading digit, but even after getting two penalties, I couldn't see a way to solve it. When I stopped to rethink, I realized I could solve it by converting the permutations into numerical values.
+
+Something like $[1, 3, 2] \to 132$.
+
+Furthermore, I found out after the contest that you can compare tuples in Rust, so what were my two penalties even for...
+
+So, if I had known that, the problem would have been reduced to simply finding the number of permutations $A$ such that $P \lt A \lt Q$.
+
+---
+
+### Problem D [Pre-Palindrome](https://atcoder.jp/contests/abc468/tasks/abc468_d)
+
+Since $|S| \le 10^4$, it was obvious that $O(|S|^2)$ would pass. I thought I would finish it instantly with an exhaustive search, but the code I wrote ended up being $O(|S|^3)$. This is exactly the kind of mistake I always make...
+
+I wondered why I was getting a <Marker type="warning">TLE</Marker>, and when I looked at the code, it was clearly $O(|S|^3)$. Everyone, please be careful about computational complexity.
+
+From there, I thought I could solve it by doing something like Manacher's algorithm, so I tried tinkering with a Manacher library, but it didn't go well, so I wrote it from scratch.
+
+---
+
+### Problem E [Sum of Average](https://atcoder.jp/contests/abc468/tasks/abc468_e)
+
+I can't verbalize it well, but I have an intuition that problems involving double sums work out better if you look at them "vertically" rather than "horizontally." I wanted to turn that into something concrete, but I simply couldn't solve it.
+
+I usually fail to solve problems involving formula manipulation, so I feel like I'm in a pretty bad spot...
+
+---
+
+## Conclusion
+
+During this contest, a [Cyan-colored coder](https://atcoder.jp/users/nsubaru) was born from [our club](https://wcpc.pages.dev). This is a very happy occasion.
+
+I had also been gaining nearly 200 rating points in a monotonically increasing fashion until now, but cracks have started to show.
+
+I cannot afford to stop here yet. I intend to keep practicing.
+
+For now, I think I'll start working through the "Typical 90 Problems" from the easiest ones up.
+
+Until next time.
