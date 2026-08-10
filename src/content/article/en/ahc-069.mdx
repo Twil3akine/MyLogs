@@ -1,0 +1,195 @@
+---
+title: "AHC069 Participation Report"
+description: "About RECRUIT Nihonbashi Half Marathon 2026 Summer (AHC069)"
+date: 2026-08-10
+tags:
+  - Contest
+---
+
+import Marker from "@/components/Marker.astro";
+import Callout from "@/components/Callout.astro";
+import LinkCard from "@/components/LinkCard.astro";
+
+It is me.
+
+I participated in [RECRUIT Nihonbashi Half Marathon 2026 Summer (AtCoder Heuristic Contest 069)](https://atcoder.jp/contests/ahc069).
+
+<Callout type="warning">As of the end of the provisional test, I am in **136th place**, but honestly, I have no idea how it will turn out. I hope it goes up. A lot. Seriously.</Callout>
+
+<Callout type="danger">Codex is clearly more knowledgeable than I am about the problem overview and improvements this time, so the technical content is supervised by Codex.</Callout>
+
+---
+
+## The Problem
+
+The [problem](https://atcoder.jp/contests/ahc069/tasks/ahc069_a) this time was to arrange picnic groups that arrive one by one in a 50 × 50 park.
+
+Each cell in the park is either grass or a pond. If you accept a group, you must assign a number of connected grass cells equal to the number of people in the group.
+
+Given the area of the region $P$ and the perimeter $L$, the compactness is defined as:
+
+$$
+C = \frac{4\sqrt{P}}{L}
+$$
+
+The closer the shape is to a square, the higher the compactness, and the higher the usage fee you receive.
+
+On the other hand, if you accept every group right in front of you, the empty space becomes fragmented, and you won't be able to place groups that arrive later.
+
+Furthermore, you can move existing groups by paying a fee. However, if you move them to a long and thin area even once, that poor compactness score remains until the end.
+
+In short, you must decide:
+
+- Which groups to accept
+- What shape to place them in
+- Where to place them
+- When to move existing groups
+
+All of this must be decided without knowing the future inputs.
+
+---
+
+## Initial Strategy
+
+Initially, I adopted a strategy of creating many shapes close to squares or rectangles for each group size and searching for places where they could fit.
+
+If there were multiple candidates with the same perimeter, I prioritized those adjacent to the edges of the park, ponds, or already occupied areas.
+
+Since placing a group in the middle of an empty space tends to fragment the area, the idea was to pack them from the edges as much as possible to leave large empty regions.
+
+Also, if surrounding groups leave quickly, the "walls" disappear even if you tried to pack them at the edges. Therefore, I gave a high evaluation to contact with groups that would stay for a long time.
+
+If a neat template could not be placed, I grew $P$ connected cells within the empty area and shortened the perimeter by swapping boundary cells.
+
+This part was a fairly straightforward greedy approach of "packing compact shapes from the edges."
+
+---
+
+## Selecting Groups to Accept
+
+When I accepted all groups that could be placed, the park filled up quite early.
+
+So, for each group, I calculated:
+
+$$
+D_i = \frac{V_i C_i}{P_i(T_i-S_i)}
+$$
+
+Roughly speaking, this represents "how much usage fee can be earned per grass cell per hour."
+
+I recorded the density of recent groups and accepted only high-density groups when it was crowded. Conversely, I relaxed the criteria when the park was empty or towards the end of the contest.
+
+It is a simple formula, but thinking about who to reject was much more effective than just working hard on the placement method.
+
+---
+
+## Moving Groups
+
+An interesting part of this contest was the ability to move existing groups.
+
+When a normal placement was impossible, I would temporarily remove a group blocking an ideal location, place the new group, and then re-pack the removed group elsewhere.
+
+In cases where the movement cost coefficient `R` was small, I tried chain relocations involving not just one or two groups, but a series of shifts.
+
+However, moving doesn't always result in a profit. I only adopted it if:
+
+$$
+\text{New group's usage fee}
+>
+\text{Movement cost} + \text{Decrease in existing group's fee}
+$$
+
+Even so, since it was necessary to process 1,000 groups within 2 seconds, I reduced the search volume according to the remaining time to ensure a legal output was always returned at the end.
+
+---
+
+## Improvement via Codex
+
+This is the main topic of this report.
+
+The average for the first 100 cases was approximately `45.47M`. From there, I decided to proceed with improvements alongside Codex, targeting an average of over `75M` for the fixed 500 cases.
+
+The improvement process followed this flow:
+
+- Decide on only one hypothesis to test next.
+- Determine the expected effect and rejection criteria before implementation.
+- Conduct a primary evaluation with the fixed 100 cases.
+- Proceed to the fixed 500 cases only for those that look promising.
+- Retain only the changes that showed improvement in the fixed 500 cases.
+- Revert any failed changes.
+
+I also separated roles into strategic planning, implementation, result aggregation, and questioning the experiments.
+
+Whenever experimental results came back, I would skim through them and, even if my understanding was a bit shaky, I would reply "Yes" for the time being and let the next experiment proceed.
+
+On the first day, we repeated small changes and evaluations almost without a break, and the score grew from `45M → 59M → 63M → 69M`. The final official best average for the fixed 500 cases was about `73.36M`.
+
+Well, unfortunately, it didn't reach the goal of `75M`.
+
+---
+
+## What Worked Well
+
+Still, the score grew from the initial `45M` to `73M`. I will list a few changes that were particularly effective.
+
+The most obvious one was speeding up the enumeration of placeable locations using bitwise operations. While it didn't directly change the "intelligence" of the search, it allowed the process to reach subsequent fallbacks and relocations within the same 2 seconds, increasing the average for the fixed 500 cases by about `+139k`.
+
+Also, for chain relocations when movement costs were low, I improved the score by another `+109k` by trying up to three candidates with different combinations of blocking groups, rather than just the first placement found.
+
+Other small situational changes remained, such as acceptance control considering group area, contact evaluation based on remaining stay time, and switching strategies based on the abundance of ponds.
+
+What worked in the end wasn't some amazing future prediction, but a steady accumulation of improvements like "placing compactly," "leaving empty spaces together," "moving only when cheap," and "speeding up the search."
+
+As expected... speed saves the world!
+
+---
+
+## What Didn't Work Well
+
+As I continued the experiments, many changes appeared that were good in 100 cases but worsened in 500 cases.
+
+Examples include reducing isolated single-cell empty spots, increasing search candidates, and reserving space for large groups.
+
+All of them sound good when you hear the explanation, but they ended up losing overall by breaking contact with other areas, consuming too much search time, or rejecting groups that could have been accepted.
+
+It was frustrating that "looking like it improved the board" and "the final score going up" were completely different things.
+
+Even if you make the empty space larger, you lose if you miss one expensive group because of it. Even if you check many candidates, you lose if the search slows down slightly and changes the actions in the latter half.
+
+As I thought, AHC is hard...
+
+---
+
+## What Can Be Seen Offline
+
+Towards the end, as instructed by Codex and GPT, I conducted experiments to investigate "how much improvement could be made if the future were completely known."
+
+In an experiment where I added groups that had been rejected—despite actually being placeable safely—to locations that didn't collide with future placements, improvements were seen in all 100 cases, revealing a potential margin of about `+824k` on average.
+
+In other words, rather than a lack of placeable locations, there were significant false negatives in the acceptance judgment.
+
+However, whether that safe location truly remains empty until the end cannot be known without seeing the future. When trying to predict based only on information available at the time, I couldn't distinguish it well.
+
+The fact that there is "room for improvement" and being able to "improve online" are, after all, two different things.
+
+---
+
+## Closing Remarks
+
+To be honest, I think the score hardly changed at all in the final week. What is going on? What even are you, AHC?
+
+That said, I was actually quite high in the rankings for the first two days or so, you know?
+
+<LinkCard href="https://x.com/twil3akine/status/2083576080687116451?s=20" />
+
+Wait, what was I really doing...?
+
+What else? Oh right. I really enjoyed spectating this AHC. You can see how excited I was from the content of my tweets.
+
+<LinkCard href="https://x.com/twil3akine/status/2085030507549724685?s=20" />
+
+Now, as of the end of the provisional test, I am in 136th place, and my rating is expected to increase by more than 100. However, in AHC, rankings and ratings can change significantly with the system test, so I don't know if I can celebrate yet.
+
+For now, I'll just pray that I haven't tanked in the system test.
+
+Until next time.
