@@ -22,6 +22,7 @@ interface PostLike {
     description: string;
     date: Date;
     draft?: boolean;
+    hidden?: boolean;
     tags: string[];
   };
 }
@@ -77,6 +78,10 @@ export function hasPostTranslation(posts: PostLike[], post: PostLike) {
 
 export function isPublishedPost(post: PostLike) {
   return !post.data.draft;
+}
+
+export function isListedPost(post: PostLike) {
+  return isPublishedPost(post) && !post.data.hidden;
 }
 
 export function sortPostsByDateDesc<T extends PostLike>(posts: T[]) {
