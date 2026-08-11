@@ -3,7 +3,7 @@ import PostListPage from "@/components/PostListPage.astro";
 import { getCollection } from "astro:content";
 import {
   isPostLocale,
-  isPublishedPost,
+  isListedPost,
   sortPostsByDateDesc,
   toPostListItem,
 } from "@/lib/content";
@@ -11,7 +11,7 @@ import Layout from "@/layouts/Layout.astro";
 
 const posts = sortPostsByDateDesc(
   (await getCollection("article")).filter(
-    (post) => isPublishedPost(post) && isPostLocale(post, "ja"),
+    (post) => isListedPost(post) && isPostLocale(post, "ja"),
   ),
 )
   .map((post) => toPostListItem(post, "/article"));
