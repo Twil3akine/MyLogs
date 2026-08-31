@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "compatibility_date": "2026-08-31",
+  // Local development only. Production remains configured in the Pages dashboard.
+  "d1_databases": [
+    {
+      "binding": "PAGE_VIEWS_DB",
+      "database_name": "mylogs-page-views",
+      "preview_database_id": "mylogs-page-views-local"
+    }
+  ]
+}

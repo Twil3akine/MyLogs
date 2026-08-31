@@ -1,0 +1,83 @@
+---
+interface Props {
+  path: string;
+  lang?: "ja" | "en";
+}
+
+const { path, lang = "ja" } = Astro.props;
+const ariaLabel = lang === "en" ? "Page views" : "閲覧数";
+---
+
+<span class="page-view" data-page-view data-page-path={path} aria-label={ariaLabel} aria-live="polite">
+  <span data-page-view-count aria-hidden="true">—</span>
+  <span aria-hidden="true">views</span>
+</span>
+
+<script>
+  function isViewCount(value: unknown): value is { views: number } {
+    return (
+      typeof value === "object" &&
+      value !== null &&
+      "views" in value &&
+      typeof value.views === "number" &&
+      Number.isSafeInteger(value.views) &&
+      value.views >= 0
+    );
+  }
+
+  async function updatePageView() {
+    const container = document.querySelector<HTMLElement>("[data-page-view]");
+    if (!container || container.dataset.pageViewLoaded === "true") {
+      return;
+    }
+
+    const path = container.dataset.pagePath;
+    if (!path) {
+      container.hidden = true;
+      return;
+    }
+
+    container.dataset.pageViewLoaded = "true";
+
+    try {
+      const response = await fetch("/api/views", {
+        method: "POST",
+        headers: { "X-Page-Path": path },
+      });
+      if (!response.ok) {
+        throw new Error(`Page view request failed with status ${response.status}`);
+      }
+
+      const result: unknown = await response.json();
+      if (!isViewCount(result)) {
+        throw new Error("Page view response was invalid");
+      }
+
+      const count = container.querySelector<HTMLElement>("[data-page-view-count]");
+      if (count) {
+        count.textContent = result.views.toLocaleString();
+        container.setAttribute("aria-label", `${container.getAttribute("aria-label")}: ${result.views}`);
+      }
+    } catch {
+      container.hidden = true;
+    }
+  }
+
+  document.addEventListener("astro:page-load", updatePageView);
+</script>
+
+<style>
+  .page-view {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    color: color-mix(in srgb, var(--theme-text), transparent 42%);
+    font-family: var(--theme-font-mono);
+    font-size: var(--font-size-date-large);
+    font-weight: 700;
+  }
+
+  .page-view[hidden] {
+    display: none;
+  }
+</style>
