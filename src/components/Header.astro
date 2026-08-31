@@ -48,11 +48,101 @@ const { siteTitle = "", navLinks = [] } = Astro.props;
 </header>
 
 <script>
+  const prefetchedPageURLs = new Set<string>();
+
+  const prefetchPageResources = async (html: string, pageURL: URL) => {
+    const pageDocument = new DOMParser().parseFromString(html, "text/html");
+    const resourceURLs = new Set<string>();
+
+    pageDocument
+      .querySelectorAll<HTMLElement>(
+        'link[rel="stylesheet"][href], link[rel="modulepreload"][href], script[src], astro-island[component-url], astro-island[renderer-url]',
+      )
+      .forEach((element) => {
+        const resourcePath =
+          element.getAttribute("href") ??
+          element.getAttribute("src") ??
+          element.getAttribute("component-url") ??
+          element.getAttribute("renderer-url");
+
+        if (!resourcePath) {
+          return;
+        }
+
+        const resourceURL = new URL(resourcePath, pageURL);
+        if (resourceURL.origin === window.location.origin) {
+          resourceURLs.add(resourceURL.href);
+        }
+      });
+
+    await Promise.allSettled(
+      Array.from(resourceURLs, (resourceURL) =>
+        fetch(resourceURL, { credentials: "same-origin" }),
+      ),
+    );
+  };
+
+  const prefetchPage = async (link: HTMLAnchorElement) => {
+    if ((link.target && link.target !== "_self") || link.hasAttribute("download")) {
+      return;
+    }
+
+    const url = new URL(link.href, window.location.href);
+    const currentURL = new URL(window.location.href);
+    url.hash = "";
+    currentURL.hash = "";
+
+    if (
+      url.origin !== window.location.origin ||
+      url.href === currentURL.href ||
+      prefetchedPageURLs.has(url.href)
+    ) {
+      return;
+    }
+
+    prefetchedPageURLs.add(url.href);
+
+    try {
+      const response = await fetch(url, { credentials: "same-origin" });
+      if (!response.ok) {
+        throw new Error(`Failed to prefetch ${url.pathname}`);
+      }
+      const html = await response.text();
+      await prefetchPageResources(html, url);
+      window.setTimeout(() => prefetchedPageURLs.delete(url.href), 300_000);
+    } catch {
+      prefetchedPageURLs.delete(url.href);
+    }
+  };
+
+  const prefetchInternalLink = (event: Event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const link = target.closest<HTMLAnchorElement>("a[href]");
+    if (link) {
+      void prefetchPage(link);
+    }
+  };
+
+  document.addEventListener("pointerover", prefetchInternalLink, { passive: true });
+  document.addEventListener("focusin", prefetchInternalLink, { passive: true });
+
   document.addEventListener("pointerdown", (event) => {
+    prefetchInternalLink(event);
+
     const menuToggle = document.querySelector<HTMLInputElement>("#header-menu-toggle");
     const menuButton = document.querySelector<HTMLElement>(".menu-button");
     const menuContent = document.querySelector<HTMLElement>(".header-content");
     const target = event.target;
+
+    if (menuButton && menuContent && target instanceof Node && menuButton.contains(target)) {
+      menuContent.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((link) => {
+        void prefetchPage(link);
+      });
+    }
 
     if (
       !menuToggle?.checked ||
