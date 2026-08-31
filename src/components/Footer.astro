@@ -1,10 +1,15 @@
 ---
+import type { Locale } from "@/data/locales";
+
 export interface Props {
   siteTitle?: string;
+  lang?: Locale;
 }
 
-const { siteTitle = "Twil3akine" } = Astro.props;
+const { siteTitle = "Twil3akine", lang = "ja" } = Astro.props;
 const currentYear = new Date().getFullYear();
+const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
+const privacyLabel = lang === "en" ? "Privacy Policy" : "プライバシーポリシー";
 ---
 
 <footer class="footer">
@@ -21,6 +26,9 @@ const currentYear = new Date().getFullYear();
         &copy; {currentYear}
         {siteTitle}. All rights reserved.
       </p>
+      <nav class="footer-links" aria-label={lang === "en" ? "Legal" : "サイト情報"}>
+        <a href={privacyHref}>{privacyLabel}</a>
+      </nav>
     </div>
   </div>
 </footer>
@@ -38,10 +46,10 @@ const currentYear = new Date().getFullYear();
   }
   .footer-content {
     display: flex;
-    flex-direction: column; /* 縦並びに変更 */
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
+    align-items: baseline;
+    gap: 0.35rem;
   }
   .copyright {
     margin: 0;
@@ -54,6 +62,25 @@ const currentYear = new Date().getFullYear();
     display: flex;
     align-items: center;
     gap: 1.25rem;
+  }
+  .footer-links {
+    display: inline-flex;
+    align-items: baseline;
+    white-space: nowrap;
+    font-size: 0.82rem;
+  }
+  .footer-links::before {
+    margin-right: 0.35rem;
+    color: var(--theme-text);
+    opacity: 0.45;
+    content: "·";
+  }
+  .footer-links a {
+    color: var(--theme-text-muted);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    color: var(--theme-accent);
   }
   /* スロットで渡されたリンクのスタイルとホバー設定 */
   .footer-actions :global(a) {
