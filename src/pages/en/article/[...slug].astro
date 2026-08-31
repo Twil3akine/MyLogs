@@ -46,6 +46,8 @@ const { Content, headings } = await render(post);
     tags={post.data.tags}
     headings={headings}
     tagBasePath="/en/article/"
+    pageViewPath={Astro.url.pathname}
+    lang="en"
     showAds
   >
     <Content components={{ Marker, Tag }} />
