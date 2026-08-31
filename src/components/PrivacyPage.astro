@@ -1,0 +1,94 @@
+---
+import MarkdownPage from "@/components/MarkdownPage.astro";
+import type { Locale } from "@/data/locales";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const isEnglish = lang === "en";
+---
+
+<MarkdownPage
+  title={isEnglish ? "Privacy Policy" : "プライバシーポリシー"}
+  lead={
+    isEnglish
+      ? "This policy explains how this site handles information and uses external services."
+      : "当サイトにおける情報の取り扱いと、利用している外部サービスについて説明します。"
+  }
+  headings={[]}
+  variant="profile"
+>
+  {
+    isEnglish ? (
+      <>
+        <h2>Advertising</h2>
+        <p>
+          This site uses Google AdSense. Google and its advertising partners may use cookies and similar technologies to serve and measure ads, including ads based on previous visits to this or other websites.
+        </p>
+        <p>
+          For details, see <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses information from sites or apps that use its services</a>. You can manage ad personalization in <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google's Ads Settings</a>.
+        </p>
+
+        <h2>Cookies and local storage</h2>
+        <p>
+          Pages containing Google advertising tags may send information such as cookie identifiers, IP addresses, and browser or device information to Google and its partners. This site also stores only the selected light or dark theme in your browser's local storage. The theme setting does not contain information that identifies you personally.
+        </p>
+
+        <h2>External services and links</h2>
+        <p>
+          This site uses external resources such as Google Fonts and may display images hosted by linked websites. When these resources are loaded, their providers may receive technical information such as your IP address, browser information, and referrer in accordance with their own privacy policies.
+        </p>
+        <p>
+          This site is not responsible for the content or information-handling practices of external websites reached through links on this site.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For questions about this policy, contact the site operator through <a href="https://github.com/twil3akine" target="_blank" rel="noopener noreferrer">GitHub</a> or <a href="https://twitter.com/twil3akine" target="_blank" rel="noopener noreferrer">X</a>. Information voluntarily provided for an inquiry will be used only to respond to that inquiry.
+        </p>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          This policy may be revised when the site's features, external services, or applicable requirements change. Material changes will be published on this page.
+        </p>
+        <p><strong>Last updated:</strong> August 31, 2026</p>
+      </>
+    ) : (
+      <>
+        <h2>広告配信について</h2>
+        <p>
+          当サイトでは、広告配信サービス「Google AdSense」を利用しています。Googleおよび広告配信事業者は、当サイトや他のウェブサイトへの過去のアクセス情報に基づく広告の配信・測定などのために、Cookieその他の技術を使用することがあります。
+        </p>
+        <p>
+          詳細は、<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener noreferrer">Googleのサービスを使用するサイトやアプリから収集した情報のGoogleによる使用</a>をご確認ください。広告のパーソナライズは、<a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Googleの広告設定</a>から管理できます。
+        </p>
+
+        <h2>Cookieおよびローカルストレージについて</h2>
+        <p>
+          Googleの広告タグを設置したページでは、Cookie識別子、IPアドレス、ブラウザーや端末に関する情報などがGoogleおよびそのパートナーへ送信されることがあります。また、当サイトはライト・ダークテーマの選択内容のみをブラウザーのローカルストレージへ保存します。このテーマ設定に個人を特定する情報は含まれません。
+        </p>
+
+        <h2>外部サービスおよび外部リンクについて</h2>
+        <p>
+          当サイトではGoogle Fontsなどの外部リソースを利用し、リンク先サイトが配信する画像を表示することがあります。これらの読み込み時には、各提供者のプライバシーポリシーに従い、IPアドレス、ブラウザー情報、参照元などの技術情報が提供者へ送信される場合があります。
+        </p>
+        <p>
+          当サイトからリンクされた外部サイトの内容および情報の取り扱いについて、当サイトは責任を負いません。
+        </p>
+
+        <h2>お問い合わせ</h2>
+        <p>
+          本ポリシーに関するお問い合わせは、運営者Twil3akineの<a href="https://github.com/twil3akine" target="_blank" rel="noopener noreferrer">GitHub</a>または<a href="https://twitter.com/twil3akine" target="_blank" rel="noopener noreferrer">X</a>からお願いします。お問い合わせのために任意で提供された情報は、回答のためにのみ利用します。
+        </p>
+
+        <h2>プライバシーポリシーの変更</h2>
+        <p>
+          サイトの機能、利用する外部サービスまたは適用される要件の変更に応じて、本ポリシーを改定することがあります。重要な変更はこのページで公開します。
+        </p>
+        <p><strong>制定日・最終更新日：</strong>2026年8月31日</p>
+      </>
+    )
+  }
+</MarkdownPage>

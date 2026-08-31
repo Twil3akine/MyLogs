@@ -38,7 +38,7 @@ const {
   type = "website",
   articleDate,
   alternatePath: alternatePathProp,
-  enableAdSense = false,
+  enableAdSense = true,
   frontmatter
 } = Astro.props;
 
@@ -255,6 +255,6 @@ const adsenseScriptURL = `https://pagead2.googlesyndication.com/pagead/js/adsbyg
       </main>
     </div>
 
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
