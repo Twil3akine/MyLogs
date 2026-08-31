@@ -27,9 +27,16 @@ const {
   showAds = false,
 } = Astro.props;
 const visibleHeadings = getVisibleHeadings(headings);
+const hasTableOfContents = visibleHeadings.length > 0;
 ---
 
-<div class:list={["markdown-shell", `markdown-shell-${variant}`]}>
+<div
+  class:list={[
+    "markdown-shell",
+    `markdown-shell-${variant}`,
+    { "markdown-shell-no-toc": !hasTableOfContents },
+  ]}
+>
   <article class="markdown-content">
     <header>
       <h1>{title}</h1>
@@ -51,7 +58,7 @@ const visibleHeadings = getVisibleHeadings(headings);
   {showAds && <div class="markdown-footer-ad"><AdSense placement="footer" /></div>}
 
   {
-    visibleHeadings.length > 0 && (
+    hasTableOfContents && (
       <aside class="markdown-toc">
         <TOC headings={visibleHeadings} client:load />
         {showAds && <AdSense placement="toc" />}
@@ -64,6 +71,7 @@ const visibleHeadings = getVisibleHeadings(headings);
   .markdown-shell {
     display: grid;
     grid-template-columns: minmax(0, 768px) minmax(10rem, 14rem);
+    grid-template-areas: "content toc";
     gap: clamp(2rem, 4vw, 3rem);
     align-items: start;
     width: min(100%, 1040px);
@@ -151,6 +159,14 @@ const visibleHeadings = getVisibleHeadings(headings);
       "content toc"
       "footer-ad toc";
     row-gap: 0;
+  }
+
+  .markdown-shell-no-toc {
+    grid-template-columns: minmax(0, 768px);
+    grid-template-areas:
+      "content"
+      "footer-ad";
+    width: min(100%, 768px);
   }
 
   @media (max-width: 960px) {
