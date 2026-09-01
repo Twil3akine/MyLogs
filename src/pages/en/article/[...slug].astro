@@ -48,6 +48,8 @@ const { Content, headings } = await render(post);
     tagBasePath="/en/article/"
     pageViewPath={Astro.url.pathname}
     lang="en"
+    backHref="/en/article/"
+    backLabel="Back to Articles"
     showAds
   >
     <Content components={{ Marker, Tag }} />

@@ -47,6 +47,8 @@ const { Content, headings } = await render(post);
     tagBasePath="/blog/"
     pageViewPath={Astro.url.pathname}
     lang="ja"
+    backHref="/blog/"
+    backLabel="ブログ一覧へ"
   >
     <Content components={{ Marker, Tag }} />
   </MarkdownPage>

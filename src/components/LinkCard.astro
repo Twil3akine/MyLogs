@@ -1,9 +1,10 @@
 ---
 export interface Props {
   href: string;
+  variant?: "default" | "image";
 }
 
-const { href } = Astro.props;
+const { href, variant = "default" } = Astro.props;
 
 // デフォルト値（取得できなかった時のフォールバック）
 let title = href;
@@ -34,7 +35,7 @@ try {
     const imgMatch = html.match(
       /<meta[^>]*property="og:image"[^>]*content="([^"]*)"[^>]*>/i,
     );
-    if (imgMatch) image = imgMatch[1];
+    if (imgMatch) image = decodeHTMLEntities(imgMatch[1]);
   }
 } catch {
   console.error(`LinkCard fetch failed for ${href}`);
@@ -54,7 +55,12 @@ function decodeHTMLEntities(text: string) {
 }
 ---
 
-<a href={href} class="link-card" target="_blank" rel="noopener noreferrer">
+<a
+  href={href}
+  class:list={["link-card", { "link-card-image": variant === "image" }]}
+  target="_blank"
+  rel="noopener noreferrer"
+>
   <div class="content">
     <div class="title">{title}</div>
     {description && <div class="description">{description}</div>}
@@ -167,6 +173,33 @@ function decodeHTMLEntities(text: string) {
     display: block;
   }
 
+  .link-card-image {
+    flex-direction: column-reverse;
+  }
+
+  .link-card-image .thumbnail {
+    width: 100%;
+    max-width: none;
+    max-height: 34rem;
+    border-left: none;
+    border-bottom: 1px solid var(--theme-border);
+    background: color-mix(in srgb, var(--theme-bg), var(--theme-text) 3%);
+  }
+
+  .link-card-image .thumbnail img {
+    height: auto;
+    max-height: 34rem;
+    object-fit: contain;
+  }
+
+  .link-card-image .description {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
   /* スマホ表示時の調整（画像を上部に配置） */
   @media (max-width: 600px) {
     .link-card {
@@ -178,6 +211,14 @@ function decodeHTMLEntities(text: string) {
       height: 150px;
       border-left: none;
       border-bottom: 1px solid var(--theme-border);
+    }
+
+    .link-card-image .thumbnail {
+      height: auto;
+    }
+
+    .link-card-image .thumbnail img {
+      max-height: 26rem;
     }
   }
 </style>
