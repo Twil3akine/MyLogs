@@ -14,6 +14,8 @@ const ariaLabel = lang === "en" ? "Page views" : "閲覧数";
 </span>
 
 <script>
+  const PAGE_VIEW_COOLDOWN_MS = 30 * 60 * 1000;
+
   function isViewCount(value: unknown): value is { views: number } {
     return (
       typeof value === "object" &&
@@ -23,6 +25,33 @@ const ariaLabel = lang === "en" ? "Page views" : "閲覧数";
       Number.isSafeInteger(value.views) &&
       value.views >= 0
     );
+  }
+
+  function getPageViewStorageKey(path: string) {
+    return `page-view:${path}`;
+  }
+
+  function shouldIncrementPageView(path: string) {
+    try {
+      const stored = window.localStorage.getItem(getPageViewStorageKey(path));
+      if (!stored) {
+        return true;
+      }
+
+      const lastViewedAt = Number(stored);
+      const elapsed = Date.now() - lastViewedAt;
+      return !Number.isFinite(lastViewedAt) || elapsed < 0 || elapsed >= PAGE_VIEW_COOLDOWN_MS;
+    } catch {
+      return true;
+    }
+  }
+
+  function markPageViewIncremented(path: string) {
+    try {
+      window.localStorage.setItem(getPageViewStorageKey(path), String(Date.now()));
+    } catch {
+      // Counting still works when storage is unavailable.
+    }
   }
 
   async function updatePageView() {
@@ -40,10 +69,13 @@ const ariaLabel = lang === "en" ? "Page views" : "閲覧数";
     container.dataset.pageViewLoaded = "true";
 
     try {
-      const response = await fetch("/api/views", {
-        method: "POST",
-        headers: { "X-Page-Path": path },
-      });
+      const shouldIncrement = shouldIncrementPageView(path);
+      const response = await fetch(
+        shouldIncrement ? "/api/views" : `/api/views?path=${encodeURIComponent(path)}`,
+        shouldIncrement
+          ? { method: "POST", headers: { "X-Page-Path": path } }
+          : { method: "GET" },
+      );
       if (!response.ok) {
         throw new Error(`Page view request failed with status ${response.status}`);
       }
@@ -51,6 +83,10 @@ const ariaLabel = lang === "en" ? "Page views" : "閲覧数";
       const result: unknown = await response.json();
       if (!isViewCount(result)) {
         throw new Error("Page view response was invalid");
+      }
+
+      if (shouldIncrement) {
+        markPageViewIncremented(path);
       }
 
       const count = container.querySelector<HTMLElement>("[data-page-view-count]");
