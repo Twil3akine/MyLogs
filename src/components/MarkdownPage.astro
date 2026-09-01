@@ -17,6 +17,8 @@ interface Props {
   showAds?: boolean;
   pageViewPath?: string;
   lang?: "ja" | "en";
+  backHref?: string;
+  backLabel?: string;
 }
 
 const {
@@ -30,6 +32,8 @@ const {
   showAds = false,
   pageViewPath,
   lang = "ja",
+  backHref,
+  backLabel,
 } = Astro.props;
 const visibleHeadings = getVisibleHeadings(headings);
 const hasTableOfContents = visibleHeadings.length > 0;
@@ -65,6 +69,16 @@ const hasTableOfContents = visibleHeadings.length > 0;
       }
     </header>
     <slot />
+    {
+      backHref && backLabel && (
+        <footer class="markdown-back-navigation">
+          <a href={backHref} class="markdown-back-link">
+            <span aria-hidden="true">←</span>
+            <span>{backLabel}</span>
+          </a>
+        </footer>
+      )
+    }
   </article>
 
   {showAds && <div class="markdown-footer-ad"><AdSense placement="footer" /></div>}
@@ -135,6 +149,35 @@ const hasTableOfContents = visibleHeadings.length > 0;
     flex-wrap: wrap;
     gap: 0.45rem;
     margin-top: 1rem;
+  }
+
+  .markdown-back-navigation {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--theme-border);
+  }
+
+  .markdown-back-link {
+    display: inline-flex;
+    gap: 0.55rem;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--theme-border);
+    border-radius: 8px;
+    color: var(--theme-text);
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .markdown-back-link:hover {
+    border-color: var(--theme-accent);
+    color: var(--theme-accent);
+    background-color: var(--theme-accent-bg);
   }
 
   .markdown-content :global(h2) {
