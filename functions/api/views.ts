@@ -40,29 +40,40 @@ function isTrackedPath(path: string | null): path is string {
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-  if (context.request.method !== "POST") {
+  const method = context.request.method;
+  if (method !== "GET" && method !== "POST") {
     return new Response(
-      JSON.stringify({ error: `Method ${context.request.method} not allowed` }),
+      JSON.stringify({ error: `Method ${method} not allowed` }),
       {
         status: 405,
-        headers: { ...jsonHeaders, Allow: "POST" },
+        headers: { ...jsonHeaders, Allow: "GET, POST" },
       },
     );
   }
 
   const requestURL = new URL(context.request.url);
-  const origin = context.request.headers.get("Origin");
-
-  if (origin !== requestURL.origin) {
+  if (method === "POST" && context.request.headers.get("Origin") !== requestURL.origin) {
     return jsonResponse({ error: "Forbidden" }, 403);
   }
 
-  const path = context.request.headers.get("X-Page-Path");
+  const path = method === "GET"
+    ? requestURL.searchParams.get("path")
+    : context.request.headers.get("X-Page-Path");
   if (!isTrackedPath(path)) {
     return jsonResponse({ error: "Invalid page path" }, 400);
   }
 
   try {
+    if (method === "GET") {
+      const result = await context.env.PAGE_VIEWS_DB.prepare(
+        "SELECT views FROM page_views WHERE path = ?1",
+      )
+        .bind(path)
+        .first<{ views: number }>();
+
+      return jsonResponse({ views: result?.views ?? 0 });
+    }
+
     const result = await context.env.PAGE_VIEWS_DB.prepare(
       `INSERT INTO page_views (path, views)
        VALUES (?1, 1)
@@ -81,11 +92,14 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   } catch (error) {
     console.error(
       JSON.stringify({
-        message: "Failed to update page view count",
+        message: `Failed to ${method === "GET" ? "read" : "update"} page view count`,
         path,
         error: error instanceof Error ? error.message : String(error),
       }),
     );
-    return jsonResponse({ error: "Unable to update page view count" }, 500);
+    return jsonResponse(
+      { error: `Unable to ${method === "GET" ? "read" : "update"} page view count` },
+      500,
+    );
   }
 };

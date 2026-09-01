@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "twil3akine",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2024-10-23",
+  "d1_databases": [
+    {
+      "binding": "PAGE_VIEWS_DB",
+      "database_name": "mylogs-page-views-preview",
+      "database_id": "31989ea9-83db-44f7-9ea0-c6664518ec33",
+      "preview_database_id": "mylogs-page-views-local"
+    }
+  ],
+  "env": {
+    "production": {
+      "compatibility_date": "2025-05-05",
+      "vars": {
+        "NODE_VERSION": "22"
+      },
+      "d1_databases": [
+        {
+          "binding": "PAGE_VIEWS_DB",
+          "database_name": "mylogs-page-views",
+          "database_id": "e85489d3-2b05-4338-b1b6-f27de5296250"
+        }
+      ]
+    }
+  }
+}
