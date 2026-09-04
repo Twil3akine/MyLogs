@@ -1,5 +1,5 @@
 ---
-import PostListPage from "@/components/PostListPage.astro";
+import PostListView from "@/views/PostListView.astro";
 import { getCollection } from "astro:content";
 import {
   isPostLocale,
@@ -22,7 +22,7 @@ const posts = sortPostsByDateDesc(
   description="その時に思ったことを包み隠さずに書きます。"
   lang="ja"
 >
-  <PostListPage
+  <PostListView
     title="Blog"
     description="その時に考えていたこと、作業の記録、まだ記事にするほどではない気づきを置く場所です。"
     posts={posts}
