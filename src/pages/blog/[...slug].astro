@@ -1,6 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
-import MarkdownPage from "@/components/MarkdownPage.astro";
+import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 import Marker from "@/components/Marker.astro";
 import Tag from "@/components/Tag.astro";
 import {
@@ -39,7 +39,7 @@ const { Content, headings } = await render(post);
   articleDate={post.data.date.toISOString()}
   alternatePath={hasTranslation ? undefined : null}
 >
-  <MarkdownPage
+  <MarkdownLayout
     title={post.data.title}
     date={post.data.date}
     tags={post.data.tags}
@@ -51,5 +51,5 @@ const { Content, headings } = await render(post);
     backLabel="ブログ一覧へ"
   >
     <Content components={{ Marker, Tag }} />
-  </MarkdownPage>
+  </MarkdownLayout>
 </Layout>

@@ -1,5 +1,5 @@
 ---
-import MarkdownPage from "@/components/MarkdownPage.astro";
+import MarkdownLayout from "@/layouts/MarkdownLayout.astro";
 import type { Locale } from "@/data/locales";
 
 interface Props {
@@ -10,7 +10,7 @@ const { lang } = Astro.props;
 const isEnglish = lang === "en";
 ---
 
-<MarkdownPage
+<MarkdownLayout
   title={isEnglish ? "Privacy Policy" : "プライバシーポリシー"}
   lead={
     isEnglish
@@ -91,4 +91,4 @@ const isEnglish = lang === "en";
       </>
     )
   }
-</MarkdownPage>
+</MarkdownLayout>
