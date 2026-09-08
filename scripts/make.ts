@@ -39,6 +39,12 @@ title: ""
 description: ""
 date: ${metadataDate}
 ---
+
+import Link from "@/components/Link.astro";
+import LinkCard from "@/components/LinkCard.astro";
+import Marker from "@/components/Marker.astro";
+
+私。
 `;
 
 for (const path of paths) {
