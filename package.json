@@ -20,6 +20,7 @@
     "start": "astro dev",
     "build": "astro build",
     "db:migrate:local": "wrangler d1 migrations apply mylogs-page-views --local --config wrangler.local.jsonc",
+    "db:migrate:production": "wrangler d1 migrations apply mylogs-page-views --remote --env production --config wrangler.jsonc",
     "dev:pages": "bun run build && wrangler pages dev dist",
     "preview": "astro preview",
     "typegen:functions": "wrangler types ./functions/types.d.ts --include-runtime=false --config wrangler.local.jsonc",
