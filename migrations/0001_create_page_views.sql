@@ -1,4 +1,4 @@
-CREATE TABLE page_views (
+CREATE TABLE IF NOT EXISTS page_views (
   path TEXT PRIMARY KEY,
   views INTEGER NOT NULL DEFAULT 0 CHECK (views >= 0)
 );
