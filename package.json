@@ -17,6 +17,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "make": "bun scripts/make.ts",
     "start": "astro dev",
     "build": "astro build",
     "db:migrate:local": "wrangler d1 migrations apply mylogs-page-views --local --config wrangler.local.jsonc",
