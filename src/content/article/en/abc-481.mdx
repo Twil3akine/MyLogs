@@ -1,0 +1,112 @@
+---
+title: "ABC481 Participation Report"
+description: "About ABC481"
+date: 2026-10-26
+tags:
+- Contest
+- Algorithm
+---
+
+It is me.
+
+Good morning (waking up for the first time in 3 months).
+
+My peers and juniors told me, "If you are the representative, enter the contest. We will discipline you (rough translation)," so I participated for the 25k yen prize.
+
+As a result, I solved 5 problems from A to E with 1 penalty. I am glad I was able to win big.
+
+Last time, I participated thinking it was Unrated, but it was actually Rated, which was a massive human-made disaster that tanked my rating. This time, well, I think I managed to recover most of it. I really have to be careful.
+
+To those who say, "I would never do something like that, lol."
+
+**You will**.
+
+My personal feel of the difficulty was:
+
+`A` \< `C` \<\< `D` \< `B` \<\<\< `E`... something like that.
+
+Since A through D were clearly an easy set this time, I am glad I was able to solve them all properly. I was also able to make good use of argument sort and my geometry library, which I had randomly prepared.
+
+---
+
+### Problem A [Digits of A+B](https://atcoder.jp/contests/abc481/tasks/abc481_a)
+
+Now, this is the easy one. With the great Python,
+
+```python
+len(str(a+b))
+```
+
+gives the answer. Even Rust can convert it to a string and find the length. If you calculate it as an integer,
+
+```rust
+(a+b).ilog10() + 1
+```
+
+would be the quickest way. I always wonder if `+1` is necessary. Normally speaking, it is required, though.
+
+---
+
+### Problem B [Polyline](https://atcoder.jp/contests/abc481/tasks/abc481_b)
+
+I hate this.
+
+Here, the array is 0-indexed. Inside each segment, we separately count the points that cross height $K$ and the vertices whose height is exactly $K$.
+
+We add a sentinel value equal to $A[N-1]$ at the end of array $A$, and for $i = 0, 1, \ldots, N-1$, the total number of times any of the following conditions is met becomes the answer:
+
+- $A[i] = K$
+- $A[i] < K < A[i+1]$
+- $A[i] > K > A[i+1]$
+
+By adding the sentinel, the last vertex can also be counted in the same loop. Since the height $K$ is not crossed between the last element and the sentinel, no extra intersection points are counted.
+
+---
+
+### Problem C [Bank Accounts](https://atcoder.jp/contests/abc481/tasks/abc481_c)
+
+You can just use `HashMap` (`dict` in Python).
+
+---
+
+### Problem D [Autopilot](https://atcoder.jp/contests/abc481/tasks/abc481_d)
+
+For each vertex, record the planet with the smallest number among the planets that can be directly reached by a flight route. Set the cost of the route to that planet as $0$ and the others as $1$, then find the shortest distance using Dijkstra's algorithm to solve everything.
+
+---
+
+### Problem E [Most Brilliant Starry Sky](https://atcoder.jp/contests/abc481/tasks/abc481_e)
+
+Now, from here on, it gets really intense.
+
+The constraint that no two points lie on a straight line with the origin is very important. Taking a certain point as the starting point, count the points (including the starting point) whose argument difference counterclockwise from that starting point is less than 180°. The maximum value among these is the answer. If you slightly rotate the line passing through the origin and the starting point until just before the starting point, all the counted points can be included in the same region.
+
+In other words, perform argument sorting, and binary search for the end of the range within less than 180° taking each point as a starting point. For the determination, you can use [ccw](https://twil3akine.github.io/AtCoder-Algo/atcoder/geometry/fn.ccw.html), which was somehow in my library.
+
+`ccw` is a function that checks the orientation of 3 points using the cross product. Letting the origin be $O$, the starting point be $P_i = (X_i, Y_i)$, and the point being checked be $P_j = (X_j, Y_j)$, the library used this time returns the following value:
+
+$$
+\operatorname{ccw}(O, P_i, P_j) = X_i Y_j - Y_i X_j
+$$
+
+If it is positive, $P_j$ is to the left of the directed line $O \to P_i$; if negative, it is to the right; if $0$, it is on the line. The return value is the cross product itself, not a 3-value of $-1, 0, 1$, so you check its sign.
+
+Since no two distinct points lie on a straight line with the origin in this problem, it will not become $0$ for points other than the starting point. If `ccw(O, P_i, P_j) > 0`, the counterclockwise angle measured from $P_i$ to $P_j$ is greater than 0° and less than 180°. You can determine this using only integer multiplication and subtraction, without calculating angles as floating-point numbers.
+
+To handle ranges that wrap around from the end to the beginning, duplicate the argument-sorted array to cover 2 full rounds. Searching the remaining $N-1$ points after each starting point, points satisfying `ccw > 0` will come first, followed by points that do not. Binary search for this boundary, and add 1 for the starting point to the count of valid points. Since the search range is limited to $N-1$ points, you will not count the same point twice.
+
+---
+
+### Problems F, G
+
+I didn't understand anything at all!!!
+
+---
+
+## Conclusion
+
+I really dislike that I always enter Rated contests without confidence, only to end up boosting my rating significantly.
+
+People around me say I have skill, but I really don't think I do. I truly don't think I have it. But since I keep winning, it kind of feels uncomfortable.
+
+Well then, see you next time.
