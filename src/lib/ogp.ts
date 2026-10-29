@@ -209,19 +209,20 @@ export async function renderOgPng(input: OgInput): Promise<Buffer> {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
-                    maxWidth: 1032,
+                    width: 964,
                   },
                   children: [
                     {
                       type: "div",
                       props: {
                         style: {
+                          width: "100%",
                           fontSize: titleFontSize(input.title),
                           fontWeight: 700,
                           lineHeight: 1.3,
                           color: COLORS.text,
                           lineClamp: 2,
-                          wordBreak: "break-all",
+                          wordBreak: "break-word",
                         },
                         children: truncateWeighted(input.title, 48),
                       },
