@@ -9,6 +9,7 @@ import {
   isPostLocale,
   isPublishedPost,
 } from "@/lib/content";
+import { ogImagePath } from "@/lib/ogp";
 import Layout from "@/layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -34,6 +35,7 @@ const { Content, headings } = await render(post);
 <Layout
   title={`${post.data.title} | Twil3akine`}
   description={post.data.description}
+  image={ogImagePath("article", "en", getLocalizedSlugPath(post))}
   lang="en"
   type="article"
   articleDate={post.data.date.toISOString()}
