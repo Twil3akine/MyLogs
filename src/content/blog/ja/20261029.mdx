@@ -1,0 +1,99 @@
+---
+title: "OGP画像を新調した"
+description: "結果: 大成功"
+date: 2026-10-29
+---
+
+import Callout from "@/components/Callout.astro";
+import Link from "@/components/Link.astro";
+import LinkCard from "@/components/LinkCard.astro";
+import Marker from "@/components/Marker.astro";
+import Spoiler from "@/components/Spoiler.svelte";
+import ColorCode from "@/components/ColorCode.astro";
+
+## はじめの愉快な挨拶
+
+うっす。私です。お久しぶりです。
+
+ご存知の方もいると思うのですが、このサイトのOGP画像ってずっと **うちの子↓** の画像だったんですよ。
+
+<img src="/avatar.png" alt="うちの子の画像" width="50%" />
+
+また別の話で、Meta社が常駐型AIエージェントの<Marker>Muse</Marker>って言うのを公開したんですよ。
+
+<LinkCard href="https://muse.ai/" />
+
+<Spoiler title="読者の皆様へのお願い(閑話休題)" client:visible>
+
+使い始めた方にお願いをしているのですが、以下のコードを入れてくれませんか！
+
+お互いに<Marker type="danger">10億トークン</Marker>もらえるので！！お願い！します！！！
+
+<Callout title='Yayyyyy'>
+パーソナルAIエージェント「Muse」をチェックしてみよう。参加後48時間以内に[設定]で私のコードを利用すると、私たち両方が10億のMuseトークンを獲得できます。
+
+コード: 92ZFLW
+
+https://muse.ai/join
+
+</Callout>
+
+なお、体感ですが、<Marker type="danger">10億トークン</Marker>は結構な量です。絶対に<Marker type="danger">週間制限</Marker>よりは多いです。
+</Spoiler>
+
+で、Museにどうせならさせてみようか。って思いまして、やってみた感じ。
+
+---
+
+どうせなら、記事ごとにOGPの中身が変わればいいなって思ったので、動的OGPにして**もらいました**
+
+で、FigmaのMCPを使って、Museに叩き台を作らせて、微調整を私がする、それをMuseに落とし込む。みたいな感じで進めました。
+
+<Spoiler title="どういうプロンプトを投げたか(Museの記録より)" client:visible>
+
+記事に載せる用に、実際に言った順で並べます。
+
+- ブログやアーティクルの OGP 画像をタイトルに応じて動的に変えられないか
+- （初案の下部を見て）ダサい、ありえない
+- タイトルは縦横中央。上のチップと日付は大きくして、下げる
+- （2案目の下部を見て）本当にありえない
+- 下部は GitHub の言語ゲージみたいな色バーで。Nix や Go みたいなブランドカラーで
+- description はタイトルの左端に揃えて
+- いや、ちびキャラで全体が乗ってる感じがいいかな
+- 今のあなたのアイコンみたいな
+- 一回 Figma MCP で作らないか？
+- Article のチップはオレンジで
+- 寝そべりの形にしよう
+- この形で MyLogs への実装に進む
+</Spoiler>
+
+結果として、こういうものができました。
+
+<img src="/ogp-base-blog.png" alt="OGP Blogベース" width="60%" />
+<img src="/ogp-base-article.png" alt="OGP Articleベース" width="60%" />
+
+とても可愛い！！！可愛いねえ！！！！！！！！
+
+---
+
+## 色の内訳
+
+下のバーは GitHub の言語ゲージの色です。左から Go、Rust、Nix、TypeScript、Astro。
+
+- Go: <ColorCode value="#00ADD8" />
+- Rust: <ColorCode value="#DEA584" />
+- Nix: <ColorCode value="#7EBAE4" />
+- TypeScript: <ColorCode value="#3178C6" />
+- Astro: <ColorCode value="#FF5D01" />
+
+枠線は <ColorCode value="#696945" />。
+
+チップは Blog が青（<ColorCode value="#3B82F6" />）、Article がオレンジ（<ColorCode value="#F97316" />）です。
+
+---
+
+## 締め
+
+うまいこと作れたなぁ...(ほれぼれ)
+
+それでは、また。

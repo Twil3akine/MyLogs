@@ -1,0 +1,26 @@
+---
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+const match = /^#([0-9a-f]{6})$/i.exec(value);
+
+if (!match) {
+  throw new Error(`Invalid color code: ${value}`);
+}
+
+const channels = [0, 2, 4].map((index) => {
+  const channel = Number.parseInt(match[1].slice(index, index + 2), 16) / 255;
+  return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+});
+const luminance = channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+const whiteContrast = 1.05 / (luminance + 0.05);
+const blackContrast = (luminance + 0.05) / 0.05;
+const textColor = whiteContrast > blackContrast ? "#ffffff" : "#171717";
+---
+
+<code
+  class="color-code"
+  style={`--color-code-bg: ${value}; --color-code-text: ${textColor}; background-color: var(--color-code-bg); color: var(--color-code-text); border-color: color-mix(in srgb, var(--color-code-bg), var(--theme-border) 25%); display: inline-block; vertical-align: baseline; line-height: 1.2; padding: 0.08em 0.4em; white-space: nowrap;`}
+>{value}</code>

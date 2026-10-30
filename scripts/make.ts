@@ -1,9 +1,13 @@
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-const usage = "使い方: bun run make";
+const usage = "使い方: bun run make <blog|article>";
+const contentType = process.argv[2];
 
-if (process.argv.length > 2) {
+if (
+  process.argv.length !== 3 ||
+  (contentType !== "blog" && contentType !== "article")
+) {
   console.error(usage);
   process.exit(1);
 }
@@ -22,10 +26,10 @@ const date = Object.fromEntries(
 const fileDate = `${date.year}${date.month}${date.day}`;
 const metadataDate = `${date.year}-${date.month}-${date.day}`;
 
-const blogDirectory = join(import.meta.dirname, "../src/content/blog");
+const contentDirectory = join(import.meta.dirname, `../src/content/${contentType}`);
 const paths = [
-  join(blogDirectory, "ja", `${fileDate}.mdx`),
-  join(blogDirectory, "en", `${fileDate}.mdx`),
+  join(contentDirectory, "ja", `${fileDate}.mdx`),
+  join(contentDirectory, "en", `${fileDate}.mdx`),
 ];
 const existingPath = paths.find(existsSync);
 
@@ -34,7 +38,8 @@ if (existingPath) {
   process.exit(1);
 }
 
-const content = `---
+const contentTemplates = {
+  blog: `---
 title: ""
 description: ""
 date: ${metadataDate}
@@ -45,7 +50,16 @@ import LinkCard from "@/components/LinkCard.astro";
 import Marker from "@/components/Marker.astro";
 
 私。
-`;
+`,
+  article: `---
+title: ""
+description: ""
+date: ${metadataDate}
+tags: []
+---
+`,
+};
+const content = contentTemplates[contentType];
 
 for (const path of paths) {
   mkdirSync(dirname(path), { recursive: true });

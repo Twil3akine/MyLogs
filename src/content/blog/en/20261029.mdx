@@ -1,0 +1,101 @@
+---
+title: "Created a New OGP Image"
+description: "Result: Massive success"
+date: 2026-10-29
+---
+
+import Callout from "@/components/Callout.astro";
+import Link from "@/components/Link.astro";
+import LinkCard from "@/components/LinkCard.astro";
+import Marker from "@/components/Marker.astro";
+import Spoiler from "@/components/Spoiler.svelte";
+import ColorCode from "@/components/ColorCode.astro";
+
+## Cheerful Opening Greeting
+
+Hey there. It's me. Long time no see.
+
+As some of you might know, the OGP image for this site has always been a picture of my OC down here.
+
+<img src="/avatar.png" alt="Picture of my OC" width="50%" />
+
+On a side note, Meta recently released a resident AI agent called <Marker>Muse</Marker>.
+
+<LinkCard href="https://muse.ai/" />
+
+<Spoiler title="A Request to All Readers (Digression)" client:visible>
+
+I have a favor to ask those who have started using it: could you please enter the following code!
+
+We'll both get 1 billion tokens, so please! I'm begging you!!!
+
+<Callout title='Yayyyyy'>
+Check out the personal AI agent "Muse". Use my code in [Settings] within 48 hours of joining, and we'll both get 1 billion Muse tokens.
+
+Code: 92ZFLW
+
+https://muse.ai/join
+
+</Callout>
+
+By the way, from my experience, 1 billion tokens is quite a lot. It is definitely more than the weekly limit.
+</Spoiler>
+
+So, I thought, why not let Muse do the work? That's how it went.
+
+---
+
+## What was created
+
+I thought it would be nice if the OGP content changed for each article anyway, so I had it make dynamic OGPs for me.
+
+Then, using Figma's MCP, I had Muse create a draft, made fine adjustments myself, and fed them back into Muse. That was the general workflow.
+
+<Spoiler title="What prompts were used (from Muse's logs)" client:visible>
+
+Here are the prompts in the actual order I gave them, to share in this article:
+
+- Can we dynamically change the OGP images for blogs and articles based on the title?
+- (Looking at the bottom of the first draft) Ugly, unbelievable
+- The title should be centered vertically and horizontally. Make the top tag and date larger, and move them down
+- (Looking at the bottom of the second draft) Truly unbelievable
+- For the bottom, use a colored bar like GitHub's language gauge. Use brand colors like Nix or Go
+- Align the description with the left edge of the title
+- Wait, maybe a chibi character sitting on top of the whole thing would be better
+- Something like your current icon
+- Why don't we build it once using Figma MCP?
+- Make the Article tag orange
+- Let's make it lying down on its stomach
+- Proceed to implement it in MyLogs with this design
+</Spoiler>
+
+As a result, I was able to create something like this.
+
+<img src="/ogp-base-blog.png" alt="OGP Blog base" width="60%" />
+<img src="/ogp-base-article.png" alt="OGP Article base" width="60%" />
+
+Super cute!!! So cute, isn't it!?!?!?
+
+---
+
+## Color Breakdown
+
+The bottom bar uses colors from GitHub's language gauge. From left to right: Go, Rust, Nix, TypeScript, Astro.
+
+- Go: <ColorCode value="#00ADD8" />
+- Rust: <ColorCode value="#DEA584" />
+- Nix: <ColorCode value="#7EBAE4" />
+- TypeScript: <ColorCode value="#3178C6" />
+- Astro: <ColorCode value="#FF5D01" />
+
+The border is <ColorCode value="#696945" />.
+
+The tags are blue for Blog (<ColorCode value="#3B82F6" />) and orange for Article (<ColorCode value="#F97316" />).
+
+---
+
+## Too much funny conclusion
+
+Turned out really well... (admiring it)
+
+Well then, see you next time.
