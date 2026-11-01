@@ -1,0 +1,92 @@
+---
+title: "ABC482 参加記"
+description: "ABC482 について"
+date: 2026-11-01
+tags: 
+- Contest
+- Algorithm
+---
+
+import Link from "@/components/Link.astro";
+
+私です。
+
+精進してないけど、出ました。大勝ちしました。大困惑〜〜〜🫨🫨🫨🫨🫨
+
+────────────ちゃんと精進しろ😡
+
+---
+
+### A問題 [Nigiri](https://atcoder.jp/contests/abc482/tasks/abc482_a)
+
+最初は `filter` と `count` で数えようとしたのですが、うまくいきませんでした。結局、前から 1 文字ずつ見ていって、`o` と同じかどうかを確かめながら数えました。
+
+実際にメソッドで完結させようとしたら
+
+```rust
+let cnt = s.iter().filter(|&&c| c == 'o').count();
+```
+
+って感じになるみたいですね。
+
+---
+
+### B問題 [Blank Bingo](https://atcoder.jp/contests/abc482/tasks/abc482_b)
+
+マジでやるだけ。
+
+---
+
+### C問題 [Band Count](https://atcoder.jp/contests/abc482/tasks/abc482_c)
+
+最初見た時は、めっちゃめんどくさいように思ったんですけど、普通に行と列を別々に持って、ソートして二分探索するだけでよかったんですけど、なぜか座圧を使った方が良いんじゃないかと錯乱を起こしてしまいました。
+
+`u`, `d`, `l`, `r` とかを一般化して、$x, y \; (x < y)$ としたとき、
+
+$$
+C_{1 \rightarrow y} - C_{1 \rightarrow (x - 1)}
+$$
+
+が答えになります。
+
+マジで使ったことないライブラリに時間を無駄に使ってしまって、マジで勿体無い...。
+
+慣れないことはしない方がいい。落ち着いた方がいい。
+
+---
+
+### D問題 [Wannabe Zombie](https://atcoder.jp/contests/abc482/tasks/abc482_d)
+
+こういうアドホック系を解けてめっちゃ嬉しい。これ(<Link href="https://atcoder.jp/contests/abc414/tasks/abc414_d">ABC414D</Link>)がマジで悔しかった記憶
+
+端的に書くと、
+
+端っこが感染した場合は、$\frac{X[N-1] - X[0]}{2}$ が答え。
+
+それ以外の場合は、感染者が
+
+- 自分の１つ左を感染させてから、右に進んだ場合
+- 自分の１つ右を感染させてから、左に進んだ場合
+
+の時間が早い方が答えです。
+
+---
+
+### E問題 [Diameter Endpoint Colors](https://atcoder.jp/contests/abc482/tasks/abc482_e)
+
+最近ライブラリ整備だけしてるんですけど、木関係のライブラリは全然整えておらず、直径求めたりするのも初めてで流石に解ききれなかったねえ〜。
+
+方針としては、まず直径 $d$ を求めて、<Link href="https://qiita.com/haw_ohnuma/items/b2d0f3500f8d1e207afd">Qiitaで出てきた</Link>、HLD の `go` メソッド？を使って各頂点から $d$ 進んだ頂点をたどり、色が同じになっている組を全部探す、という形で考えていました。
+
+流石によくわからん。でも、HLDが便利ってことだけはわかりました。
+
+---
+
+
+## 最後に
+
+F, Gが私に解けるわけないだろ！！いい加減にしろ！🤬🤬🤬🤬
+
+総評としては、精進しない方がレート上がるのマジで草なんだ。
+
+それでは、また。
