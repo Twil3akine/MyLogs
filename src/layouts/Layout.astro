@@ -55,6 +55,7 @@ const alternateURL = alternatePath
   ? new URL(alternatePath, Astro.site || Astro.url.origin)
   : null;
 const showLanguageLink = shouldShowLanguageSwitch(lang) && alternatePath !== null;
+const rssURL = new URL(lang === "en" ? "/en/rss.xml" : "/rss.xml", Astro.site || Astro.url.origin);
 
 const siteTitle = "Twil3akine";
 const siteURL = new URL("/", Astro.site || Astro.url.origin);
@@ -125,6 +126,7 @@ const adsenseScriptURL = `https://pagead2.googlesyndication.com/pagead/js/adsbyg
     <meta name="description" content={pageDescription} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title={lang === "en" ? "Twil3akine RSS (English)" : "Twil3akine RSS (日本語)"} href={rssURL} />
     <link rel="alternate" hreflang={lang} href={canonicalURL} />
     {showLanguageLink && alternateURL && <link rel="alternate" hreflang={lang === "en" ? "ja" : "en"} href={alternateURL} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
