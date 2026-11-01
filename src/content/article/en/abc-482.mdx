@@ -1,0 +1,86 @@
+---
+title: "ABC482 Participation Report"
+description: "About ABC482"
+date: 2026-11-01
+tags: 
+- Contest
+- Algorithm
+---
+
+import Link from "@/components/Link.astro";
+
+It's me.
+
+I haven't been practicing, but I participated anyway. I won big. I'm so confused~~~~🫨🫨🫨🫨🫨
+
+────────────Do your practice properly!😡
+
+---
+
+### Problem A [Nigiri](https://atcoder.jp/contests/abc482/tasks/abc482_a)
+
+At first, I tried to count using `filter` and `count`, but it didn't work out. In the end, I checked character by character from the front, counting while verifying if it matched `o`.
+
+If I actually wanted to complete it using methods, it seems like it would look something like this:
+
+```rust
+let cnt = s.iter().filter(|&&c| c == 'o').count();
+```
+
+---
+
+### Problem B [Blank Bingo](https://atcoder.jp/contests/abc482/tasks/abc482_b)
+
+Seriously, just do what it says.
+
+---
+
+### Problem C [Band Count](https://atcoder.jp/contests/abc482/tasks/abc482_c)
+
+When I first saw it, it looked super tedious, but it turned out all I needed to do was store rows and columns separately, sort them, and perform binary search. For some reason, I had a mental breakdown thinking it would be better to use coordinate compression.
+
+Generalizing `u`, `d`, `l`, `r`, and letting $x, y \; (x < y)$, the answer is:
+
+$$
+C_{1 \rightarrow y} - C_{1 \rightarrow (x - 1)}
+$$
+
+I wasted time on a library I had never used before, which was a real shame...
+
+Don't do things you aren't used to. Stay calm.
+
+---
+
+### Problem D [Wannabe Zombie](https://atcoder.jp/contests/abc482/tasks/abc482_d)
+
+I'm super happy I was able to solve this kind of ad-hoc problem. I remember being really disappointed about this one (<Link href="https://atcoder.jp/contests/abc414/tasks/abc414_d">ABC414D</Link>).
+
+To put it briefly,
+
+If an edge gets infected, the answer is $\frac{X[N-1] - X[0]}{2}$.
+
+Otherwise, the answer is whichever of the following takes less time:
+
+- The infected person infects the one directly to their left, then moves right
+- The infected person infects the one directly to their right, then moves left
+
+---
+
+### Problem E [Diameter Endpoint Colors](https://atcoder.jp/contests/abc482/tasks/abc482_e)
+
+Lately I've only been setting up my library, but I haven't set up tree-related libraries at all. It was also my first time finding a tree diameter, so I couldn't finish solving it, as expected~.
+
+My approach was to first find the diameter $d$, and then use the HLD `go` method (or something like that) that <Link href="https://qiita.com/haw_ohnuma/items/b2d0f3500f8d1e207afd">came up on Qiita</Link> to traverse to the vertex $d$ steps away from each vertex, looking for all pairs with the same color.
+
+Honestly, I don't really get it. But I did learn that HLD is useful.
+
+---
+
+
+## In Conclusion
+
+There's no way I could solve F and G!! Give me a break!🤬🤬🤬🤬
+
+Overall, it's hilarious that my rating goes up when I don't practice.
+
+Well then, see you next time.
