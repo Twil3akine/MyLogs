@@ -6,3 +6,43 @@
 :root[data-theme="dark"] {
   --theme-accent-bg: rgba(122, 153, 207, 0.15);
 }
+
+.markdown-shell-article .markdown-content table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--theme-border);
+  border-collapse: collapse;
+  border-radius: 8px;
+}
+
+.markdown-shell-article .markdown-content th,
+.markdown-shell-article .markdown-content td {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--theme-border);
+}
+
+.markdown-shell-article .markdown-content th {
+  background: var(--theme-accent-bg);
+}
+
+.markdown-shell-article .markdown-content figure {
+  margin: 1.5rem auto;
+  max-width: 100%;
+}
+
+.markdown-shell-article .markdown-content figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.markdown-shell-article .markdown-content figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  opacity: 0.8;
+  text-align: center;
+}
