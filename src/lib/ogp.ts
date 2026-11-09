@@ -6,6 +6,8 @@ import regularFontDataUri from "../assets/fonts/NotoSansJP-Regular.otf?inline";
 import boldFontDataUri from "../assets/fonts/NotoSansJP-Bold.otf?inline";
 // @ts-ignore: バイナリアセットのインライン読み込み
 import characterDataUri from "../assets/ogp/character-lie.png?inline";
+// @ts-ignore: バイナリアセットのインライン読み込み
+import characterAiSlopDataUri from "../assets/ogp/character-lie-aislop.png?inline";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 import {
@@ -43,7 +45,11 @@ const COLORS = {
 
 export type OgKind = "blog" | "article";
 
-let assetsPromise: Promise<{ fonts: any[]; characterSrc: string }> | null = null;
+let assetsPromise: Promise<{
+  fonts: any[];
+  characterSrc: string;
+  characterAiSlopSrc: string;
+}> | null = null;
 
 function dataUriToBuffer(uri: string) {
   return Buffer.from(uri.slice(uri.indexOf(",") + 1), "base64");
@@ -68,6 +74,7 @@ function loadAssets() {
           },
         ],
         characterSrc: characterDataUri as unknown as string,
+        characterAiSlopSrc: characterAiSlopDataUri as unknown as string,
       };
     })();
   }
@@ -111,17 +118,40 @@ function titleFontSize(title: string) {
   return 36;
 }
 
+// 「AI Slop」タグが付いた記事の OGP バリエーション。
+// AHC074 参加記のように AI が主体になって書いた記事を、見た目でも判別できるようにする。
+// 変更点は3つだけに留める: 枠線と下端ゲージバーを紫系に / カテゴリチップ自体を
+// 「AI Slop」チップに差し替え（色使いは通常チップと同じく濃い文字＋薄い背景） /
+// 右下キャラを寝そべりのニヤッ版に差し替え（大きさと配置は通常版と同じ）。
+export const AI_SLOP_TAG = "AI Slop";
+
+const AI_SLOP = {
+  border: "#7C3AED",
+  chip: { color: "#7C3AED", background: "#EDE9FE" },
+  gauge: [
+    { width: 330, color: "#7C3AED" },
+    { width: 296, color: "#A78BFA" },
+    { width: 249, color: "#6D28D9" },
+    { width: 166, color: "#C4B5FD" },
+    { width: 103, color: "#5B21B6" },
+  ],
+} as const;
+
 export interface OgInput {
   title: string;
   description: string;
   date: Date;
   category: string;
   kind: OgKind;
+  tags?: string[];
 }
 
 export async function renderOgPng(input: OgInput): Promise<Buffer> {
-  const { fonts, characterSrc } = await loadAssets();
+  const { fonts, characterSrc, characterAiSlopSrc } = await loadAssets();
   const chip = input.kind === "blog" ? COLORS.chipBlog : COLORS.chipArticle;
+  const aiSlop = (input.tags ?? []).includes(AI_SLOP_TAG);
+  const borderColor = aiSlop ? AI_SLOP.border : COLORS.border;
+  const gauge = aiSlop ? AI_SLOP.gauge : COLORS.gauge;
 
   const tree = {
     type: "div",
@@ -146,7 +176,7 @@ export async function renderOgPng(input: OgInput): Promise<Buffer> {
               height: 574,
               borderWidth: 5,
               borderStyle: "solid",
-              borderColor: COLORS.border,
+              borderColor: borderColor,
             },
           },
         },
@@ -162,22 +192,40 @@ export async function renderOgPng(input: OgInput): Promise<Buffer> {
               gap: 68,
             },
             children: [
-              {
-                type: "div",
-                props: {
-                  style: {
-                    display: "flex",
-                    backgroundColor: chip.background,
-                    borderRadius: 12,
-                    padding: "12px 26px",
-                    fontSize: 44,
-                    fontWeight: 700,
-                    lineHeight: 1.2,
-                    color: chip.color,
+              aiSlop
+                ? {
+                    // AI Slop 記事ではカテゴリチップ自体を「AI Slop」に差し替える
+                    type: "div",
+                    props: {
+                      style: {
+                        display: "flex",
+                        backgroundColor: AI_SLOP.chip.background,
+                        borderRadius: 12,
+                        padding: "12px 26px",
+                        fontSize: 44,
+                        fontWeight: 700,
+                        lineHeight: 1.2,
+                        color: AI_SLOP.chip.color,
+                      },
+                      children: AI_SLOP_TAG,
+                    },
+                  }
+                : {
+                    type: "div",
+                    props: {
+                      style: {
+                        display: "flex",
+                        backgroundColor: chip.background,
+                        borderRadius: 12,
+                        padding: "12px 26px",
+                        fontSize: 44,
+                        fontWeight: 700,
+                        lineHeight: 1.2,
+                        color: chip.color,
+                      },
+                      children: input.category,
+                    },
                   },
-                  children: input.category,
-                },
-              },
               {
                 type: "div",
                 props: {
@@ -261,7 +309,7 @@ export async function renderOgPng(input: OgInput): Promise<Buffer> {
               borderRadius: 7,
               overflow: "hidden",
             },
-            children: COLORS.gauge.map((seg) => ({
+            children: gauge.map((seg) => ({
               type: "div",
               props: {
                 style: {
@@ -273,15 +321,25 @@ export async function renderOgPng(input: OgInput): Promise<Buffer> {
             })),
           },
         },
-        {
-          type: "img",
-          props: {
-            src: characterSrc,
-            width: 340,
-            height: 277,
-            style: { position: "absolute", left: 820, top: 297 },
-          },
-        },
+        aiSlop
+          ? {
+              type: "img",
+              props: {
+                src: characterAiSlopSrc,
+                width: 340,
+                height: 277,
+                style: { position: "absolute", left: 820, top: 297 },
+              },
+            }
+          : {
+              type: "img",
+              props: {
+                src: characterSrc,
+                width: 340,
+                height: 277,
+                style: { position: "absolute", left: 820, top: 297 },
+              },
+            },
       ],
     },
   };
@@ -318,6 +376,7 @@ export async function ogResponse(post: CollectionEntry<OgKind>, kind: OgKind) {
     date: post.data.date,
     category: post.data.category,
     kind,
+    tags: post.data.tags,
   });
   return new Response(new Uint8Array(png), {
     headers: { "Content-Type": "image/png" },
